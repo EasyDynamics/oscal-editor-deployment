@@ -1,2 +1,3 @@
-# easygrc-deployment
-Deployment of EasyGRC platform.
+# Overview
+
+Various deployments of the EasyGRC platform.
