@@ -13,6 +13,12 @@ RUN apt-get update && \
 DEBIAN_FRONTEND=noninteractive apt-get -yq --no-install-recommends install default-jre npm
 RUN npm install -g npm@latest && npm install -g serve@latest
 
+ENV PARENT_DIR="oscal-content" \
+    SSPS_DIR="ssps" \
+    PROFILES_DIR="profiles" \
+    CATALOGS_DIR="catalogs" \
+    COMPONENTS_DIR="components"
+
 #expose port 5000
 EXPOSE 5000
 
