@@ -2,11 +2,11 @@ FROM openjdk:11
 
 COPY ./rest.jar /app/rest.jar
 
-ENV PARENT_DIR="oscal-content" \
-SSPS_DIR="ssps" \
-PROFILES_DIR="profiles" \
-CATALOGS_DIR="catalogs" \
-COMPONENTS_DIR="components"
+ENV PERSISTENCE_FILE_PARENT_PATH="oscal-content" \
+PERSISTENCE_FILE_SSPS_PATH="ssps" \
+PERSISTENCE_FILE_PROFILES_PATH="profiles" \
+PERSISTENCE_FILE_CATALOGS_PATH="catalogs" \
+PERSISTENCE_FILE_COMPONENTS_PATH="components"
 
 EXPOSE 8080
 
