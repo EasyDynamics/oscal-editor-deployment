@@ -9,7 +9,7 @@ To run the docker image, run `docker run` with the `-p` flag specifying the port
 example:
 `docker run -p (port):8080 -v $(pwd)/oscal-content:/app/oscal-content image_name`
 
-The container will run both the OSCAL Viewer and REST Service on startup. The OSCAL Viewer is available at the port specified in the run command, eg. `http://localhost:8080`, and HTTP requests can be made to the REST Service at the same port following the [OSCAL Rest API specification.](https://github.com/EasyDynamics/oscal-rest) eg. `http://localhost:8080/oscal/v1/ssps/ssp-id.json`
+The container will run both the OSCAL Viewer and REST Service on startup. The OSCAL Viewer is available at the port specified in the run command, eg. `http://localhost:8080`, and HTTP requests can be made to the REST Service at the same port following the [OSCAL Rest API specification.](https://github.com/EasyDynamics/oscal-rest) eg. `http://localhost:8080/oscal/v1/ssps/{ssp-uuid}`
 
 ### OSCAL Content Directory
 
@@ -26,3 +26,5 @@ These directory paths can be manually configured by overwriting these environmen
 - `PERSISTENT_FILE_SSPS_PATH` 
 
 The environment variables can be set using the `-e` flag of the `docker run` command.
+
+Important note: because of the semantics of the REST API, every .json file in the directory should be named equal to the UUID of its OSCAL object (see the [OSCAL specification](https://pages.nist.gov/OSCAL/reference/latest/complete/json-outline/)).
