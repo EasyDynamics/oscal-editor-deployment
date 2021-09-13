@@ -4,6 +4,12 @@ COPY ./rest.jar /app/rest.jar
 
 COPY ./build/ /app/build/
 
+RUN addgroup --system easygrc && \
+    adduser --system easygrc --ingroup easygrc && \
+    chown -R easygrc /app/
+
+USER easygrc
+
 ENV PERSISTENCE_FILE_PARENT_PATH="oscal-content" \
     PERSISTENCE_FILE_SSPS_PATH="ssps" \
     PERSISTENCE_FILE_PROFILES_PATH="profiles" \
