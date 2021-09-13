@@ -21,4 +21,4 @@ EXPOSE 8080
 
 WORKDIR /app/
 
-CMD ["java", "-jar", "rest.jar"]
+ENTRYPOINT ["java", "-jar", "rest.jar"]
