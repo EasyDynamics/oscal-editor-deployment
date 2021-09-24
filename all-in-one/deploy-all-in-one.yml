@@ -4,6 +4,9 @@ on:
     branches: 
       - main
 
+env:
+  IMAGE_NAME: easygrc-all-in-one
+
 jobs:
   build_test_deploy:
     name: Build, Test, and Deploy All-in-One Docker Image
@@ -34,26 +37,28 @@ jobs:
         run: mvn install && cp target/oscal-rest-service-0.0.1-SNAPSHOT.jar ../main
         working-directory: rest-service
 
+      - name: Set Up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
       - name: Build Docker Image
-        run: docker build --tag easygrc-all-in-one .
+        uses: docker/build-push-action@v2
+        with:
+          tags: $IMAGE_NAME
 
       # TODO
       - name: Test Deployment
         run: echo TODO
 
-      #TODO: create an IAM user for this and add the credentials to secrets
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credientials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+          with:
+            registry: ghcr.io
+            username: ${{ github.actor }}
+            password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Login to Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v1
-
-      - name: Push image to Amazon ECR
-        env:
-          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: OscalDockerRepository
-        run: docker push $ECR_REGISTRY/$ECR_REPOSITORY:easygrc-all-in-one
+      - name: Push to Container Registry
+        uses: docker/build-push-action@v2
+          with:
+            push: true
+            tags:
+              ghcr.io/EasyDynamics/$IMAGE_NAME:latest
