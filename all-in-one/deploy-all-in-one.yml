@@ -6,6 +6,7 @@ on:
 
 env:
   IMAGE_NAME: easygrc-all-in-one
+  CONTAINER_NAME: test_container
 
 jobs:
   build_test_deploy:
@@ -43,11 +44,23 @@ jobs:
       - name: Build Docker Image
         uses: docker/build-push-action@v2
         with:
+          push: false
           tags: $IMAGE_NAME
 
-      # TODO
-      - name: Test Deployment
-        run: echo TODO
+      - name: Run Docker Container for Tests
+        run:
+          docker run --rm -p 8080:8080 \
+          -v $(pwd)/all-in-one/oscal-content:/app/oscal-content \
+          --name $CONTAINER_NAME $IMAGE_NAME
+
+      - name: Run Cypress Tests
+        uses: cypress-io/github-action@v2
+        with:
+          spec: cypress/integration/OSCAL/OSCAL_URL_Test.spec.js
+
+      - name: Stop Running Container
+        run:
+          docker stop $CONTAINER_NAME
 
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v1
