@@ -1,6 +1,10 @@
 {
   "devDependencies": {
-    "cypress": "^8.4.0"
+    "@cypress/react": "^5.10.0",
+    "@cypress/webpack-dev-server": "^1.6.0",
+    "@testing-library/cypress": "^8.0.1",
+    "@testing-library/dom": "^8.6.0",
+    "cypress": "^8.5.0"
   },
   "name": "easygrc-deployment-1",
   "description": "Various deployments of the EasyGRC platform.",
