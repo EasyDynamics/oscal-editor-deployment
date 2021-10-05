@@ -23,8 +23,4 @@ EXPOSE 8080
 
 WORKDIR /app/
 
-<<<<<<< HEAD
 ENTRYPOINT ["java", "-jar", "rest.jar"]
-=======
-ENTRYPOINT ["java", "-jar", "rest.jar"]
->>>>>>> 77a0344ea8525d05e141c12380a36d2bce337d41
