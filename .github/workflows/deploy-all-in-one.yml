@@ -69,14 +69,14 @@ jobs:
 
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v1
-          with:
-            registry: ghcr.io
-            username: ${{ github.actor }}
-            password: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Push to Container Registry
         uses: docker/build-push-action@v2
-          with:
-            push: true
-            tags:
-              ghcr.io/EasyDynamics/$IMAGE_NAME:latest
+        with:
+          push: true
+          tags:
+            ghcr.io/EasyDynamics/$IMAGE_NAME:latest
