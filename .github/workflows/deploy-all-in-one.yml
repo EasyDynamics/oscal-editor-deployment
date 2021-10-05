@@ -33,8 +33,8 @@ jobs:
           cache: npm
 
       - name: Pull OSCAL Viewer
-        run: npm install --registry=https://npm.pkg.github.com/ \
-        @easydynamics/oscal-viewer@0.1.0
+        run: npm install \
+        --registry=https://npm.pkg.github.com/ @easydynamics/oscal-viewer@0.1.0
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
