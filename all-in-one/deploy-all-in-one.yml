@@ -1,8 +1,8 @@
 name: Build, Test, Deploy
 on:
   push:
-    branches: 
-      - main
+    branches: [EGRC-492]
+  workflow_dispatch:
 
 env:
   IMAGE_NAME: easygrc-all-in-one
@@ -13,30 +13,34 @@ jobs:
     name: Build, Test, and Deploy All-in-One Docker Image
     runs-on: ubuntu-20.04
     steps:
-      - name: Checkout Deployment Code
+      - name: Checkout Code
         uses: actions/checkout@v2
-        with:
-          path: main
 
-      - name: Checkout OSCAL React Library
-        uses: actions/checkout@v2
-        with:
-          repository: EasyDynamics/oscal-react-library
-          path: viewer
+      - name: Pull OSCAL REST Service
+        run:
+          mvn dependency:copy \
+          -DremoteRepositories=https://maven.pkg.github.com/EasyDynamics/oscal-rest-service \
+          -Dartifact=com.easydynamics:oscal-rest-service:0.0.1-SNAPSHOT \
+          -DoutputDirectory=./ \
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Checkout OSCAL REST Service
-        uses: actions/checkout@v2
+      - name: Setup Node
+        uses: actions/setup-node@v2
         with:
-          repository: EasyDynamics/oscal-rest-service
-          path: rest-service
+          node-version: 14
+          registry-url: https://pkg.npm.github.com/
+          cache: npm
+
+      - name: Pull OSCAL Viewer
+        run: npm install --registry=https://npm.pkg.github.com/ \
+        @easydynamics/oscal-viewer@0.1.0
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build OSCAL Viewer
-        run: cd example && npm install && npm run build && cp -r build ../main/build
-        working-directory: viewer
-
-      - name: Build OSCAL Rest Service
-        run: mvn install && cp target/oscal-rest-service-0.0.1-SNAPSHOT.jar ../main
-        working-directory: rest-service
+        run: npm install && npm run build && cp -r build ../build
+        working-directory: package
 
       - name: Set Up Docker Buildx
         uses: docker/setup-buildx-action@v1
