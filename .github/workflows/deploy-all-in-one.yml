@@ -21,7 +21,7 @@ jobs:
       # TODO: make this filename configurable
       - name: Pull OSCAL REST Service
         run: |
-          mvn \
+          mvn --settings ./settings.xml \
           -Dmaven.repo.remote=https://maven.pkg.github.com/EasyDynamics/oscal-rest-service \
           dependency:copy \
           -Dartifact=com.easydynamics:oscal-rest-service:0.0.1-SNAPSHOT:jar \
@@ -30,6 +30,7 @@ jobs:
           && mv ./oscal-rest-service*.jar ./oscal-rest-service-0.0.1-SNAPSHOT.jar
 
         env:
+          GITHUB_ACTOR: ${{ github.actor }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup Node
