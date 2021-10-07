@@ -23,7 +23,7 @@ jobs:
         run: |
           mvn --settings ./settings.xml \
           org.apache.maven.plugins:maven-dependency-plugin:3.2.0:get \
-          -Dartifact=com.easydynamics:oscal-rest-service:0.0.1-SNAPSHOT:jar
+          -Dartifact=com.easydynamics:oscal-rest-service:0.0.1-SNAPSHOT
           mvn org.apache.maven.plugins:maven-dependency-plugin:3.2.0:copy \
           -Dartifact=com.easydynamics:oscal-rest-service:0.0.1-SNAPSHOT:jar \
           -DoutputDirectory=./
