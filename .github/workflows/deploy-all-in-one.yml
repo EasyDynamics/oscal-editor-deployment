@@ -22,10 +22,8 @@ jobs:
       - name: Pull OSCAL REST Service
         run: |
           mvn --settings ./settings.xml \
-          -Dmaven.repo.remote=https://maven.pkg.github.com/EasyDynamics/oscal-rest-service \
-          dependency:copy \
+          org.apache.maven.plugins:maven-dependency-plugin:3.2.0:copy \
           -Dartifact=com.easydynamics:oscal-rest-service:0.0.1-SNAPSHOT:jar \
-          -Dtransitive=false \
           -DoutputDirectory=./ \
           && mv ./oscal-rest-service*.jar ./oscal-rest-service-0.0.1-SNAPSHOT.jar
 
