@@ -16,20 +16,17 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v2
 
-      - name: Install Latest Maven Version
-        run: sudo apt-get update && sudo apt-get install maven
-
       # Pull the REST service .jar file from the Maven repository
       # and rename it to the filename that the Dockerfile expects
       # TODO: make this filename configurable
       - name: Pull OSCAL REST Service
         run: |
           mvn --settings ./settings.xml \
-          org.apache.maven.plugins:maven-dependency-plugin:3.2.0:copy \
+          org.apache.maven.plugins:maven-dependency-plugin:3.2.0:get \
+          -Dartifact=com.easydynamics:oscal-rest-service:0.0.1-SNAPSHOT:jar
+          mvn org.apache.maven.plugins:maven-dependency-plugin:3.2.0:copy \
           -Dartifact=com.easydynamics:oscal-rest-service:0.0.1-SNAPSHOT:jar \
-          -DoutputDirectory=./ \
-          && mv ./oscal-rest-service*.jar ./oscal-rest-service-0.0.1-SNAPSHOT.jar
-
+          -DoutputDirectory=./
         env:
           GITHUB_ACTOR: ${{ github.actor }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
