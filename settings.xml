@@ -14,8 +14,12 @@
         <repository>
           <id>github</id>
           <url>https://maven.pkg.github.com/EasyDynamics/*</url>
+          <releases>
+            <updatePolicy>always</updatePolicy>
+          </releases>
           <snapshots>
             <enabled>true</enabled>
+            <updatePolicy>always</updatePolicy>
           </snapshots>
         </repository>
       </repositories>
