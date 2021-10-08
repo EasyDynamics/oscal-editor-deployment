@@ -21,7 +21,7 @@ jobs:
       # TODO: make this filename configurable
       - name: Pull OSCAL REST Service
         run: |
-          mvn --settings ./settings.xml \
+          mvn -X --settings ./settings.xml \
           org.apache.maven.plugins:maven-dependency-plugin:3.2.0:get \
           -Dartifact=com.easydynamics:oscal-rest-service:0.0.1-SNAPSHOT
           mvn org.apache.maven.plugins:maven-dependency-plugin:3.2.0:copy \
@@ -31,19 +31,11 @@ jobs:
           GITHUB_ACTOR: ${{ github.actor }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Setup Node
-        uses: actions/setup-node@v2
-        with:
-          node-version: 14
-          registry-url: https://pkg.npm.github.com/
-          cache: npm
-
       - name: Pull OSCAL Viewer
         run: |
+          echo //npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }} > .npmrc
           npm install \
-          --registry=https://npm.pkg.github.com/ @easydynamics/oscal-viewer@0.1.0
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          @easydynamics/oscal-viewer@0.1.1 --registry=https://npm.pkg.github.com
 
       - name: Build OSCAL Viewer
         run: npm install && npm run build && cp -r build ../build
