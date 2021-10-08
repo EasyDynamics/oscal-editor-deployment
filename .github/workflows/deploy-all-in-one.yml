@@ -27,9 +27,6 @@ jobs:
           mvn org.apache.maven.plugins:maven-dependency-plugin:3.2.0:copy \
           -Dartifact=com.easydynamics:oscal-rest-service:0.0.1-SNAPSHOT:jar \
           -DoutputDirectory=./
-        env:
-          GITHUB_ACTOR: ${{ github.actor }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Pull OSCAL Viewer
         run: |
