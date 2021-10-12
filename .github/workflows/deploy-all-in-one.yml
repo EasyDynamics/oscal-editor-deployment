@@ -21,12 +21,14 @@ jobs:
       # TODO: make this filename configurable
       - name: Pull OSCAL REST Service
         run: |
-          mvn -U -X --settings ./settings.xml \
+          mvn -X --settings ./settings.xml \
           org.apache.maven.plugins:maven-dependency-plugin:3.2.0:get \
           -Dartifact=com.easydynamics:oscal-rest-service:0.0.1-SNAPSHOT
           mvn org.apache.maven.plugins:maven-dependency-plugin:3.2.0:copy \
           -Dartifact=com.easydynamics:oscal-rest-service:0.0.1-SNAPSHOT:jar \
           -DoutputDirectory=./
+        env:
+          MAVEN_TOKEN: ${{ secrets.PACKAGE_READ_TOKEN }}
 
       - name: Pull OSCAL Viewer
         run: |
