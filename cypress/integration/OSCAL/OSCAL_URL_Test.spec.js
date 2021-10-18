@@ -11,11 +11,9 @@ describe('system-security-plans', () => {
     cy.scrollTo('bottom')
     cy.contains('This is the control implementation for the system.').should('be.visible')
 
-
   })
 })
     
-
 describe('component definitions', () => {
     it('successfully loads components ', () => {
       cy.visit('http://localhost:8080') 
@@ -24,7 +22,7 @@ describe('component definitions', () => {
       cy.contains('Component Viewer').click()
       cy.contains('OSCAL Component Viewer').should('be.visible')
       cy.contains('Test Component Definition').should('be.visible')
-      cy.contains('OSCAL Component URL').first().should('exist').next().click().clear().type("http://localhost:8080/oscal/v1/components/example-component")
+      cy.contains('OSCAL Component URL').first().should('exist').next().click().clear().type("http://localhost:8080/oscal/v1/component-definitions/example-component-definitions")
       cy.contains('Reload').click()
       cy.contains('Test Vendor').should('be.visible')
       cy.scrollTo('bottom')
@@ -32,4 +30,3 @@ describe('component definitions', () => {
   })
 
 })
-
