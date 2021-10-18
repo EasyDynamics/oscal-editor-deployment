@@ -30,15 +30,14 @@ jobs:
         env:
           MAVEN_TOKEN: ${{ secrets.PACKAGE_READ_TOKEN }}
 
+      # Install the oscal-viewer from GitHub packages
+      # and copy the production build into a "build" folder
       - name: Pull OSCAL Viewer
         run: |
-          echo //npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }} > .npmrc
-          npm install \
-          @easydynamics/oscal-viewer@0.1.1 --registry=https://npm.pkg.github.com
-
-      - name: Build OSCAL Viewer
-        run: npm install && npm run build && cp -r build ../build
-        working-directory: package
+          npm install @easydynamics/oscal-viewer@0.1.1
+          cp -r ./node_modules/@easydynamics/oscal-viewer/build ./build
+        env:
+          NPM_TOKEN: ${{ secrets.PACKAGE_READ_TOKEN }}
 
       - name: Set Up Docker Buildx
         uses: docker/setup-buildx-action@v1
@@ -53,7 +52,7 @@ jobs:
         run: |
           docker run --rm -p 8080:8080 \
           -v $(pwd)/all-in-one/oscal-content:/app/oscal-content \
-          --name $CONTAINER_NAME $IMAGE_NAME
+          --name $CONTAINER_NAME $IMAGE_NAME &
 
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v2
