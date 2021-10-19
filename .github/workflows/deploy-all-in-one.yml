@@ -26,11 +26,13 @@ jobs:
           -H "Authorization: token ${NPM_TOKEN}" \
           https://api.github.com/orgs/EasyDynamics/packages/npm/oscal-viewer/versions | \
           jq --raw-output '.[0].name')
-          npm install @easydynamics/oscal-viewer@${VIEWER_VERSION}
+          npm --userconfig ./.npmrc \
+          install @easydynamics/oscal-viewer@${VIEWER_VERSION}
           cp -r ./node_modules/@easydynamics/oscal-viewer/build ./build
           ls ./build
         env:
           NPM_TOKEN: ${{ secrets.PACKAGE_READ_TOKEN }}
+
 
       # Pull the REST service .jar file from the Maven repository
       # and rename it to the filename that the Dockerfile expects
