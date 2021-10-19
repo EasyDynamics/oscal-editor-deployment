@@ -16,9 +16,6 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v2
 
-      - name: Install Tools
-        run: apt update -y && apt install -y curl jq
-
       # Install the oscal-viewer from GitHub packages
       # Get the latest version from the GitHub API and install it via npm
       # and copy the production build into a "build" folder
