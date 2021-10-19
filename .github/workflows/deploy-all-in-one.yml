@@ -16,28 +16,44 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v2
 
+      - name: Install Tools
+        run: apt update -y && apt install -y curl jq
+
+      # Install the oscal-viewer from GitHub packages
+      # Get the latest version from the GitHub API and install it via npm
+      # and copy the production build into a "build" folder
+      - name: Pull OSCAL Viewer
+        run: |
+          export VIEWER_VERSION=$(curl \
+          -H "Accept: application/vnd.github.v3+json" \
+          -H "Authorization: token ${NPM_TOKEN}" \
+          https://api.github.com/orgs/EasyDynamics/packages/npm/oscal-viewer/versions | \
+          jq --raw-output '.[0].name')
+          npm install @easydynamics/oscal-viewer@${VIEWER_VERSION}
+          cp -r ./node_modules/@easydynamics/oscal-viewer/build ./build
+          ls ./build
+        env:
+          NPM_TOKEN: ${{ secrets.PACKAGE_READ_TOKEN }}
+
       # Pull the REST service .jar file from the Maven repository
       # and rename it to the filename that the Dockerfile expects
       # TODO: make this filename configurable
       - name: Pull OSCAL REST Service
         run: |
+          export REST_VERSION=$(curl \
+          -H "Accept: application/vnd.github.v3+json" \
+          -H "Authorization: token ${MAVEN_TOKEN}" \
+          https://api.github.com/orgs/EasyDynamics/packages/maven/com.easydynamics.oscal-rest-service/versions | \
+          jq --raw-output '.[0].name')
           mvn -X --settings ./settings.xml \
           org.apache.maven.plugins:maven-dependency-plugin:3.2.0:get \
-          -Dartifact=com.easydynamics:oscal-rest-service:0.0.1-SNAPSHOT
+          -Dartifact=com.easydynamics:oscal-rest-service:${REST_VERSION}
           mvn org.apache.maven.plugins:maven-dependency-plugin:3.2.0:copy \
-          -Dartifact=com.easydynamics:oscal-rest-service:0.0.1-SNAPSHOT:jar \
+          -Dartifact=com.easydynamics:oscal-rest-service:${REST_VERSION}:jar \
           -DoutputDirectory=./
+          ls
         env:
           MAVEN_TOKEN: ${{ secrets.PACKAGE_READ_TOKEN }}
-
-      # Install the oscal-viewer from GitHub packages
-      # and copy the production build into a "build" folder
-      - name: Pull OSCAL Viewer
-        run: |
-          npm install @easydynamics/oscal-viewer@0.1.1
-          cp -r ./node_modules/@easydynamics/oscal-viewer/build ./build
-        env:
-          NPM_TOKEN: ${{ secrets.PACKAGE_READ_TOKEN }}
 
       - name: Set Up Docker Buildx
         uses: docker/setup-buildx-action@v1
