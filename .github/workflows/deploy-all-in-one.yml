@@ -63,7 +63,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: false
-          tags: ${IMAGE_NAME}
+          tags: ${{ env.IMAGE_NAME }}
 
       # Run container in the background, exposing the port that
       # Cypress uses to run the tests.
