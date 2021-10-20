@@ -17,8 +17,8 @@ jobs:
         uses: actions/checkout@v2
 
       # Install the oscal-viewer from GitHub packages
-      # Get the latest version from the GitHub API and download the tarball
-      # and copy the production build into a "build" folder
+      # Get the latest version from direct link to the GitHub npm registry and download as tarball.
+      # Then copy the production build into a "build" folder.
       - name: Pull OSCAL Viewer
         run: |
           wget --header "Authorization: token ${NPM_TOKEN}" \
@@ -36,21 +36,22 @@ jobs:
 
 
       # Pull the REST service .jar file from the Maven repository
-      # and rename it to the filename that the Dockerfile expects
-      # TODO: make this filename configurable
+      # Get the latest version from the GitHub API and use Maven to download
+      # the .jar artifact for that version.
+      # Rename it to the filename that the Dockerfile expects.
       - name: Pull OSCAL REST Service
         run: |
-          export REST_VERSION=$(curl \
-          -H "Accept: application/vnd.github.v3+json" \
-          -H "Authorization: token ${MAVEN_TOKEN}" \
-          https://api.github.com/orgs/EasyDynamics/packages/maven/com.easydynamics.oscal-rest-service/versions | \
-          jq --raw-output '.[0].name')
-          mvn -X --settings ./settings.xml \
-          org.apache.maven.plugins:maven-dependency-plugin:3.2.0:get \
-          -Dartifact=com.easydynamics:oscal-rest-service:${REST_VERSION}
-          mvn org.apache.maven.plugins:maven-dependency-plugin:3.2.0:copy \
-          -Dartifact=com.easydynamics:oscal-rest-service:${REST_VERSION}:jar \
-          -DoutputDirectory=./
+          export PACKAGE_VERSION=$(curl \
+            -H "Accept: application/vnd.github.v3+json" \
+            -H "Authorization: token ${MAVEN_TOKEN}" \
+            https://api.github.com/orgs/EasyDynamics/packages/maven/com.easydynamics.oscal-rest-service/versions | \
+            jq --raw-output '.[0].name')
+          mvn --settings settings.xml \
+            -Dmaven.repo.remote=http://maven.pkg.github.com \
+            dependency:copy \
+            -Dartifact=com.easydynamics:oscal-rest-service:${PACKAGE_VERSION}:jar \
+            -DoutputDirectory=./
+          mv oscal-rest-service*.jar ./oscal-rest-service-0.0.1-SNAPSHOT.jar
           ls
         env:
           MAVEN_TOKEN: ${{ secrets.PACKAGE_READ_TOKEN }}
@@ -64,6 +65,8 @@ jobs:
           push: false
           tags: ${IMAGE_NAME}
 
+      # Run container in the background, exposing the port that
+      # Cypress uses to run the tests.
       - name: Run Docker Container for Tests
         run: |
           docker run --rm -p 8080:8080 \
