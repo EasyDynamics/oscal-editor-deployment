@@ -32,6 +32,8 @@ To run the docker image, run `docker run` with the `-p` flag specifying the port
 Example:
 `docker run -p 8080:8080 -v $(pwd)/oscal-content:/app/oscal-content easygrc-all-in-one`
 
+Note that if the path to your current directory contains any spaces or special characters, replace `$(pwd)` in the above command with `"$(pwd)"`.
+
 The container will run both the OSCAL Viewer and REST Service on startup. The OSCAL Viewer is available at the port specified in the run command, eg. `http://localhost:8080`, and HTTP requests can be made to the REST Service at the same port following the [OSCAL Rest API specification.](https://github.com/EasyDynamics/oscal-rest) eg. `http://localhost:8080/oscal/v1/ssps/{ssp-uuid}`
 
 ### OSCAL Content Directory
