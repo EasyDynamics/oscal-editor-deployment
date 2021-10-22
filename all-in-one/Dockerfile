@@ -1,10 +1,12 @@
 FROM openjdk:11-jre-slim
 
+ARG VIEWER_PATH=./build/ REST_PATH=oscal-rest-service.jar
+
 #copy .jar of OSCAL REST Service
-COPY ./oscal-rest-service-0.0.1-SNAPSHOT.jar /app/rest.jar
+COPY $REST_PATH /app/rest.jar
 
 #copy production build of OSCAL Viewer
-COPY ./build/ /app/build/
+COPY $VIEWER_PATH /app/build/
 
 #add a new group and add a new user to the group
 #give permissions in the /app/ directory to the new user

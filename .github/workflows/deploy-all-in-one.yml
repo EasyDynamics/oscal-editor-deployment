@@ -16,45 +16,10 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v2
 
-      # Install the oscal-viewer from GitHub packages
-      # Get the latest version from direct link to the GitHub npm registry and download as tarball.
-      # Then copy the production build into a "build" folder.
-      - name: Pull OSCAL Viewer
-        run: |
-          wget --header "Authorization: token ${NPM_TOKEN}" \
-            $(curl \
-            -H "Authorization: token ${NPM_TOKEN}" \
-            https://npm.pkg.github.com/EasyDynamics/@easydynamics/oscal-viewer/ | \
-            jq --raw-output '."dist-tags".latest as $latest |
-            .versions[] | select(.version == $latest) | .dist.tarball' \
-          ) -O oscal-viewer.tgz
-          tar -xf ./oscal-viewer.tgz
-          cp -r package/build ./build
-          ls build
-        env:
-          NPM_TOKEN: ${{ secrets.PACKAGE_READ_TOKEN }}
-
-
-      # Pull the REST service .jar file from the Maven repository
-      # Get the latest version from the GitHub API and use Maven to download
-      # the .jar artifact for that version.
-      # Rename it to the filename that the Dockerfile expects.
-      - name: Pull OSCAL REST Service
-        run: |
-          export PACKAGE_VERSION=$(curl \
-            -H "Accept: application/vnd.github.v3+json" \
-            -H "Authorization: token ${MAVEN_TOKEN}" \
-            https://api.github.com/orgs/EasyDynamics/packages/maven/com.easydynamics.oscal-rest-service/versions | \
-            jq --raw-output '.[0].name')
-          mvn --settings settings.xml \
-            -Dmaven.repo.remote=http://maven.pkg.github.com \
-            dependency:copy \
-            -Dartifact=com.easydynamics:oscal-rest-service:${PACKAGE_VERSION}:jar \
-            -DoutputDirectory=./
-          mv oscal-rest-service*.jar ./oscal-rest-service-0.0.1-SNAPSHOT.jar
-          ls
-        env:
-          MAVEN_TOKEN: ${{ secrets.PACKAGE_READ_TOKEN }}
+      # Install the latest versions of the OSCAL Viewer and
+      # OSCAL REST Service from GitHub packages
+      - name: Pull OSCAL Viewer and OSCAL REST Service
+        run: bash ./all-in-one/packages_pull.sh ${{ secrets.PACKAGE_READ_TOKEN }}
 
       - name: Set Up Docker Buildx
         uses: docker/setup-buildx-action@v1
@@ -62,6 +27,7 @@ jobs:
       - name: Build Docker Image
         uses: docker/build-push-action@v2
         with:
+          file: ./all-in-one/Dockerfile
           push: false
           tags: ${{ env.IMAGE_NAME }}
 
@@ -92,6 +58,7 @@ jobs:
       - name: Push to Container Registry
         uses: docker/build-push-action@v2
         with:
+          file: ./all-in-one/Dockerfile
           push: true
           tags:
-            ghcr.io/EasyDynamics/${IMAGE_NAME}:latest
+            ghcr.io/EasyDynamics/${{ env.IMAGE_NAME }}:latest
