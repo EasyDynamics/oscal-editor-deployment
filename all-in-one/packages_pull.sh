@@ -30,12 +30,9 @@ curl -H "$token_header" \
 https://maven.pkg.github.com/EasyDynamics/*/com/easydynamics/oscal-rest-service/$package_version/maven-metadata.xml > output.xml
 
 timestamp=$(xmlstarlet sel -t -v "//metadata/versioning/snapshotVersions/snapshotVersion[last()]/value" output.xml)
-echo '--printing timestamp--'
-echo $timestamp
-echo '--printing timestamp--'
 
 wget --header="$token_header" \
 -O ./oscal-rest-service.jar \
-https://maven.pkg.github.com/EasyDynamics/oscal-rest-service/com.easydynamics.oscal-rest-service/$package_version/oscal-rest-service-$timestamp.jar
+https://maven.pkg.github.com/EasyDynamics/oscal-rest-service/com.easydynamics/oscal-rest-service/$package_version/oscal-rest-service-$timestamp.jar
 
 rm -rf package oscal-viewer.tgz output.xml
