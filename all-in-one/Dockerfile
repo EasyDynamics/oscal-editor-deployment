@@ -1,6 +1,6 @@
 FROM openjdk:11-jre-slim
 
-ARG VIEWER_PATH=build REST_PATH=oscal-rest-service.jar
+ARG VIEWER_PATH=./build REST_PATH=./oscal-rest-service.jar
 
 #copy .jar of OSCAL REST Service
 COPY $REST_PATH /app/rest.jar
