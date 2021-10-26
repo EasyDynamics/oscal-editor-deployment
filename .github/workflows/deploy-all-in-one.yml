@@ -24,7 +24,7 @@ jobs:
       # Install the latest versions of the OSCAL Viewer and
       # OSCAL REST Service from GitHub packages
       - name: Pull OSCAL Viewer and OSCAL REST Service
-        run: bash ./all-in-one/packages_pull.sh ${{ secrets.PACKAGE_READ_TOKEN }} && ls -la && ls build
+        run: bash ./all-in-one/packages_pull.sh ${{ secrets.PACKAGE_READ_TOKEN }}
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
