@@ -16,6 +16,11 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v2
 
+      - name: Install Tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install jq xmlstarlet curl wget
+
       # Install the latest versions of the OSCAL Viewer and
       # OSCAL REST Service from GitHub packages
       - name: Pull OSCAL Viewer and OSCAL REST Service
