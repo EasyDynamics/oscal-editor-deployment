@@ -1,6 +1,11 @@
-# Running End to End Tests
+# End to End Tests
+
+The following tests are testing a Docker deployment of an OSCAL Viewer interface an a complementary backend REST service. The Cypress
+tests check that everything appears on the screen as expected when making REST calls to files representing the various OSCAL objects.
 
 ## Steps for Running Cypress Tests
+[Cypress](https://www.cypress.io/) is an end-to-end testing suite for running automated tests, in a browser, of web applications.
+
 1. To run the Cypress tests, you first need to have the create and run the Docker container. Directions for doing so can be
    found [here](../all-in-one/README.md). Following these instructions will have the container run in the background, used by
    Cypress to run the tests.
