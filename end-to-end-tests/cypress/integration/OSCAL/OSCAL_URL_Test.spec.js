@@ -10,7 +10,6 @@ describe('system-security-plans', () => {
     cy.contains('Enterprise Logging and Auditing System Security Plan').should('be.visible')
     cy.scrollTo('bottom')
     cy.contains('This is the control implementation for the system.').should('be.visible')
-
   })
 })
     
@@ -26,7 +25,5 @@ describe('component definitions', () => {
       cy.contains('Reload').click()
       cy.contains('Test Vendor').should('be.visible')
       cy.scrollTo('bottom')
-
   })
-
 })

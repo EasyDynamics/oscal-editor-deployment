@@ -1,6 +1,6 @@
 # End to End Tests
 
-The following tests are testing a Docker deployment of an OSCAL Viewer interface an a complementary backend REST service. The Cypress
+The following tests are testing a Docker deployment of an OSCAL Viewer interface calling a backend REST service. The Cypress
 tests check that everything appears on the screen as expected when making REST calls to files representing the various OSCAL objects.
 
 ## Steps for Running Cypress Tests
