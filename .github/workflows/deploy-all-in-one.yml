@@ -26,6 +26,11 @@ jobs:
       - name: Pull OSCAL Viewer and OSCAL REST Service
         run: bash ./all-in-one/packages_pull.sh ${{ secrets.PACKAGE_READ_TOKEN }}
 
+      # Get Default OSCAL Content for testing
+      - name: Pull OSCAL Content
+        working-directory: all-in-one
+        run: bash ./get-oscal-content.sh && ls -la && ls oscal-content
+
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
 
@@ -53,6 +58,7 @@ jobs:
         uses: cypress-io/github-action@v2
         with:
           spec: cypress/integration/OSCAL/OSCAL_URL_Test.spec.js
+          working-directory: end-to-end-tests
 
       - name: Stop Running Container
         run:
