@@ -76,6 +76,6 @@ jobs:
         with:
           context: .
           file: ./all-in-one/Dockerfile
-          push: true
+          push: false
           tags:
             ghcr.io/easydynamics/${{ env.IMAGE_NAME }}:latest
