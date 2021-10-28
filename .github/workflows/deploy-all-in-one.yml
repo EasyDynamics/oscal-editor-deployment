@@ -29,7 +29,7 @@ jobs:
       # Get Default OSCAL Content for testing
       - name: Pull OSCAL Content
         working-directory: all-in-one
-        run: bash ./get-oscal-content.sh && ls -la && ls oscal-content
+        run: bash ./get-oscal-content.sh
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
