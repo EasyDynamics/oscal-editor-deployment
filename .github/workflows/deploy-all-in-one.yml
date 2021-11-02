@@ -1,7 +1,7 @@
 name: Build, Test, Deploy
 on:
   push:
-    branches: [main]
+    branches: [main, EGRC-492]
   workflow_dispatch:
 
 env:
