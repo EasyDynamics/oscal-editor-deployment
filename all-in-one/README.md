@@ -9,21 +9,29 @@ To build the image, you'll need:
 - The [OSCAL Viewer](https://github.com/EasyDynamics/oscal-react-library)
 - The [OSCAL REST Service](https://github.com/EasyDynamics/oscal-rest-service)
 
+The latest versions of the OSCAL Viewer and OSCAL REST Service are hosted on [GitHub Packages.](https://github.com/orgs/EasyDynamics/packages) They can be easily downloaded using the `packages_pull.sh` bash script in this repo. Authentication to download from GitHub Packages requires a [PAT](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) with `package:read` permissions.
+
+Example:
+`bash packages_pull.sh {GitHub Packages PAT}` 
+
 ### Building Required Resources
+
+To build a specific version of the OSCAL Viewer and OSCAL REST Service manually:
 
 Clone the OSCAL Viewer and build the production build by running `npm install && npm run build` in the `example` directory. This will create the `example/build/` directory.
 
-Then, clone the OSCAL REST Service compile it into a .jar with `mvn install`. The .jar file will be written to `oscal-rest-service-0.0.1-SNAPSHOT.jar` in the `target` directory. 
+Then, clone the OSCAL REST Service compile it into a .jar with `mvn install`. The .jar file will be written to `oscal-rest-service-{version}.jar` in the `target` directory.
 
 More in-depth docs on building these resources can be found on their respective GitHub pages, linked above.
 
-### Setting Up the Directory
-
-In the same directory that the Dockerfile is in, copy in the .jar file, keeping the default filename `oscal-rest-service-0.0.1-SNAPSHOT.jar`, and then copy in the production build directory `example/build/` and name it `build`.
-
 ### Creating the Image
 
-Once the directory is set up, run `docker build --tag easygrc-all-in-one .`
+Once the required resources are set up, run `docker build --tag easygrc-all-in-one .`
+
+By default, the Dockerfile will look for a directory called `build` containing the production build of the OSCAL Viewer, and a `oscal-rest-service.jar` file, both in the current directory. To provide a different path to these files, use the `VIEWER_PATH` and `REST_PATH` build arguments.
+
+For example:
+`docker build --build-arg VIEWER_PATH=./different_directory --build-arg REST_PATH=./different_file.jar --tag easygrc-all-in-one .`
 
 ## Running
 
@@ -33,6 +41,12 @@ Example:
 `docker run -p 8080:8080 -v "$(pwd)"/oscal-content:/app/oscal-content easygrc-all-in-one`
 
 The container will run both the OSCAL Viewer and REST Service on startup. The OSCAL Viewer is available at the port specified in the run command, eg. `http://localhost:8080`, and HTTP requests can be made to the REST Service at the same port following the [OSCAL Rest API specification.](https://github.com/EasyDynamics/oscal-rest) eg. `http://localhost:8080/oscal/v1/ssps/{ssp-uuid}`
+
+## Testing
+
+The container can be tested using end-to-end Cypress tests.
+
+More information on testing can be found in [end-to-end-tests.](../end-to-end-tests)
 
 ### OSCAL Content Directory
 
