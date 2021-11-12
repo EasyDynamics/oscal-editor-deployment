@@ -6,7 +6,7 @@ Simple Docker deployment of the back-end services and web-based user interface f
 
 The Docker image is hosted on the [GitHub Container Registry.](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry)
 
-To pull the image, first authenticate to the container registry. This requires a [GitHub PAT](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)
+To pull the image, first authenticate to the container registry. This requires a [GitHub Personal Access Token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)
 with `read:packages` permissions. It is recommended to save this PAT as an environment variable.
 
 Using this PAT, log into the registry with:
@@ -24,9 +24,10 @@ The parent directory is named `oscal-content` and has four sub-directories:
 `catalogs`, `component-definitions`, `profiles`, `system-security-plans`; each of these will contain the .json OSCAL files of their respective schemas.
 
 For convenience, this directory can be set up by running this command in your terminal:
+
 `mkdir oscal-content oscal-content/catalogs oscal-content/component-definitions oscal-content/profiles oscal-content/system-security-plans`
 
-These directory and sub-directory paths can also be manually configured by overwriting these environment variables in the docker container:
+If needed, the directory and sub-directory paths can also be manually configured by overwriting these environment variables in the docker container:
 - `PERSISTENT_FILE_PARENT_PATH`
 - `PERSISTENT_FILE_CATALOGS_PATH`
 - `PERSISTENT_FILE_COMPONENT_DEFINITIONS_PATH`
@@ -42,8 +43,7 @@ eg. `oscal-content/system-security-plans/cff8385f-108e-40a5-8f7a-82f3dc0eaba8.js
 
 To run the docker image, run `docker run` with the `-p` flag specifying the port to map and the `-v` flag specifying the path of the OSCAL content directory.
 
-Example:
-`docker run -p 8080:8080 -v "$(pwd)"/oscal-content:/app/oscal-content ghcr.io/easydynamics/easygrc-all-in-one`
+Example: `docker run -p 8080:8080 -v "$(pwd)"/oscal-content:/app/oscal-content ghcr.io/easydynamics/easygrc-all-in-one`
 
 The container will run both the OSCAL Viewer and REST Service on startup. The OSCAL Viewer is available at the port specified in the run command, eg. `http://localhost:8080`, and HTTP requests can be made to the REST Service at the same port following the [OSCAL Rest API specification.](https://github.com/EasyDynamics/oscal-rest) eg. `http://localhost:8080/oscal/v1/ssps/{ssp-uuid}`
 
