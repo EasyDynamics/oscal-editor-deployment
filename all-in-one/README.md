@@ -39,17 +39,6 @@ Important note: because of the semantics of the REST API and the current impleme
 
 eg. `oscal-content/system-security-plans/cff8385f-108e-40a5-8f7a-82f3dc0eaba8.json` 
 
-### Manually Configuring Directory Paths
-
-If needed, the directory and sub-directory paths can also be manually configured by overwriting these environment variables in the container:
-- `PERSISTENT_FILE_PARENT_PATH`
-- `PERSISTENT_FILE_CATALOGS_PATH`
-- `PERSISTENT_FILE_COMPONENT_DEFINITIONS_PATH`
-- `PERSISTENT_FILE_PROFILES_PATH`
-- `PERSISTENT_FILE_SSPS_PATH` 
-
-The environment variables can be set using the `-e` flag of the `docker run` command.
-
 ## Running
 
 To run the docker image, run `docker run` with the `-p` flag specifying the port to map and the `-v` flag specifying the path of the OSCAL content directory.
@@ -59,6 +48,17 @@ Example:
 `docker run -p 8080:8080 -v "$(pwd)"/oscal-content:/app/oscal-content ghcr.io/easydynamics/easygrc-all-in-one`
 
 The container will run both the OSCAL Viewer and REST Service on startup. The OSCAL Viewer is available at the port specified in the run command, eg. `http://localhost:8080`, and HTTP requests can be made to the REST Service at the same port following the [OSCAL Rest API specification.](https://github.com/EasyDynamics/oscal-rest) eg. `http://localhost:8080/oscal/v1/ssps/cff8385f-108e-40a5-8f7a-82f3dc0eaba8`
+
+### Manually Configuring Directory Paths
+
+If needed, the directory and sub-directory paths of the OSCAL content directory can also be manually configured by overwriting these environment variables in the container:
+- `PERSISTENT_FILE_PARENT_PATH`
+- `PERSISTENT_FILE_CATALOGS_PATH`
+- `PERSISTENT_FILE_COMPONENT_DEFINITIONS_PATH`
+- `PERSISTENT_FILE_PROFILES_PATH`
+- `PERSISTENT_FILE_SSPS_PATH` 
+
+The environment variables can be set using the `-e` flag of the `docker run` command.
 
 ## Building the Image Locally
 
