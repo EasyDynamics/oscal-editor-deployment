@@ -10,12 +10,14 @@ To pull the image, first authenticate to the container registry. This requires a
 with `read:packages` permissions. It is recommended to save this PAT as an environment variable.
 
 Using this PAT, log into the registry by running:
-
-`echo ${PAT} | docker login ghcr.io -u GITHUB_USERNAME --password-stdin`
+```
+echo ${PAT} | docker login ghcr.io -u GITHUB_USERNAME --password-stdin
+```
 
 After logging in, pull the image by running:
-
-`docker pull ghcr.io/easydynamics/easygrc-all-in-one`
+```
+docker pull ghcr.io/easydynamics/easygrc-all-in-one
+```
 
 ## OSCAL Content Directory
 
@@ -32,8 +34,9 @@ oscal-content/
 Each of the four sub-directories should contain the .json OSCAL files of their respective schemas.
 
 For convenience, this directory structure can be set up by running this command in your terminal:
-
-`mkdir oscal-content oscal-content/catalogs oscal-content/component-definitions oscal-content/profiles oscal-content/system-security-plans`
+```
+mkdir oscal-content oscal-content/catalogs oscal-content/component-definitions oscal-content/profiles oscal-content/system-security-plans
+```
 
 Important note: because of the semantics of the REST API and the current implementation, every OSCAL object file in the directory must be named by its UUID (see the [OSCAL specification](https://pages.nist.gov/OSCAL/reference/latest/complete/json-outline/)).
 
@@ -44,8 +47,9 @@ eg. `oscal-content/system-security-plans/cff8385f-108e-40a5-8f7a-82f3dc0eaba8.js
 To run the docker image, run `docker run` with the `-p` flag specifying the port to map and the `-v` flag specifying the path of the OSCAL content directory.
 
 Example: 
-
-`docker run -p 8080:8080 -v "$(pwd)"/oscal-content:/app/oscal-content ghcr.io/easydynamics/easygrc-all-in-one`
+```
+docker run -p 8080:8080 -v "$(pwd)"/oscal-content:/app/oscal-content ghcr.io/easydynamics/easygrc-all-in-one
+```
 
 The container will run both the OSCAL Viewer and REST Service on startup. The OSCAL Viewer is available at the port specified in the run command, eg. `http://localhost:8080`, and HTTP requests can be made to the REST Service at the same port following the [OSCAL Rest API specification.](https://github.com/EasyDynamics/oscal-rest) eg. `http://localhost:8080/oscal/v1/ssps/cff8385f-108e-40a5-8f7a-82f3dc0eaba8`
 
@@ -70,8 +74,9 @@ To build the Docker image manually instead of pulling from the registry, you'll 
 The latest versions of the OSCAL Viewer and OSCAL REST Service are hosted on [GitHub Packages.](https://github.com/orgs/EasyDynamics/packages) They can be easily downloaded using the `packages_pull.sh` bash script in this repo. Authentication to download from GitHub Packages requires a [PAT](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) with `package:read` permissions.
 
 Example:
-
-`bash packages_pull.sh {GitHub Packages PAT}` 
+```
+bash packages_pull.sh {GitHub Packages PAT}
+``` 
 
 ### Building Required Resources
 
@@ -90,8 +95,9 @@ Once the required resources are set up, run `docker build --tag easygrc-all-in-o
 By default, the Dockerfile will look for a directory called `build` containing the production build of the OSCAL Viewer, and a `oscal-rest-service.jar` file, both in the current directory. To provide a different path to these files, use the `VIEWER_PATH` and `REST_PATH` build arguments.
 
 For example:
-
-`docker build --build-arg VIEWER_PATH=./different_directory --build-arg REST_PATH=./different_file.jar --tag easygrc-all-in-one .`
+```
+docker build --build-arg VIEWER_PATH=./different_directory --build-arg REST_PATH=./different_file.jar --tag easygrc-all-in-one .
+```
 
 ## Testing
 
