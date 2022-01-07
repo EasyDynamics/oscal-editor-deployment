@@ -19,7 +19,7 @@ USER easygrc
 #set environment variables for the oscal content directory
 #and location of the production build to be served by Spring Boot
 ENV PERSISTENCE_FILE_PARENT_PATH="oscal-content" \
-    SPRING_RESOURCES_STATIC_LOCATIONS="file:/app/build/"
+    SPRING_WEB_RESOURCES_STATIC_LOCATIONS="file:/app/build/"
 
 EXPOSE 8080
 
