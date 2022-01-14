@@ -38,9 +38,7 @@ For convenience, this directory structure can be set up by running this command 
 mkdir oscal-content oscal-content/catalogs oscal-content/component-definitions oscal-content/profiles oscal-content/system-security-plans
 ```
 
-Important note: because of the semantics of the REST API and the current implementation, every OSCAL object file in the directory must be named by its UUID (see the [OSCAL specification](https://pages.nist.gov/OSCAL/reference/latest/complete/json-outline/)), eg. `oscal-content/system-security-plans/cff8385f-108e-40a5-8f7a-82f3dc0eaba8.json` 
-
-Example OSCAL content can be downloaded from (NIST's OSCAL content GitHub repo.)[https://github.com/usnistgov/oscal-content] with a script such as:
+Example OSCAL content can be downloaded from [NIST's OSCAL content GitHub repo.](https://github.com/usnistgov/oscal-content) with a script such as:
 ```
 curl https://raw.githubusercontent.com/usnistgov/oscal-content/master/examples/ssp/json/ssp-example.json > oscal-content/system-security-plans/cff8385f-108e-40a5-8f7a-82f3dc0eaba8.json
 ```
