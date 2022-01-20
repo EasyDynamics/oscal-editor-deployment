@@ -73,7 +73,7 @@ The environment variables can be set using the `-e` flag of the `docker run` com
 To build the Docker image manually instead of pulling from the registry, you'll need:
 - The Dockerfile (provided in this repo)
 - The [OSCAL Viewer](https://github.com/EasyDynamics/oscal-react-library)
-  - Only needed if building for specific changes, otherwise GitHUb source is used
+  - Only needed if building for specific changes, otherwise GitHub source is used
 - The [OSCAL REST Service](https://github.com/EasyDynamics/oscal-rest-service)
 
 The latest versions of the OSCAL Viewer and OSCAL REST Service are hosted on [GitHub Packages.](https://github.com/orgs/EasyDynamics/packages) They can be easily downloaded using the `packages_pull.sh` bash script in this repo. Authentication to download from GitHub Packages requires a [PAT](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) with `package:read` permissions.
