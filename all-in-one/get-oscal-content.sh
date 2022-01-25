@@ -10,22 +10,15 @@ directories["system-security-plan"]="$parent/ssps"
 download-file() (
   local top_element="$1"
   local url="$2"
-  local temp
-  # Fall back to using a different (good-enough) style of temporary directory
-  # if mktemp(1) fails
-  if ! temp="$(mktemp)"; then
-    temp="${directories[$top_element]}/temp.json"
-  fi
 
-  # Download the file to a temporary location so that we can parse its UUID
-  if ! curl -sL -o "$temp" "$url"; then
+  local download_path="${directories[$top_element]}/$(basename "$url")"
+
+  # Using curl instead of wget ensures that the script works out-of-the-box on
+  # macOS and most Linux distros
+  if ! curl -sL -o "$download_path" "$url"; then
     echo "!!! Unable to download $top_element"
     exit 1
   fi
-
-  # Parse the UUID and move the file in place, giving it that name
-  uuid="$(jq --raw-output ".\"${top_element}\".\"uuid\"" "$temp")"
-  mv "$temp" "${directories[$top_element]}/${uuid}.json"
 )
 
 # Create each of the directories where various types of files will go; passing
