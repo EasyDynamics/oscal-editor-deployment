@@ -5,7 +5,7 @@ cmd_name="$0"
 usage() (
   echo "Usage: $cmd_name PAT"
   echo ""
-  echo "  Downloads the necessary packages from GitHub Packages to support"
+  echo "  Downloads the pre-built packages from GitHub Packages"
   echo "  for the EasyGRC OSCAL viewer and REST service."
   echo "  The PAT may be provided as an argument or through the"
   echo "  EASYGRC_GITHUB_PACKAGES_PAT environment variable. The PAT must have"
@@ -38,6 +38,7 @@ assert-required-commands() (
 
 unauthenticated-v3-api-request() (
   local url="$1"
+
   curl \
     -sL \
     -H "Accept: application/vnd.github.v3+json" \
