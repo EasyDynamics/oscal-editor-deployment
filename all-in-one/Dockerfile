@@ -21,7 +21,7 @@ RUN if [[ -n "$VIEWER_PATH" ]] ; \
     npm ci && \
     cd example && \
     npm ci && \
-    REACT_APP_REST_BASE_URL=$OSCAL_REST_BASE_URL npm run build && \
+    REACT_APP_REST_BASE_URL="$OSCAL_REST_BASE_URL" npm run build && \
     mv build /app/ ; \
     fi
 
