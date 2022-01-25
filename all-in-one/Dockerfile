@@ -16,9 +16,8 @@ COPY $VIEWER_PATH /app/build
 RUN if [[ -n "$VIEWER_PATH" ]] ; \
     then echo "Using viewer from $VIEWER_PATH" ; \
     else rm -rf /app/build && \
-    git clone "$OSCAL_REACT_GIT_REPO" "$OSCAL_REACT_DIR" && \
-    cd $OSCAL_REACT_DIR && \
-    git switch $OSCAL_REACT_GIT_BRANCH && \
+    git clone --branch "$OSCAL_REACT_GIT_BRANCH" --depth 1 -- "$OSCAL_REACT_GIT_REPO" "$OSCAL_REACT_DIR" && \
+    cd "$OSCAL_REACT_DIR" && \
     npm ci && \
     cd example && \
     npm ci && \
