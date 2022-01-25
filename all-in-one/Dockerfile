@@ -1,12 +1,40 @@
+FROM node:16.13-alpine as build-viewer
+
+RUN apk add --no-cache git
+
+ARG OSCAL_REACT_GIT_REPO=https://github.com/EasyDynamics/oscal-react-library
+ARG OSCAL_REACT_GIT_BRANCH=develop
+ARG OSCAL_REACT_DIR=oscal-react-library
+ARG OSCAL_REST_BASE_URL=http://localhost:8080/oscal/v1
+ARG VIEWER_PATH
+
+WORKDIR /app
+
+# Copy the (possibly empty/undefined) viewer app into build
+COPY $VIEWER_PATH /app/build
+# If VIEWER_PATH has been defined, otherwise build from source
+RUN if [[ -n "$VIEWER_PATH" ]] ; \
+    then echo "Using viewer from $VIEWER_PATH" ; \
+    else rm -rf /app/build && \
+    git clone --branch "$OSCAL_REACT_GIT_BRANCH" --depth 1 -- "$OSCAL_REACT_GIT_REPO" "$OSCAL_REACT_DIR" && \
+    cd "$OSCAL_REACT_DIR" && \
+    npm ci && \
+    cd example && \
+    npm ci && \
+    REACT_APP_REST_BASE_URL="$OSCAL_REST_BASE_URL" npm run build && \
+    mv build /app/ ; \
+    fi
+
+
 FROM openjdk:11-jre-slim
 
-ARG VIEWER_PATH=./build REST_PATH=./oscal-rest-service.jar
+ARG REST_PATH=./oscal-rest-service.jar
 
 #copy .jar of OSCAL REST Service
 COPY $REST_PATH /app/rest.jar
 
 #copy production build of OSCAL Viewer
-COPY $VIEWER_PATH /app/build
+COPY --from=build-viewer /app/build /app/build
 
 #add a new group and add a new user to the group
 #give permissions in the /app/ directory to the new user

@@ -5,3 +5,4 @@ node_modules
 all-in-one/build/
 all-in-one/oscal-rest-service-0.0.1-SNAPSHOT.jar
 all-in-one/oscal-content/
+all-in-one/oscal-rest-service.jar

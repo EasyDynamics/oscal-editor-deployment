@@ -40,7 +40,10 @@ mkdir oscal-content oscal-content/catalogs oscal-content/component-definitions o
 
 Example OSCAL content can be downloaded from [NIST's OSCAL content GitHub repo.](https://github.com/usnistgov/oscal-content) with a script such as:
 ```
-curl https://raw.githubusercontent.com/usnistgov/oscal-content/master/examples/ssp/json/ssp-example.json > oscal-content/system-security-plans/cff8385f-108e-40a5-8f7a-82f3dc0eaba8.json
+curl https://raw.githubusercontent.com/usnistgov/oscal-content/master/nist.gov/SP800-53/rev5/json/NIST_SP-800-53_rev5_catalog.json > oscal-content/catalogs/NIST_SP-800-53_rev5_catalog.json
+curl https://raw.githubusercontent.com/usnistgov/oscal-content/master/examples/component-definition/json/example-component.json > oscal-content/component-definitions/example-component.json
+curl https://raw.githubusercontent.com/usnistgov/oscal-content/master/nist.gov/SP800-53/rev4/json/NIST_SP-800-53_rev4_MODERATE-baseline_profile.json > oscal-content/profiles/NIST_SP-800-53_rev4_MODERATE-baseline_profile.json
+curl https://raw.githubusercontent.com/usnistgov/oscal-content/master/examples/ssp/json/ssp-example.json > oscal-content/system-security-plans/ssp-example.json
 ```
 
 ## Running
@@ -70,6 +73,7 @@ The environment variables can be set using the `-e` flag of the `docker run` com
 To build the Docker image manually instead of pulling from the registry, you'll need:
 - The Dockerfile (provided in this repo)
 - The [OSCAL Viewer](https://github.com/EasyDynamics/oscal-react-library)
+  - Only needed if building for specific changes, otherwise GitHub source is used
 - The [OSCAL REST Service](https://github.com/EasyDynamics/oscal-rest-service)
 
 The latest versions of the OSCAL Viewer and OSCAL REST Service are hosted on [GitHub Packages.](https://github.com/orgs/EasyDynamics/packages) They can be easily downloaded using the `packages_pull.sh` bash script in this repo. Authentication to download from GitHub Packages requires a [PAT](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) with `package:read` permissions.
@@ -93,11 +97,20 @@ More in-depth docs on building these resources can be found on their respective 
 
 Once the required resources are set up, run `docker build --tag easygrc-all-in-one .`
 
-By default, the Dockerfile will look for a directory called `build` containing the production build of the OSCAL Viewer, and a `oscal-rest-service.jar` file, both in the current directory. To provide a different path to these files, use the `VIEWER_PATH` and `REST_PATH` build arguments.
+By default, the Dockerfile will build the OSCAL Viewer from source and look for an `oscal-rest-service.jar` file in the current directory. 
+To specify a local OSCAL Viewer distribution build use the `VIEWER_PATH` build argument. To provide a different path to the REST service
+use the `REST_PATH` build argument.
 
 For example:
 ```
-docker build --build-arg VIEWER_PATH=./different_directory --build-arg REST_PATH=./different_file.jar --tag easygrc-all-in-one .
+docker build --build-arg VIEWER_PATH=./build --build-arg REST_PATH=./different_file.jar --tag easygrc-all-in-one .
+```
+
+To specify a different GitHub repo or branch for the OSCAL viewer use the `OSCAL_REACT_GIT_REPO` and `OSCAL_REACT_GIT_BRANCH`.
+
+For example:
+```
+docker build --build-arg OSCAL_REACT_GIT_REPO=https://github.com/MyOrg/oscal-react-library  --build-arg OSCAL_REACT_GIT_BRANCH=some-feature-branch --tag easygrc-all-in-one .
 ```
 
 ## Testing
