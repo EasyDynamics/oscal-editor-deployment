@@ -3,9 +3,9 @@
 parent=oscal-content
 declare -A directories
 directories["catalog"]="$parent/catalogs"
-directories["component-definition"]="$parent/components"
+directories["component-definition"]="$parent/component-definitions"
 directories["profile"]="$parent/profiles"
-directories["system-security-plan"]="$parent/ssps"
+directories["system-security-plan"]="$parent/system-security-plans"
 
 download-file() (
   local top_element="$1"
