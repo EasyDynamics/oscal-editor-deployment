@@ -54,7 +54,7 @@ jobs:
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v2
         with:
-          spec: cypress/integration/OSCAL/OSCAL_URL_Test.spec.js
+          spec: cypress/integration/**/*.spec.js
           working-directory: end-to-end-tests
 
       - name: Stop Running Container
