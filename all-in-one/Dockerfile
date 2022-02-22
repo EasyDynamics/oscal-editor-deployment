@@ -38,11 +38,11 @@ COPY --from=build-viewer /app/build /app/build
 
 #add a new group and add a new user to the group
 #give permissions in the /app/ directory to the new user
-RUN addgroup --system easygrc && \
-    adduser --system easygrc --ingroup easygrc && \
-    chown -R easygrc /app/
+RUN addgroup --system oscaledit && \
+    adduser --system oscaledit --ingroup oscaledit && \
+    chown -R oscaledit /app/
 
-USER easygrc
+USER oscaledit
 
 #set environment variables for the oscal content directory
 #and location of the production build to be served by Spring Boot

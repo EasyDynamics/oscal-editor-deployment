@@ -1,6 +1,6 @@
 # All-in-One Deployment
 
-Simple Docker deployment of the back-end services and web-based user interface for the EasyGRC platform.
+Simple Docker deployment of the back-end services and web-based user interface for the OSCAL Editor.
 
 ## Pulling the Image
 
@@ -16,7 +16,7 @@ echo ${PAT} | docker login ghcr.io -u GITHUB_USERNAME --password-stdin
 
 After logging in, pull the image by running:
 ```
-docker pull ghcr.io/easydynamics/easygrc-all-in-one
+docker pull ghcr.io/easydynamics/oscal-editor-all-in-one
 ```
 
 ## OSCAL Content Directory
@@ -52,7 +52,7 @@ To run the docker image, run `docker run` with the `-p` flag specifying the port
 
 Example: 
 ```
-docker run -p 8080:8080 -v "$(pwd)"/oscal-content:/app/oscal-content ghcr.io/easydynamics/easygrc-all-in-one
+docker run -p 8080:8080 -v "$(pwd)"/oscal-content:/app/oscal-content ghcr.io/easydynamics/oscal-editor-all-in-one
 ```
 
 The container will run both the OSCAL Viewer and REST Service on startup. The OSCAL Viewer is available at the port specified in the run command, eg. `http://localhost:8080`, and HTTP requests can be made to the REST Service at the same port following the [OSCAL Rest API specification.](https://github.com/EasyDynamics/oscal-rest), eg. http://localhost:8080/oscal/v1/ssps/cff8385f-108e-40a5-8f7a-82f3dc0eaba8
@@ -95,7 +95,7 @@ More in-depth docs on building these resources can be found on their respective 
 
 ### Creating the Image
 
-Once the required resources are set up, run `docker build --tag easygrc-all-in-one .`
+Once the required resources are set up, run `docker build --tag oscal-editor-all-in-one .`
 
 By default, the Dockerfile will build the OSCAL Viewer from source and look for an `oscal-rest-service.jar` file in the current directory. 
 To specify a local OSCAL Viewer distribution build use the `VIEWER_PATH` build argument. To provide a different path to the REST service
@@ -103,14 +103,14 @@ use the `REST_PATH` build argument.
 
 For example:
 ```
-docker build --build-arg VIEWER_PATH=./build --build-arg REST_PATH=./different_file.jar --tag easygrc-all-in-one .
+docker build --build-arg VIEWER_PATH=./build --build-arg REST_PATH=./different_file.jar --tag oscal-editor-all-in-one .
 ```
 
 To specify a different GitHub repo or branch for the OSCAL viewer use the `OSCAL_REACT_GIT_REPO` and `OSCAL_REACT_GIT_BRANCH`.
 
 For example:
 ```
-docker build --build-arg OSCAL_REACT_GIT_REPO=https://github.com/MyOrg/oscal-react-library  --build-arg OSCAL_REACT_GIT_BRANCH=some-feature-branch --tag easygrc-all-in-one .
+docker build --build-arg OSCAL_REACT_GIT_REPO=https://github.com/MyOrg/oscal-react-library  --build-arg OSCAL_REACT_GIT_BRANCH=some-feature-branch --tag oscal-editor-all-in-one .
 ```
 
 ## Testing
