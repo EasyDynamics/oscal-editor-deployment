@@ -40,9 +40,10 @@ jobs:
       # Build the Docker image, and load it locally so it can be run for testing
       - name: Build Docker Image
         uses: docker/build-push-action@v2
+        working-directory: all-in-one
         with:
           context: .
-          file: ./all-in-one/Dockerfile
+          file: ./Dockerfile
           load: true
           tags: ${{ env.IMAGE_NAME }}
 
