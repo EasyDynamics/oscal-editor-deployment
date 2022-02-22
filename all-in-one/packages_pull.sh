@@ -6,16 +6,16 @@ usage() (
   echo "Usage: $cmd_name PAT"
   echo ""
   echo "  Downloads the pre-built packages from GitHub Packages"
-  echo "  for the EasyGRC OSCAL viewer and REST service."
+  echo "  for the OSCAL Web App and REST service."
   echo "  The PAT may be provided as an argument or through the"
-  echo "  EASYGRC_GITHUB_PACKAGES_PAT environment variable. The PAT must have"
+  echo "  OSCAL_EDITOR_GITHUB_PACKAGES_PAT environment variable. The PAT must have"
   echo "  the read:packages permission."
   echo ""
   echo "  Example 1:"
   echo "      $cmd_name ghp_exampletoken1231"
   echo ""
   echo "  Example 2:"
-  echo "      export EASYGRC_GITHUB_PACKAGES_PAT=ghp_exampletoken1231"
+  echo "      export OSCAL_EDITOR_GITHUB_PACKAGES_PAT=ghp_exampletoken1231"
   echo "      $cmd_name"
   echo ""
 )
@@ -124,7 +124,7 @@ cleanup() (
 )
 
 main() (
-  local token="${1:-$EASYGRC_GITHUB_PACKAGES_PAT}"
+  local token="${1:-$OSCAL_EDITOR_GITHUB_PACKAGES_PAT}"
 
   # Ensure that the token is present and that it matches the expected format of
   # a GitHub PAT.

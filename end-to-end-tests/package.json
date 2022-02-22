@@ -6,8 +6,8 @@
     "@testing-library/dom": "^8.6.0",
     "cypress": "^8.6.0"
   },
-  "name": "easygrc-deployment-1",
-  "description": "Various deployments of the EasyGRC platform.",
+  "name": "oscal-editor-testing",
+  "description": "Automated testing of the OSCAL Editor.",
   "version": "1.0.0",
   "main": "index.js",
   "dependencies": {
@@ -174,13 +174,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/EasyDynamics/easygrc-deployment.git"
+    "url": "git+https://github.com/EasyDynamics/oscal-editor-deployment.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/EasyDynamics/easygrc-deployment/issues"
+    "url": "https://github.com/EasyDynamics/oscal-editor-deployment/issues"
   },
-  "homepage": "https://github.com/EasyDynamics/easygrc-deployment#readme"
+  "homepage": "https://github.com/EasyDynamics/oscal-editor-deployment#readme"
 }

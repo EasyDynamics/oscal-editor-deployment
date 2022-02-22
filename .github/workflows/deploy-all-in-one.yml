@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
 
 env:
-  IMAGE_NAME: easygrc-all-in-one
+  IMAGE_NAME: oscal-editor-all-in-one
   CONTAINER_NAME: test_container
 
 jobs:
@@ -27,7 +27,7 @@ jobs:
         run: ./packages_pull.sh
         working-directory: all-in-one
         env:
-          EASYGRC_GITHUB_PACKAGES_PAT: ${{ secrets.PACKAGE_READ_TOKEN }}
+          OSCAL_EDITOR_GITHUB_PACKAGES_PAT: ${{ secrets.PACKAGE_READ_TOKEN }}
 
       # Get Default OSCAL Content for testing
       - name: Pull OSCAL Content
