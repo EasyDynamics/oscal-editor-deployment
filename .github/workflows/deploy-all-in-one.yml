@@ -1,7 +1,7 @@
 name: Build, Test, Deploy
 on:
   push:
-    branches: [main]
+    branches: [fix-build-action]
   workflow_dispatch:
 
 env:
