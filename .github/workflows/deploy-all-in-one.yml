@@ -41,7 +41,7 @@ jobs:
       - name: Build Docker Image
         uses: docker/build-push-action@v2
         with:
-          context: .
+          context: ./all-in-one
           file: ./all-in-one/Dockerfile
           load: true
           tags: ${{ env.IMAGE_NAME }}
@@ -60,6 +60,17 @@ jobs:
           spec: cypress/integration/**/*.spec.js
           working-directory: end-to-end-tests
 
+      # Upload the screenshots and videos of a Cypress test failure
+      # to the artifacts of this workflow on GitHub
+      - name: Upload Cypress Artifacts
+        uses: actions/upload-artifact@v2
+        if: failure()
+        with:
+          name: cypress-results
+          path: |
+            ./end-to-end-tests/cypress/screenshots
+            ./end-to-end-tests/cypress/videos
+
       - name: Stop Running Container
         run:
           docker stop ${CONTAINER_NAME}
@@ -74,7 +85,7 @@ jobs:
       - name: Push to Container Registry
         uses: docker/build-push-action@v2
         with:
-          context: .
+          context: ./all-in-one
           file: ./all-in-one/Dockerfile
           push: true
           tags:
