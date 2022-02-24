@@ -33,17 +33,10 @@ oscal-content/
 ```
 Each of the four sub-directories should contain the .json OSCAL files of their respective schemas.
 
-For convenience, this directory structure can be set up by running this command in your terminal:
-```
-mkdir oscal-content oscal-content/catalogs oscal-content/component-definitions oscal-content/profiles oscal-content/system-security-plans
-```
+Example OSCAL content can be downloaded from [Easy Dynamics' demo OSCAL content repo](https://github.com/EasyDynamics/oscal-demo-content). To clone the content, run:
 
-Example OSCAL content can be downloaded from [NIST's OSCAL content GitHub repo.](https://github.com/usnistgov/oscal-content) with a script such as:
 ```
-curl https://raw.githubusercontent.com/usnistgov/oscal-content/master/nist.gov/SP800-53/rev5/json/NIST_SP-800-53_rev5_catalog.json > oscal-content/catalogs/NIST_SP-800-53_rev5_catalog.json
-curl https://raw.githubusercontent.com/usnistgov/oscal-content/master/examples/component-definition/json/example-component.json > oscal-content/component-definitions/example-component.json
-curl https://raw.githubusercontent.com/usnistgov/oscal-content/master/nist.gov/SP800-53/rev4/json/NIST_SP-800-53_rev4_MODERATE-baseline_profile.json > oscal-content/profiles/NIST_SP-800-53_rev4_MODERATE-baseline_profile.json
-curl https://raw.githubusercontent.com/usnistgov/oscal-content/master/examples/ssp/json/ssp-example.json > oscal-content/system-security-plans/ssp-example.json
+git clone https://github.com/EasyDynamics/oscal-demo-content oscal-content
 ```
 
 ## Running

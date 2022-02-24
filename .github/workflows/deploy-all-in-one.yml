@@ -31,8 +31,10 @@ jobs:
 
       # Get Default OSCAL Content for testing
       - name: Pull OSCAL Content
-        run: ./get-oscal-content.sh
-        working-directory: all-in-one
+        uses: actions/checkout@v2
+        with:
+          repository: EasyDynamics/oscal-demo-content
+          path: all-in-one/oscal-content
 
       - name: Set Up Docker Buildx
         uses: docker/setup-buildx-action@v1
