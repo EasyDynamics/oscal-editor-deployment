@@ -6,15 +6,7 @@ Simple Docker deployment of the back-end services and web-based user interface f
 
 The Docker image is hosted on the [GitHub Container Registry.](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry)
 
-To pull the image, first authenticate to the container registry. This requires a [GitHub Personal Access Token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)
-with `read:packages` permissions. It is recommended to save this PAT as an environment variable.
-
-Using this PAT, log into the registry by running:
-```
-echo ${PAT} | docker login ghcr.io -u GITHUB_USERNAME --password-stdin
-```
-
-After logging in, pull the image by running:
+You can pull the image by running:
 ```
 docker pull ghcr.io/easydynamics/oscal-editor-all-in-one
 ```
@@ -104,6 +96,15 @@ To specify a different GitHub repo or branch for the OSCAL viewer use the `OSCAL
 For example:
 ```
 docker build --build-arg OSCAL_REACT_GIT_REPO=https://github.com/MyOrg/oscal-react-library  --build-arg OSCAL_REACT_GIT_BRANCH=some-feature-branch --tag oscal-editor-all-in-one .
+```
+
+Access other than read requires a [GitHub Personal Access Token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)
+with [appropriate package permissions](https://docs.github.com/en/packages/learn-github-packages/configuring-a-packages-access-control-and-visibility#visibility-and-access-permissions-for-container-images).
+It is recommended to save this PAT as an environment variable.
+
+Using this PAT, log into the registry by running:
+```
+echo ${PAT} | docker login ghcr.io -u GITHUB_USERNAME --password-stdin
 ```
 
 ## Testing
