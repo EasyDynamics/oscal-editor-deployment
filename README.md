@@ -1,6 +1,16 @@
 # Overview
 
-Various deployments of the OSCAL Editor.
+Various deployments of the OSCAL Editor including a Docker Image
+for easy local editing.
+
+![OSCAL Editor Screenshot](/docs/resources/oscal-editor.png)
+
+To get started, simply pull the Docker image and run it, pointing to a directory of OSCAL content:
+```
+docker pull ghcr.io/easydynamics/oscal-editor-all-in-one
+docker run -p 8080:8080 -v "$(pwd)"/oscal-content:/app/oscal-content ghcr.io/easydynamics/oscal-editor-all-in-one
+```
+See the [all-In-one deployment](all-in-one) documentation for more details.
 
 ## All-In-One
 
