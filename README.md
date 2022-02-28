@@ -5,7 +5,7 @@ for easy local editing.
 
 ![OSCAL Editor Screenshot](/docs/resources/oscal-editor.png)
 
-Simply run:
+To get started, simply pull the Docker image and run it, pointing to a directory of OSCAL content:
 ```
 docker pull ghcr.io/easydynamics/oscal-editor-all-in-one
 docker run -p 8080:8080 -v "$(pwd)"/oscal-content:/app/oscal-content ghcr.io/easydynamics/oscal-editor-all-in-one
