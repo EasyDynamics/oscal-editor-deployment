@@ -8,6 +8,7 @@ describe('Test Loading System Security Plans', () => {
     cy.contains('Select OSCAL SSP').parent().click()
     cy.contains('Enterprise Logging and Auditing System Security Plan').click()
     cy.contains('Enterprise Logging and Auditing System Security Plan').should('be.visible')
+    cy.contains('"system-security-plan"').should('be.visible')
     cy.scrollTo('bottom')
     cy.contains('This is the control implementation for the system.').should('be.visible')
   })
