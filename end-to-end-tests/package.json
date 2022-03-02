@@ -12,7 +12,7 @@
   "main": "index.js",
   "dependencies": {
     "aggregate-error": "^3.1.0",
-    "ajv": "^6.12.6",
+    "ajv": "^8.10.0",
     "ansi-colors": "^4.1.1",
     "ansi-escapes": "^4.3.2",
     "ansi-regex": "^5.0.1",
