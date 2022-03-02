@@ -1,0 +1,21 @@
+---
+version: 2
+updates:
+  - package-ecosystem: docker
+    directory: "/all-in-one"
+    schedule:
+      interval: daily
+    reviewers:
+      - "EasyDynamics/easygrc-reviewers"
+  - package-ecosystem: npm
+    directory: "/end-to-end-tests"
+    schedule:
+      interval: daily
+    reviewers:
+      - "EasyDynamics/easygrc-reviewers"
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: daily
+    reviewers:
+      - "EasyDynamics/easygrc-reviewers"
