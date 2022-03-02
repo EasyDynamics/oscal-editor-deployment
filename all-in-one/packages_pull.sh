@@ -89,7 +89,7 @@ get-rest-service-jar() (
 
   local package_version
   package_version="$(authenticated-v3-api-request "$request_url" "$token" | jq --raw-output '.[0].name' 2> /dev/null)"
-  
+
   if [ "$?" -ne 0 ] || [ -z "$package_version" ] ; then
     echo "!!! Unable to get OSCAL Rest Service package version"
     echo "    Check the provided PAT has sufficient permissions and try again"
@@ -133,7 +133,9 @@ main() (
     exit 1
   fi
 
-  if [[ ! "$token" =~ ^ghp_ ]]; then
+  # Formats based on:
+  # https://github.blog/changelog/2021-03-31-authentication-token-format-updates-are-generally-available/
+  if [[ ! "$token" =~ ^gh[pousr]_ ]]; then
     echo "!!! The provided GitHub PAT is invalid"
     exit 1
   fi
