@@ -147,7 +147,7 @@
     "slice-ansi": "^3.0.0",
     "sshpk": "^1.16.1",
     "string-width": "^4.2.2",
-    "strip-ansi": "^6.0.0",
+    "strip-ansi": "^7.0.1",
     "strip-final-newline": "^2.0.0",
     "supports-color": "^8.1.1",
     "throttleit": "^1.0.0",
