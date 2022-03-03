@@ -95,7 +95,7 @@
     "is-path-inside": "^3.0.3",
     "is-stream": "^2.0.1",
     "is-typedarray": "^1.0.0",
-    "is-unicode-supported": "^0.1.0",
+    "is-unicode-supported": "^1.1.0",
     "isexe": "^2.0.0",
     "isstream": "^0.1.2",
     "jsbn": "^0.1.1",
