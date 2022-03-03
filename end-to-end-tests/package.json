@@ -105,7 +105,7 @@
     "jsonfile": "^6.1.0",
     "jsprim": "^1.4.1",
     "lazy-ass": "^1.6.0",
-    "listr2": "^3.12.1",
+    "listr2": "^4.0.4",
     "lodash": "^4.17.21",
     "lodash.once": "^4.1.1",
     "log-symbols": "^4.1.0",
