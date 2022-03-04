@@ -5,7 +5,7 @@ RUN apk add --no-cache git
 ARG OSCAL_REACT_GIT_REPO=https://github.com/EasyDynamics/oscal-react-library
 ARG OSCAL_REACT_GIT_BRANCH=develop
 ARG OSCAL_REACT_DIR=oscal-react-library
-ARG OSCAL_REST_BASE_URL=http://localhost:8080/oscal/v1
+ARG OSCAL_REST_BASE_URL=/oscal/v1
 ARG VIEWER_PATH
 
 WORKDIR /app
