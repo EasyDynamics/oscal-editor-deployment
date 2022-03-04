@@ -108,6 +108,10 @@ jobs:
             type=semver,pattern={{major}}.{{minor}}
             type=edge,branch=main
             type=raw,value=latest,enable=${{ github.ref == 'refs/heads/main' }}
+          labels: |
+            org.opencontainers.image.title=oscal-editor-all-in-one
+            org.opencontainers.image.description=Simple Docker deployment of the back-end services and web-based user interface for the OSCAL Editor
+            org.opencontainers.image.vendor=Easy Dynamics
 
       - name: Push to Container Registries
         if: ${{ github.event_name != 'pull_request' }}
