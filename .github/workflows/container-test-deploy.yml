@@ -76,6 +76,10 @@ jobs:
             ./end-to-end-tests/cypress/screenshots
             ./end-to-end-tests/cypress/videos
 
+      - name: Output Docker Container Logs
+        run: |
+          docker logs ${CONTAINER_NAME}
+
       - name: Stop Running Container
         run:
           docker stop ${CONTAINER_NAME}
