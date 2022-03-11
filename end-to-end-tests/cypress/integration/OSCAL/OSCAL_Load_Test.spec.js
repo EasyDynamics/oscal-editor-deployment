@@ -37,7 +37,7 @@ describe('Test Editing System Security Plan Source', () => {
     cy.contains('Select OSCAL SSP').parent().click()
     cy.contains('Enterprise Logging and Auditing System Security Plan').click()
     cy.contains('Enterprise Logging and Auditing System Security Plan').should('be.visible')
-    const findKeystroke = Cypress.platform === 'win32' ? '{ctrl}f' : '{meta}f'
+    const findKeystroke = Cypress.platform === 'darwin' ? '{meta}f' : '{ctrl}f'
     cy.get('.monaco-editor textarea:first')
       .type(findKeystroke).focused().type('Enterprise Logging and Auditing System Security Plan')
       .type('{esc}').focused().type('Even Better SSP')
