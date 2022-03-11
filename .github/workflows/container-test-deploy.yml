@@ -55,6 +55,7 @@ jobs:
       # Cypress uses to run the tests.
       - name: Run Docker Container for Tests
         run: |
+          chmod g+w $(pwd)/all-in-one/oscal-content;
           docker run --rm -p 8080:8080 \
           -v $(pwd)/all-in-one/oscal-content:/app/oscal-content \
           --name ${CONTAINER_NAME} ${IMAGE_NAME} &
