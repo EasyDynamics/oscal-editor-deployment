@@ -39,14 +39,14 @@ describe('Test Editing System Security Plan Source', () => {
     cy.contains('Enterprise Logging and Auditing System Security Plan').should('be.visible')
     const findKeystroke = Cypress.platform === 'darwin' ? '{meta}f' : '{ctrl}f'
     cy.get('.monaco-editor textarea:first')
-      .type(findKeystroke).focused().type('Enterprise Logging and Auditing System Security Plan')
-      .type('{esc}').focused().type('Even Better SSP')
+      .type(findKeystroke).focused().type('Enterprise Logging and Auditing System Security Plan', {force: true})
+      .type('{esc}', {force: true}).focused().type('Even Better SSP', {force: true})
     cy.contains('Save').click()
     cy.contains('Even Better SSP').should('be.visible')
     // Return to previous state
     cy.get('.monaco-editor textarea:first')
-      .type(findKeystroke).focused().type('Even Better SSP')
-      .type('{esc}').focused().type('Enterprise Logging and Auditing System Security Plan')
+      .type(findKeystroke).focused().type('Even Better SSP', {force: true})
+      .type('{esc}', {force: true}).focused().type('Enterprise Logging and Auditing System Security Plan', {force: true})
     cy.contains('Save').click()
     cy.contains('Enterprise Logging and Auditing System Security Plan').should('be.visible')
   })
