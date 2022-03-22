@@ -26,7 +26,32 @@ describe('Test Loading System Security Plans', () => {
     cy.contains('This is the control implementation for the system.').should('be.visible')
   })
 })
-    
+
+describe('Test Editing System Security Plan Source', () => {
+  it('Successfully Edits SSP Source', () => {
+    cy.visit(Cypress.env('base_url')) 
+    cy.findByText('OSCAL Catalog Viewer').should('exist')
+    cy.get('button').first().click()
+    cy.contains('System Security Plan Viewer').click()
+    cy.findByText('OSCAL System Security Plan Viewer').should('be.visible')
+    cy.contains('Select OSCAL SSP').parent().click()
+    cy.contains('Enterprise Logging and Auditing System Security Plan').click()
+    cy.contains('Enterprise Logging and Auditing System Security Plan').should('be.visible')
+    const findKeystroke = Cypress.platform === 'darwin' ? '{meta}f' : '{ctrl}f'
+    cy.get('.monaco-editor textarea:first')
+      .type(findKeystroke).focused().type('Enterprise Logging and Auditing System Security Plan', {force: true})
+      .type('{esc}', {force: true}).focused().type('Even Better SSP', {force: true})
+    cy.contains('Save').click()
+    cy.contains('Even Better SSP').should('be.visible')
+    // Return to previous state
+    cy.get('.monaco-editor textarea:first')
+      .type(findKeystroke).focused().type('Even Better SSP', {force: true})
+      .type('{esc}', {force: true}).focused().type('Enterprise Logging and Auditing System Security Plan', {force: true})
+    cy.contains('Save').click()
+    cy.contains('Enterprise Logging and Auditing System Security Plan').should('be.visible')
+  })
+})
+
 describe('Test Loading Component Definitions', () => {
   it('Successfully Loads Components by REST Mode', () => {
     cy.visit(Cypress.env('base_url')) 
