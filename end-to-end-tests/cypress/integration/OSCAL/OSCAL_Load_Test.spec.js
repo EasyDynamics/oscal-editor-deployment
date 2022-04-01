@@ -27,6 +27,28 @@ describe('Test Loading System Security Plans', () => {
   })
 })
 
+describe('Test Editing System Security Plan Title', () => {
+  it('Successfully Edits SSP Title', () => {
+    cy.visit(Cypress.env('base_url')) 
+    cy.findByText('OSCAL Catalog Viewer').should('exist')
+    cy.get('button').first().click()
+    cy.contains('System Security Plan Viewer').click()
+    cy.findByText('OSCAL System Security Plan Viewer').should('be.visible')
+    cy.contains('Select OSCAL SSP').parent().click()
+    cy.contains('Enterprise Logging and Auditing System Security Plan').click()
+    cy.contains('Enterprise Logging and Auditing System Security Plan').should('be.visible')
+    cy.get(`[aria-label="edit-system-security-plan-metadata-title"]`).click()
+    cy.get(`[data-testid="textField-system-security-plan-metadata-title"]`).click().clear().type('Another SSP')
+    cy.get(`[aria-label="save-system-security-plan-metadata-title"]`).click()
+    cy.contains('Another SSP').should('be.visible')
+    // Return to previous state
+    cy.get(`[aria-label="edit-system-security-plan-metadata-title"]`).click()
+    cy.get(`[data-testid="textField-system-security-plan-metadata-title"]`).click().clear().type('Enterprise Logging and Auditing System Security Plan')
+    cy.get(`[aria-label="save-system-security-plan-metadata-title"]`).click()
+    cy.contains('Enterprise Logging and Auditing System Security Plan').should('be.visible')
+  })
+})
+
 describe('Test Editing System Security Plan Source', () => {
   it('Successfully Edits SSP Source', () => {
     cy.visit(Cypress.env('base_url')) 
