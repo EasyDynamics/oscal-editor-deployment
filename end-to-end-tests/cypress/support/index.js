@@ -18,3 +18,14 @@ import './commands'
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
+
+Cypress.on('uncaught:exception', (err, runnable) => {
+  // monaco-editor sometimes throws errors when reloading
+  // and we don't want to fail the test so we return false
+  if (err.message.includes("Failed to execute 'importScripts' on 'WorkerGlobalScope'")) {
+    return false
+  }
+  if (err.message.includes("Cannot read properties of null (reading 'getText')")) {
+    return false
+  }
+})
