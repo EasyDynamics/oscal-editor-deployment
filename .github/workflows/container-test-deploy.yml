@@ -72,7 +72,7 @@ jobs:
       # Upload the screenshots and videos of a Cypress test failure
       # to the artifacts of this workflow on GitHub
       - name: Upload Cypress Artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         if: always()
         with:
           name: cypress-results
