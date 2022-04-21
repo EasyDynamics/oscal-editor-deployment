@@ -1,4 +1,4 @@
-FROM node:17.9.0-alpine as build-viewer
+FROM node:18.0.0-alpine as build-viewer
 
 RUN apk add --no-cache git
 
