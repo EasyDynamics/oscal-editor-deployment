@@ -36,15 +36,6 @@ assert-required-commands() (
   exit "$missing"
 )
 
-unauthenticated-v3-api-request() (
-  local url="$1"
-
-  curl \
-    -sL \
-    -H "Accept: application/vnd.github.v3+json" \
-    "$url"
-)
-
 authenticated-v3-api-request() (
   local url="$1"
   local token="$2"
@@ -67,14 +58,7 @@ authenticated-pkg-api-request() (
 )
 
 get-viewer-zip() (
-  local request_url="https://api.github.com/repos/EasyDynamics/oscal-react-library/releases/latest"
-  local zip_url
-
-  zip_url="$(unauthenticated-v3-api-request "$request_url" | jq --raw-output '.assets[] | select(.name=="oscal-viewer.zip") | .browser_download_url' )"
-  if [ "$?" -ne 0 ] || [ -z "$zip_url" ] ; then
-    echo "!!! Unable to get download url for OSCAL React Viewer"
-    exit 1
-  fi
+  local zip_url="https://github.com/EasyDynamics/oscal-react-library/releases/latest/download/oscal-viewer.zip"
 
   local output="./viewer.zip"
   if ! curl -sL -o "$output" "$zip_url"; then
@@ -153,7 +137,6 @@ main() (
   fi
 
   unzip -qo ./viewer.zip -d ./viewer
-  cp -r viewer/build .
 
   echo "==> Fetching OSCAL REST Service JAR file"
 
