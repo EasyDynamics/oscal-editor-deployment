@@ -25,14 +25,6 @@ jobs:
           sudo apt-get update
           sudo apt-get install jq xmlstarlet curl wget
 
-      # Install the latest versions of the OSCAL Viewer and
-      # OSCAL REST Service from GitHub packages
-      - name: Pull OSCAL Viewer and OSCAL REST Service
-        run: ./packages_pull.sh
-        working-directory: all-in-one
-        env:
-          OSCAL_EDITOR_GITHUB_PACKAGES_PAT: ${{ secrets.GITHUB_TOKEN }}
-
       # Get Default OSCAL Content for testing
       - name: Pull OSCAL Content
         uses: actions/checkout@v3
@@ -50,9 +42,6 @@ jobs:
           context: ./all-in-one
           load: true
           tags: ${{ env.IMAGE_NAME }}
-          build-args: |
-            VIEWER_PATH=./viewer
-            REST_PATH=./oscal-rest-service.jar
 
       # Run container in the background, exposing the port that
       # Cypress uses to run the tests.
@@ -133,6 +122,3 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          build-args: |
-            VIEWER_PATH=./viewer
-            REST_PATH=./oscal-rest-service.jar
