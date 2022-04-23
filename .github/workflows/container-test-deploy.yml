@@ -50,6 +50,9 @@ jobs:
           context: ./all-in-one
           load: true
           tags: ${{ env.IMAGE_NAME }}
+          build-args: |
+            VIEWER_PATH=./viewer
+            REST_PATH=./oscal-rest-service.jar
 
       # Run container in the background, exposing the port that
       # Cypress uses to run the tests.
@@ -130,3 +133,6 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          build-args: |
+            VIEWER_PATH=./viewer
+            REST_PATH=./oscal-rest-service.jar
