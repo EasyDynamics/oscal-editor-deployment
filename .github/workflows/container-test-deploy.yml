@@ -25,14 +25,6 @@ jobs:
           sudo apt-get update
           sudo apt-get install jq xmlstarlet curl wget
 
-      # Install the latest versions of the OSCAL Viewer and
-      # OSCAL REST Service from GitHub packages
-      - name: Pull OSCAL Viewer and OSCAL REST Service
-        run: ./packages_pull.sh
-        working-directory: all-in-one
-        env:
-          OSCAL_EDITOR_GITHUB_PACKAGES_PAT: ${{ secrets.GITHUB_TOKEN }}
-
       # Get Default OSCAL Content for testing
       - name: Pull OSCAL Content
         uses: actions/checkout@v3
