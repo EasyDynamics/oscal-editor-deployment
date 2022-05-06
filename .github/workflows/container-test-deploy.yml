@@ -99,7 +99,7 @@ jobs:
       - name: Extract metadata for Docker
         if: ${{ github.event_name != 'pull_request' }}
         id: meta
-        uses: docker/metadata-action@v3
+        uses: docker/metadata-action@v4
         with:
           images: |
             easydynamics/${{ env.IMAGE_NAME }}
