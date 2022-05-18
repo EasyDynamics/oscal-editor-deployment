@@ -1,6 +1,6 @@
 {
   "devDependencies": {
-    "@cypress/react": "^5.12.4",
+    "@cypress/react": "^5.12.5",
     "@cypress/webpack-dev-server": "^1.8.4",
     "@testing-library/cypress": "^8.0.2",
     "@testing-library/dom": "^8.13.0",
