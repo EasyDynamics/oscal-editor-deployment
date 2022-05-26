@@ -53,3 +53,12 @@ Cypress.Commands.add('navToCdefViewer', () => {
     'OSCAL Component Viewer'
   ) 
 })
+
+Cypress.Commands.add('getInputByLabel', (label) => {
+  cy.contains('label', label)
+    .invoke('attr', 'for')
+    .then((id) => {
+      //cy.get('#' + id)
+      cy.get(`input[id="${id}"]`)
+    })
+})

@@ -33,3 +33,27 @@ describe('Test Editing System Security Plan Source', () => {
     cy.contains(SSP_TITLE_ORIG).should('be.visible')
   })
 })
+
+describe('Test Editing Existing SSP Impl Req Statement', () => {
+  it('Successfully Edits Existing SSP Impl Req Statement', () => {
+    const PARAM_VALUE_ORIG = 'all staff and contractors within the organization';
+    const PARAM_VALUE_NEW = 'some other param value';
+    cy.navToTestSspRestMode(SSP_TITLE_ORIG)
+    cy.contains('button', 'Enterprise Logging, Monitoring, and Alerting Policy').click()
+    cy.get(`[aria-label="edit-bycomponent-795533ab-9427-4abe-820f-0b571bacfe6d-statement-au-1_smt.a"]`).click()
+    cy.getInputByLabel('au-1_prm_1').clear().type(PARAM_VALUE_NEW)
+    cy.intercept('GET', '/oscal/v1/system-security-plans/*').as('getSsp')
+    cy.get(`[aria-label="save-au-1_smt.a"]`).click({force: true})
+    cy.wait('@getSsp')
+    // Verify updated value
+    cy.contains('button', 'Enterprise Logging, Monitoring, and Alerting Policy').click()
+    cy.contains(PARAM_VALUE_NEW).should('be.visible')
+    // Return to previous state
+    cy.get(`[aria-label="edit-bycomponent-795533ab-9427-4abe-820f-0b571bacfe6d-statement-au-1_smt.a"]`).click()
+    cy.getInputByLabel('au-1_prm_1').clear().type(PARAM_VALUE_ORIG)
+    cy.get(`[aria-label="save-au-1_smt.a"]`).click({force: true})
+    cy.wait('@getSsp')
+    cy.contains('button', 'Enterprise Logging, Monitoring, and Alerting Policy').click()
+    cy.contains(PARAM_VALUE_ORIG).should('be.visible')
+  })
+})
