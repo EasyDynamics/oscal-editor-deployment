@@ -81,7 +81,11 @@ files may be passed to the `VIEWER_PATH` and `REST_PATH` build args as described
 
 ### Creating the Image
 
-The image can be built by running `docker build --tag oscal-editor-all-in-one .`.
+The image can be built by running
+
+```bash
+docker build --tag oscal-editor-all-in-one .
+```
 
 By default, the `Dockerfile` will build the OSCAL Viewer from source unless the `VIEWER_PATH` build argument is
 provided and will build the OSCAL REST Service from source unless the `REST_PATH` build argument is provided.
