@@ -62,3 +62,15 @@ Cypress.Commands.add('getInputByLabel', (label) => {
       cy.get(`input[id="${id}"]`)
     })
 })
+
+Cypress.Commands.add('getTestSspJson', () => {
+  cy.request('GET', `${Cypress.env('base_url')}/oscal/v1/system-security-plans/cff8385f-108e-40a5-8f7a-82f3dc0eaba8`).then(
+    (response) => {
+      return cy.wrap(response.body)
+    }
+  )
+})
+
+Cypress.Commands.add('setTestSspJson', (sspJson) => {
+  cy.request('PUT', `${Cypress.env('base_url')}/oscal/v1/system-security-plans/cff8385f-108e-40a5-8f7a-82f3dc0eaba8`, sspJson)
+})
