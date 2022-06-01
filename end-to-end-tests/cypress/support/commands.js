@@ -64,7 +64,7 @@ Cypress.Commands.add('getInputByLabel', (label) => {
 })
 
 Cypress.Commands.add('getTestSspJson', () => {
-  cy.request('GET', `${Cypress.env('api_url')}/oscal/v1/system-security-plans/cff8385f-108e-40a5-8f7a-82f3dc0eaba8`).then(
+  cy.request('GET', `${Cypress.env('api_url')}/system-security-plans/cff8385f-108e-40a5-8f7a-82f3dc0eaba8`).then(
     (response) => {
       return cy.wrap(response.body)
     }
@@ -72,5 +72,5 @@ Cypress.Commands.add('getTestSspJson', () => {
 })
 
 Cypress.Commands.add('setTestSspJson', (sspJson) => {
-  cy.request('PUT', `${Cypress.env('api_url')}/oscal/v1/system-security-plans/cff8385f-108e-40a5-8f7a-82f3dc0eaba8`, sspJson)
+  cy.request('PUT', `${Cypress.env('api_url')}/system-security-plans/cff8385f-108e-40a5-8f7a-82f3dc0eaba8`, sspJson)
 })
