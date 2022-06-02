@@ -24,3 +24,53 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 import '@testing-library/cypress/add-commands';
+
+Cypress.Commands.add('navToViewer', (viewerLinkText, titleText) => {
+  cy.visit(Cypress.env('base_url'))
+  cy.findByText('OSCAL Catalog Viewer').should('exist')
+  cy.get('button').first().click()
+  cy.contains(viewerLinkText).click()
+  cy.findByText(titleText).should('be.visible')
+})
+
+Cypress.Commands.add('navToSspViewer', () => {
+  cy.navToViewer(
+    'System Security Plan Viewer',
+    'OSCAL System Security Plan Viewer'
+  ) 
+})
+
+Cypress.Commands.add('navToTestSspRestMode', (sspTitle) => {
+  cy.navToSspViewer()
+  cy.contains('Select OSCAL SSP').parent().click()
+  cy.contains(sspTitle).click()
+  cy.contains(sspTitle).should('be.visible')
+})
+
+Cypress.Commands.add('navToCdefViewer', () => {
+  cy.navToViewer(
+    'Component Viewer',
+    'OSCAL Component Viewer'
+  ) 
+})
+
+Cypress.Commands.add('getInputByLabel', (label) => {
+  cy.contains('label', label)
+    .invoke('attr', 'for')
+    .then((id) => {
+      //cy.get('#' + id)
+      cy.get(`input[id="${id}"]`)
+    })
+})
+
+Cypress.Commands.add('getTestSspJson', () => {
+  cy.request('GET', `${Cypress.env('api_url')}/system-security-plans/cff8385f-108e-40a5-8f7a-82f3dc0eaba8`).then(
+    (response) => {
+      return cy.wrap(response.body)
+    }
+  )
+})
+
+Cypress.Commands.add('setTestSspJson', (sspJson) => {
+  cy.request('PUT', `${Cypress.env('api_url')}/system-security-plans/cff8385f-108e-40a5-8f7a-82f3dc0eaba8`, sspJson)
+})
