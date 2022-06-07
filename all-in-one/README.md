@@ -4,12 +4,14 @@ Simple Docker deployment of the back-end services and web-based user interface f
 
 ## Pulling the Image
 
-The Docker image is hosted on the [GitHub Container Registry](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry).
+The Docker image is hosted on [Docker Hub](https://hub.docker.com/r/easydynamics/oscal-editor-all-in-one) and the [GitHub Container Registry](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry).
 
 You can pull the image by running:
 ```
 docker pull ghcr.io/easydynamics/oscal-editor-all-in-one
 ```
+
+Note that you may need to authenticate first using `docker login`.
 
 ## OSCAL Content Directory
 
@@ -23,7 +25,7 @@ oscal-content/
 ├── profiles
 └── system-security-plans
 ```
-Each of the four sub-directories should contain the .json OSCAL files of their respective schemas.
+Each of the four sub-directories should contain the **JSON** OSCAL files of their respective schemas.
 
 Example OSCAL content can be downloaded from [Easy Dynamics' demo OSCAL content repo](https://github.com/EasyDynamics/oscal-demo-content). To clone the content, run:
 
