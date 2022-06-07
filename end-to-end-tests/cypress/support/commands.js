@@ -27,7 +27,7 @@ import '@testing-library/cypress/add-commands';
 
 Cypress.Commands.add('navToViewer', (viewerLinkText, titleText) => {
   cy.visit(Cypress.env('base_url'))
-  cy.findByText('OSCAL Catalog Viewer').should('exist')
+  cy.findByText('OSCAL Catalog Editor').should('exist')
   cy.get('button').first().click()
   cy.contains(viewerLinkText).click()
   cy.findByText(titleText).should('be.visible')
@@ -35,8 +35,8 @@ Cypress.Commands.add('navToViewer', (viewerLinkText, titleText) => {
 
 Cypress.Commands.add('navToSspViewer', () => {
   cy.navToViewer(
-    'System Security Plan Viewer',
-    'OSCAL System Security Plan Viewer'
+    'System Security Plan Editor',
+    'OSCAL System Security Plan Editor'
   ) 
 })
 
@@ -49,8 +49,8 @@ Cypress.Commands.add('navToTestSspRestMode', (sspTitle) => {
 
 Cypress.Commands.add('navToCdefViewer', () => {
   cy.navToViewer(
-    'Component Viewer',
-    'OSCAL Component Viewer'
+    'Component Editor',
+    'OSCAL Component Editor'
   ) 
 })
 
