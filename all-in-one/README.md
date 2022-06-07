@@ -25,7 +25,7 @@ oscal-content/
 ├── profiles
 └── system-security-plans
 ```
-Each of the four sub-directories should contain the **JSON** OSCAL files of their respective schemas.
+Each of the four sub-directories should contain the **JSON** OSCAL files of their respective schemas.  There are tools available to convert other OSCAL formats to JSON such as [NIST's XSL converters](https://github.com/usnistgov/OSCAL/tree/main/json/convert).
 
 Example OSCAL content can be downloaded from [Easy Dynamics' demo OSCAL content repo](https://github.com/EasyDynamics/oscal-demo-content). To clone the content, run:
 
