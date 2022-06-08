@@ -1,6 +1,6 @@
 # All-in-One Deployment
 
-Simple Docker deployment of the back-end services and web-based user interface for the OSCAL Editor.
+Simple Docker deployment of the back-end services and web-based user interface for the the Open Security Controls Assessment Language (OSCAL) Editor.
 
 ## Pulling the Image
 
@@ -122,3 +122,9 @@ most cases this is not necessary as the `_GIT_BRANCH` build arguments support bo
 The container can be tested using end-to-end Cypress tests.
 
 More information on testing can be found in [end-to-end-tests.](../end-to-end-tests)
+
+## Reporting Issues
+
+If you experience any issues while running the deployment, open a new issue at: https://github.com/EasyDynamics/oscal-demo-content/issues and
+provide a descriptive message about the problem.
+
