@@ -61,5 +61,5 @@ For information on locally building and testing, please see [BUILDING-TESTING.md
 
 ## Reporting Issues
 
-If you experience any issues while running the deployment, open a new issue at: https://github.com/EasyDynamics/oscal-demo-content/issues and
+If you experience any issues while running the deployment, open a new issue at: https://github.com/EasyDynamics/oscal-editor-deployment/issues and
 provide a descriptive message about the problem.
