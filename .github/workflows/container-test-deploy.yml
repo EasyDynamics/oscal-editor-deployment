@@ -130,6 +130,6 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
-          repository: peterevans/dockerhub-description
+          repository: easydynamics/oscal-editor-all-in-one
           short-description: A back-end service and web-based UI for the OSCAL Editor.
           readme-filepath: all-in-one/README.md
