@@ -51,7 +51,7 @@ If needed, the directory and sub-directory paths of the OSCAL content directory 
 - `PERSISTENCE_FILE_CATALOGS_PATH`
 - `PERSISTENCE_FILE_COMPONENT_DEFINITIONS_PATH`
 - `PERSISTENCE_FILE_PROFILES_PATH`
-- `PERSISTENcE_FILE_SSPS_PATH`
+- `PERSISTENCE_FILE_SSPS_PATH`
 
 The environment variables can be set using the `-e` flag of the `docker run` command.
 
