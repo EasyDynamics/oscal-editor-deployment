@@ -1,10 +1,10 @@
 {
   "devDependencies": {
-    "@cypress/react": "^5.12.5",
-    "@cypress/webpack-dev-server": "^1.8.4",
+    "@cypress/react": "^6.0.0",
+    "@cypress/webpack-dev-server": "^2.0.0",
     "@testing-library/cypress": "^8.0.3",
     "@testing-library/dom": "^8.13.0",
-    "cypress": "^9.7.0"
+    "cypress": "^10.1.0"
   },
   "name": "oscal-editor-testing",
   "description": "Automated testing of the OSCAL Editor.",
