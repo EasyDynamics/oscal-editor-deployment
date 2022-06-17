@@ -54,7 +54,7 @@ jobs:
           --name ${CONTAINER_NAME} ${IMAGE_NAME} &
 
       - name: Run Cypress Tests
-        uses: cypress-io/github-action@v2
+        uses: cypress-io/github-action@v4.1.0
         env:
           DEBUG: '@cypress/github-action'
         with:
