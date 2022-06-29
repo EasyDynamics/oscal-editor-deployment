@@ -40,6 +40,24 @@ Cypress.Commands.add('navToSspViewer', () => {
   ) 
 })
 
+Cypress.Commands.add('navToCdefViewer', () => {
+  cy.navToViewer(
+    'Component Editor',
+    'OSCAL Component Editor'
+  ) 
+})
+Cypress.Commands.add('navToProfileViewer', () => {
+  cy.navToViewer(
+    'Profile Editor',
+    'OSCAL Profile Editor'
+  ) 
+})
+Cypress.Commands.add('navToCatalogViewer', () => {
+  cy.navToViewer(
+    'Catalog Editor',
+    'OSCAL Catalog Editor'
+  ) 
+})
 Cypress.Commands.add('navToTestSspRestMode', (sspTitle) => {
   cy.navToSspViewer()
   cy.contains('Select OSCAL SSP').parent().click()
@@ -47,12 +65,6 @@ Cypress.Commands.add('navToTestSspRestMode', (sspTitle) => {
   cy.contains(sspTitle).should('be.visible')
 })
 
-Cypress.Commands.add('navToCdefViewer', () => {
-  cy.navToViewer(
-    'Component Editor',
-    'OSCAL Component Editor'
-  ) 
-})
 
 Cypress.Commands.add('getInputByLabel', (label) => {
   cy.contains('label', label)
