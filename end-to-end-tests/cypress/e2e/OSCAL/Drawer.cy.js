@@ -6,12 +6,21 @@ const SSP_TITLE_ORIG = "Enterprise Logging and Auditing System Security Plan";
 const COMP_DEF_TITLE_ORIG = "Test Component Definition";
 
 describe("Test can navigate to Drawer Components", () => {
-  it("Successfully Loads each Drawer Component", () => {
-    cy.navToTestSspRestMode(SSP_TITLE_ORIG);
+  // it("Successfully Loads Catalog Viewer", () => {
+  //       cy.navToProfileViewer();
 
-    cy.navToProfileViewer();
-    cy.navToCdefViewer();
-    cy.navToCatalogViewer();
+  //   cy.navToCatalogViewer();
+  // });
+  
+  // it("Successfully Loads Profile Component", () => {
+  //   cy.navToProfileViewer();
+  // });
+  
+  // it("Successfully Loads Component Viewer", () => {
+  //   cy.navToCdefViewer();
+  // });
+  
+  it("Successfully Loads SSP Viewer", () => {
     cy.navToSspViewer();
   });
 });
