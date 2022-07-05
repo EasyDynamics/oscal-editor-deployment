@@ -3,7 +3,7 @@ const COMP_DEF_TITLE_ORIG = 'Test Component Definition'
 
 describe('Test Loading System Security Plans', () => {
   it('Successfully Loads SSPs by REST Mode', () => {
-    cy.navToTestSspRestMode(SSP_TITLE_ORIG)
+    cy.navToSspViewer();
     cy.get(`[aria-label="show code"]`).click()
     cy.scrollTo('bottom')
     cy.contains('This is the control implementation for the system.').should('be.visible')
@@ -22,8 +22,6 @@ describe('Test Loading System Security Plans', () => {
 describe('Test Loading Component Definitions', () => {
   it('Successfully Loads Components by REST Mode', () => {
     cy.navToCdefViewer()
-    cy.contains('Select OSCAL Component').parent().click()
-    cy.contains(COMP_DEF_TITLE_ORIG).click()
     cy.contains(COMP_DEF_TITLE_ORIG).should('be.visible')
     cy.contains('Test Vendor').should('be.visible')
     cy.scrollTo('bottom')

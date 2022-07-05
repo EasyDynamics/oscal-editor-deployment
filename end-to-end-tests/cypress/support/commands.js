@@ -33,35 +33,26 @@ const PROFILE_NAVIGATION =
 
 Cypress.Commands.add(
   "navToViewer",
-  (viewerLinkText, titleText, navigationProfile) => {
+  (viewerLinkText, navigationProfile) => {
     cy.visit(Cypress.env("base_url"));
-    // cy.findByText('OSCAL Catalog Editor').should('exist')
     cy.get("button").first().click();
-    // cy.pause()
     cy.contains(viewerLinkText).click();
     cy.contains(navigationProfile).click();
-    cy.findByText(titleText).should("be.visible");
   }
 );
 
 Cypress.Commands.add("navToSspViewer", () => {
-  cy.navToViewer("SSP", "OSCAL System Security Plan Editor", SSP_NAVIGATION);
+  cy.navToViewer("SSP", SSP_NAVIGATION);
 });
 
 Cypress.Commands.add("navToCdefViewer", () => {
-  cy.navToViewer("Component", "OSCAL Component Editor", COMPONENT_NAVIGATION);
+  cy.navToViewer("Component",  COMPONENT_NAVIGATION);
 });
 Cypress.Commands.add("navToProfileViewer", () => {
-  cy.navToViewer("Profile", "OSCAL Profile Editor", PROFILE_NAVIGATION);
+  cy.navToViewer("Profile", PROFILE_NAVIGATION);
 });
 Cypress.Commands.add("navToCatalogViewer", () => {
-  cy.navToViewer("Catalog", "OSCAL Catalog Editor", CATALOG_NAVIGATION);
-});
-Cypress.Commands.add("navToTestSspRestMode", (sspTitle) => {
-  cy.navToSspViewer();
-  cy.contains("Select OSCAL SSP").parent().click();
-  cy.contains(sspTitle).click();
-  cy.contains(sspTitle).should("be.visible");
+  cy.navToViewer("Catalog", CATALOG_NAVIGATION);
 });
 
 Cypress.Commands.add("getInputByLabel", (label) => {
