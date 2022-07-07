@@ -24,35 +24,32 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 import "@testing-library/cypress/add-commands";
-const SSP_NAVIGATION = "Enterprise Logging and Auditing System Security Plan";
-const CATALOG_NAVIGATION =
-  "NIST Special Publication 800-53 Revision 5: Security and Privacy Controls for Federal Information Systems and Organizations";
-const COMPONENT_NAVIGATION = "Test Component Definition";
-const PROFILE_NAVIGATION =
-  "NIST Special Publication 800-53 Revision 4 MODERATE IMPACT BASELINE";
 
 Cypress.Commands.add(
   "navToViewer",
   (viewerLinkText, navigationProfile) => {
     cy.visit(Cypress.env("base_url"));
     cy.get("button").first().click();
+    cy.wait(750);
     cy.contains(viewerLinkText).click();
     cy.contains(navigationProfile).click();
   }
 );
 
-Cypress.Commands.add("navToSspViewer", () => {
-  cy.navToViewer("SSP", SSP_NAVIGATION);
+Cypress.Commands.add("navToSspViewer", (toNavigate) => {
+  cy.navToViewer("SSP", toNavigate);
 });
 
-Cypress.Commands.add("navToCdefViewer", () => {
-  cy.navToViewer("Component",  COMPONENT_NAVIGATION);
+Cypress.Commands.add("navToCdefViewer", (toNavigate) => {
+  cy.navToViewer("Component",  toNavigate);
 });
-Cypress.Commands.add("navToProfileViewer", () => {
-  cy.navToViewer("Profile", PROFILE_NAVIGATION);
+
+Cypress.Commands.add("navToProfileViewer", (toNavigate) => {
+  cy.navToViewer("Profile", toNavigate);
 });
-Cypress.Commands.add("navToCatalogViewer", () => {
-  cy.navToViewer("Catalog", CATALOG_NAVIGATION);
+
+Cypress.Commands.add("navToCatalogViewer", (toNavigate) => {
+  cy.navToViewer("Catalog", toNavigate);
 });
 
 Cypress.Commands.add("getInputByLabel", (label) => {
