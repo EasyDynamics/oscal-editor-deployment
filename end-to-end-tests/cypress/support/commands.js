@@ -25,23 +25,20 @@
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 import "@testing-library/cypress/add-commands";
 
-Cypress.Commands.add(
-  "navToViewer",
-  (viewerLinkText, navigationProfile) => {
-    cy.visit(Cypress.env("base_url"));
-    cy.get("button").first().click();
-    cy.wait(750);
-    cy.contains(viewerLinkText).click();
-    cy.contains(navigationProfile).click();
-  }
-);
+Cypress.Commands.add("navToViewer", (viewerLinkText, navigationProfile) => {
+  cy.visit(Cypress.env("base_url"));
+  cy.get("button").first().click();
+  cy.wait(1000);
+  cy.contains(viewerLinkText).click();
+  cy.contains(navigationProfile).click();
+});
 
 Cypress.Commands.add("navToSspViewer", (toNavigate) => {
   cy.navToViewer("SSP", toNavigate);
 });
 
 Cypress.Commands.add("navToCdefViewer", (toNavigate) => {
-  cy.navToViewer("Component",  toNavigate);
+  cy.navToViewer("Component", toNavigate);
 });
 
 Cypress.Commands.add("navToProfileViewer", (toNavigate) => {

@@ -42,50 +42,47 @@ describe("Test can navigate to Drawer Components", () => {
   });
 });
 
-describe("Test can navigation in REST Mode toggle", () => {
+describe("Test can navigate with REST mode off", () => {
+  let origSspJson;
+  before(() => {
+    cy.getTestSspJson().then((result) => (origSspJson = result));
+  });
+  afterEach(() => {
+    cy.setTestSspJson(origSspJson);
+  });
 
-it("Successfully Loads Profile Version 4", () => {
+  it("Successfully Loads Catalog in non REST", () => {
+    cy.navToCatalogViewer(CATALOG_NAVIGATION);
+    cy.contains("REST Mode").click();
+    cy.contains("Catalog");
+    cy.contains(CATALOG_NAVIGATION);
+  });
 
-  cy.navToProfileViewer(PROFILE_NAVIGATION_V4);
-  cy.contains("REST Mode").click();
-  cy.contains("Profile");
-  cy.contains(PROFILE_NAVIGATION_V4);
-  cy.contains("REST Mode").click();
-  cy.contains("Profile");
-  cy.contains(PROFILE_NAVIGATION_V4);
+  it("Successfully Loads Profile Version 4 in non REST", () => {
+    cy.navToProfileViewer(PROFILE_NAVIGATION_V4);
+    cy.contains("REST Mode").click();
+    cy.contains("Profile");
+    cy.contains(PROFILE_NAVIGATION_V4);
+  });
 
-});
-// it("Successfully Loads Profile Version 5", () => {
+  it("Successfully Loads Profile Version 5 in non REST", () => {
+    cy.navToProfileViewer(PROFILE_NAVIGATION_V5);
+    cy.contains("REST Mode").click();
+    cy.contains("Profile");
+    cy.contains(PROFILE_NAVIGATION_V4);
+  });
 
-// cy.navToProfileViewer(PROFILE_NAVIGATION_V5);
-// cy.contains("REST Mode").click();
-// cy.contains("Profile");
-// cy.contains(PROFILE_NAVIGATION_V5);
-// cy.contains("REST Mode").click();
-// cy.contains("Profile");
-// cy.contains(PROFILE_NAVIGATION_V4);
+  it("Successfully Loads Test Component in non REST", () => {
+    cy.navToCdefViewer(COMPONENT_NAVIGATION);
+    cy.contains("REST Mode").click();
+    cy.contains("Component");
+    cy.contains(COMPONENT_NAVIGATION);
+  });
 
-// });
-// it("Successfully Loads MongoDB Component", () => {
-
-//   cy.navToCdefViewer(MONGODB_NAVIGATION);
-//   cy.contains("REST Mode").click();
-//   cy.contains("Component");
-//   cy.contains(MONGODB_NAVIGATION);
-//   cy.contains("REST Mode").click();
-//   // cy.contains("Component");
-//   // cy.contains(MONGODB_NAVIGATION);
-
-// });
-// it("Successfully Loads test Component", () => {
-
-//   cy.navToCdefViewer(COMPONENT_NAVIGATION);
-//   cy.contains("REST Mode").click();
-//   cy.contains("Component");
-//   cy.contains(COMPONENT_NAVIGATION);
-//   cy.contains("REST Mode").click();
-//   // cy.contains("Component");
-//   // cy.contains(COMPONENT_NAVIGATION);
-
-// });
+  it("Successfully Loads SSP in non REST", () => {
+    cy.navToSspViewer(SSP_NAVIGATION);
+    cy.contains("REST Mode").click();
+    cy.contains("SSP");
+    cy.contains(SSP_NAVIGATION);
+  });
 });
