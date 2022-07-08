@@ -42,19 +42,19 @@ describe("Test can navigate to Drawer Components", () => {
   });
 });
 
-// describe("Test can navigation in REST Mode toggle", () => {
+describe("Test can navigation in REST Mode toggle", () => {
 
-// it("Successfully Loads Profile Version 4", () => {
+it("Successfully Loads Profile Version 4", () => {
 
-//   cy.navToProfileViewer(PROFILE_NAVIGATION_V4);
-//   cy.contains("REST Mode").click();
-//   cy.contains("Profile");
-//   cy.contains(PROFILE_NAVIGATION_V4);
-//   cy.contains("REST Mode").click();
-//   cy.contains("Profile");
-//   cy.contains(PROFILE_NAVIGATION_V4);
+  cy.navToProfileViewer(PROFILE_NAVIGATION_V4);
+  cy.contains("REST Mode").click();
+  cy.contains("Profile");
+  cy.contains(PROFILE_NAVIGATION_V4);
+  cy.contains("REST Mode").click();
+  cy.contains("Profile");
+  cy.contains(PROFILE_NAVIGATION_V4);
 
-// });
+});
 // it("Successfully Loads Profile Version 5", () => {
 
 // cy.navToProfileViewer(PROFILE_NAVIGATION_V5);
@@ -88,4 +88,4 @@ describe("Test can navigate to Drawer Components", () => {
 //   // cy.contains(COMPONENT_NAVIGATION);
 
 // });
-// });
+});
