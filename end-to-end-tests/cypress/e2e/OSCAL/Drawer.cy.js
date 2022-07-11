@@ -1,7 +1,3 @@
-/*catalog Editor
-Profile Editor
-Component Editor
-System Security Plan Editor */
 const SSP_NAVIGATION = "Enterprise Logging and Auditing System Security Plan";
 const CATALOG_NAVIGATION =
   "NIST Special Publication 800-53 Revision 5: Security and Privacy Controls for Federal Information Systems and Organizations";
@@ -14,7 +10,7 @@ const MONGODB_NAVIGATION = "MongoDB Component Definition Example";
 
 describe("Test can navigate to Drawer Components", () => {
   it("Successfully Loads Catalog Viewer", () => {
-    cy.navToCatalogViewer(CATALOG_NAVIGATION, false);
+    cy.navToCatalogViewer(CATALOG_NAVIGATION);
   });
 
   it("Successfully Loads Component Viewer", () => {
@@ -35,7 +31,7 @@ describe("Test can navigate to Drawer Components", () => {
     cy.navToCdefViewer(MONGODB_NAVIGATION);
     cy.navToSspViewer(SSP_NAVIGATION);
     cy.navToProfileViewer(PROFILE_NAVIGATION_V4);
-    cy.navToCatalogViewer(CATALOG_NAVIGATION, false);
+    cy.navToCatalogViewer(CATALOG_NAVIGATION);
     cy.navToCdefViewer(MONGODB_NAVIGATION);
     cy.navToCdefViewer(COMPONENT_NAVIGATION);
     cy.navToProfileViewer(PROFILE_NAVIGATION_V5);
@@ -52,7 +48,7 @@ describe("Test can navigate with REST mode off", () => {
   });
 
   it("Successfully Loads Catalog in non REST", () => {
-    cy.navToCatalogViewer(CATALOG_NAVIGATION, false);
+    cy.navToCatalogViewer(CATALOG_NAVIGATION);
     cy.contains("REST Mode").click();
     cy.contains("Catalog");
     cy.contains(CATALOG_NAVIGATION);

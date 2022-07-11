@@ -27,51 +27,46 @@ import "@testing-library/cypress/add-commands";
 
 Cypress.Commands.add(
   "navToViewer",
-  (viewerLinkText, navigationProfile, skipWait = true) => {
-    cy.intercept({
-      method: "GET",
-      url: `${Cypress.env("api_url")}/catalogs`,
-    }).as("catalogs");
-
-    cy.intercept({
-      method: "GET",
-      url: `${Cypress.env("api_url")}/system-security-plans`,
-    }).as("SSP");
-
-    cy.intercept({
-      method: "GET",
-      url: `${Cypress.env("api_url")}/component-definitions`,
-    }).as("components");
-
-    cy.intercept({
-      method: "GET",
-      url: `${Cypress.env("api_url")}/profiles`,
-    }).as("profiles");
+  (viewerLinkText, navigationProfile) => {
+    let requestsMade = [];
+    for (const route of ["catalog", "system-security-plans", "component-definitions", "profiles"]) {
+      cy.intercept('GET', `${Cypress.env("api_url")}/${route}`, () => {
+        requestsMade.push(route);
+      }).as(route);
+    }
     cy.visit(Cypress.env("base_url"));
     cy.get("button").first().click();
 
-    if (!skipWait) {
-      cy.wait(["@catalogs", "@SSP", "@components", "@profiles"]);
+    // Wait 1.5s for the events to start firing. In actuality it probably doesn't need to be
+    // this log but it also gives time for the handler above to fire as well.
+    cy.wait(1500);
+    // Wait for any requests that were made to finish. We give all requests 1m. They
+    // probably don't need that long, but they can have it.
+    if (requestsMade.length) {
+      cy.wait(requestsMade, { timeout: 60000 });
     }
+    // Allow the app to process the received data
+    cy.wait(5000);
+
     cy.contains(viewerLinkText).click();
     cy.contains(navigationProfile).click();
   }
 );
 
-Cypress.Commands.add("navToSspViewer", (toNavigate, skipWait = true) => {
-  cy.navToViewer("System Security Plan", toNavigate, skipWait);
+Cypress.Commands.add("navToSspViewer", (toNavigate) => {
+  cy.navToViewer("System Security Plan", toNavigate);
 });
 
-Cypress.Commands.add("navToCdefViewer", (toNavigate, skipWait = true) => {
-  cy.navToViewer("Component", toNavigate, skipWait);
+Cypress.Commands.add("navToCdefViewer", (toNavigate) => {
+  cy.navToViewer("Component", toNavigate);
 });
 
-Cypress.Commands.add("navToProfileViewer", (toNavigate, skipWait = true) => {
-  cy.navToViewer("Profile", toNavigate, skipWait);
+Cypress.Commands.add("navToProfileViewer", (toNavigate) => {
+  cy.navToViewer("Profile", toNavigate);
 });
 
-Cypress.Commands.add("navToCatalogViewer", (toNavigate, skipWait = true) => {
-  cy.navToViewer("Catalog", toNavigate, skipWait);
+Cypress.Commands.add("navToCatalogViewer", (toNavigate) => {
+  cy.navToViewer("Catalog", toNavigate);
 });
 
 Cypress.Commands.add("getInputByLabel", (label) => {
