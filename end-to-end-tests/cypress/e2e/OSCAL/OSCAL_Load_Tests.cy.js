@@ -11,7 +11,7 @@ describe('Test Loading System Security Plans', () => {
   it('Successfully Loads SSPs by URL', () => {
     cy.navToSspViewer(SSP_TITLE_ORIG)
     cy.contains("REST Mode").click()
-    cy.contains('OSCAL SSP URL').first().should('exist').next().click().clear().type(Cypress.env('base_url') + "/oscal/v1/system-security-plans/cff8385f-108e-40a5-8f7a-82f3dc0eaba8")
+    cy.contains('OSCAL System Security Plan URL').first().should('exist').next().click().clear().type(Cypress.env('base_url') + "/oscal/v1/system-security-plans/cff8385f-108e-40a5-8f7a-82f3dc0eaba8")
     cy.contains('Reload').click()
     cy.contains(SSP_TITLE_ORIG).should('be.visible')
     cy.scrollTo('bottom')
