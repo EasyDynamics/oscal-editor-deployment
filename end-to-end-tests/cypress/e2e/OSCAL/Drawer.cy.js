@@ -14,7 +14,7 @@ const MONGODB_NAVIGATION = "MongoDB Component Definition Example";
 
 describe("Test can navigate to Drawer Components", () => {
   it("Successfully Loads Catalog Viewer", () => {
-    cy.navToCatalogViewer(CATALOG_NAVIGATION);
+    cy.navToCatalogViewer(CATALOG_NAVIGATION, false);
   });
 
   it("Successfully Loads Component Viewer", () => {
@@ -33,12 +33,12 @@ describe("Test can navigate to Drawer Components", () => {
 
   it("Successfully Navigates Viewers in Random Order", () => {
     cy.navToCdefViewer(MONGODB_NAVIGATION);
-    cy.navToSspViewer(SSP_NAVIGATION, false);
-    cy.navToProfileViewer(PROFILE_NAVIGATION_V4, false);
-    cy.navToCdefViewer(MONGODB_NAVIGATION, false);
+    cy.navToSspViewer(SSP_NAVIGATION);
+    cy.navToProfileViewer(PROFILE_NAVIGATION_V4);
     cy.navToCatalogViewer(CATALOG_NAVIGATION, false);
-    cy.navToCdefViewer(COMPONENT_NAVIGATION, false);
-    cy.navToProfileViewer(PROFILE_NAVIGATION_V5, false);
+    cy.navToCdefViewer(MONGODB_NAVIGATION);
+    cy.navToCdefViewer(COMPONENT_NAVIGATION);
+    cy.navToProfileViewer(PROFILE_NAVIGATION_V5);
   });
 });
 
@@ -52,7 +52,7 @@ describe("Test can navigate with REST mode off", () => {
   });
 
   it("Successfully Loads Catalog in non REST", () => {
-    cy.navToCatalogViewer(CATALOG_NAVIGATION);
+    cy.navToCatalogViewer(CATALOG_NAVIGATION, false);
     cy.contains("REST Mode").click();
     cy.contains("Catalog");
     cy.contains(CATALOG_NAVIGATION);
