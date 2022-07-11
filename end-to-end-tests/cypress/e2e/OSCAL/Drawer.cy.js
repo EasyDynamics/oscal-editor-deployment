@@ -82,7 +82,7 @@ describe("Test can navigate with REST mode off", () => {
   it("Successfully Loads SSP in non REST", () => {
     cy.navToSspViewer(SSP_NAVIGATION);
     cy.contains("REST Mode").click();
-    cy.contains("SSP");
+    cy.contains("System Security Plan");
     cy.contains(SSP_NAVIGATION);
   });
 });

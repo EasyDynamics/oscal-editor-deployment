@@ -34,7 +34,7 @@ Cypress.Commands.add("navToViewer", (viewerLinkText, navigationProfile) => {
 });
 
 Cypress.Commands.add("navToSspViewer", (toNavigate) => {
-  cy.navToViewer("SSP", toNavigate);
+  cy.navToViewer("System Security Plan", toNavigate);
 });
 
 Cypress.Commands.add("navToCdefViewer", (toNavigate) => {
