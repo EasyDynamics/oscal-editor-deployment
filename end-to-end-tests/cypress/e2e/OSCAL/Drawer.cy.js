@@ -33,12 +33,12 @@ describe("Test can navigate to Drawer Components", () => {
 
   it("Successfully Navigates Viewers in Random Order", () => {
     cy.navToCdefViewer(MONGODB_NAVIGATION);
-    cy.navToSspViewer(SSP_NAVIGATION);
-    cy.navToProfileViewer(PROFILE_NAVIGATION_V4);
-    cy.navToCdefViewer(MONGODB_NAVIGATION);
-    cy.navToCatalogViewer(CATALOG_NAVIGATION);
-    cy.navToCdefViewer(COMPONENT_NAVIGATION);
-    cy.navToProfileViewer(PROFILE_NAVIGATION_V5);
+    cy.navToSspViewer(SSP_NAVIGATION, false);
+    cy.navToProfileViewer(PROFILE_NAVIGATION_V4, false);
+    cy.navToCdefViewer(MONGODB_NAVIGATION, false);
+    cy.navToCatalogViewer(CATALOG_NAVIGATION, false);
+    cy.navToCdefViewer(COMPONENT_NAVIGATION, false);
+    cy.navToProfileViewer(PROFILE_NAVIGATION_V5, false);
   });
 });
 
