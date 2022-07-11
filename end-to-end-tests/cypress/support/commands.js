@@ -25,27 +25,53 @@
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 import "@testing-library/cypress/add-commands";
 
-Cypress.Commands.add("navToViewer", (viewerLinkText, navigationProfile) => {
-  cy.visit(Cypress.env("base_url"));
-  cy.get("button").first().click();
-  cy.contains(viewerLinkText).children('#class="MuiTreeItem-iconContainer"').click();
-  cy.contains(navigationProfile).click();
+Cypress.Commands.add(
+  "navToViewer",
+  (viewerLinkText, navigationProfile, skipWait = true) => {
+    cy.intercept({
+      method: "GET",
+      url: `${Cypress.env("api_url")}/catalogs`,
+    }).as("catalogs");
+
+    cy.intercept({
+      method: "GET",
+      url: `${Cypress.env("api_url")}/system-security-plans`,
+    }).as("SSP");
+
+    cy.intercept({
+      method: "GET",
+      url: `${Cypress.env("api_url")}/component-definitions`,
+    }).as("components");
+
+    cy.intercept({
+      method: "GET",
+      url: `${Cypress.env("api_url")}/profiles`,
+    }).as("profiles");
+    cy.visit(Cypress.env("base_url"));
+    cy.get("button").first().click();
+
+    if (!skipWait) {
+      cy.wait(["@catalogs", "@SSP", "@components", "@profiles"]);
+    }
+    cy.contains(viewerLinkText).click();
+    cy.contains(navigationProfile).click();
+  }
+);
+
+Cypress.Commands.add("navToSspViewer", (toNavigate, skipWait = true) => {
+  cy.navToViewer("System Security Plan", toNavigate, skipWait);
 });
 
-Cypress.Commands.add("navToSspViewer", (toNavigate) => {
-  cy.navToViewer("System Security Plan", toNavigate);
+Cypress.Commands.add("navToCdefViewer", (toNavigate, skipWait = true) => {
+  cy.navToViewer("Component", toNavigate, skipWait);
 });
 
-Cypress.Commands.add("navToCdefViewer", (toNavigate) => {
-  cy.navToViewer("Component", toNavigate);
+Cypress.Commands.add("navToProfileViewer", (toNavigate, skipWait = true) => {
+  cy.navToViewer("Profile", toNavigate, skipWait);
 });
 
-Cypress.Commands.add("navToProfileViewer", (toNavigate) => {
-  cy.navToViewer("Profile", toNavigate);
-});
-
-Cypress.Commands.add("navToCatalogViewer", (toNavigate) => {
-  cy.navToViewer("Catalog", toNavigate);
+Cypress.Commands.add("navToCatalogViewer", (toNavigate, skipWait = true) => {
+  cy.navToViewer("Catalog", toNavigate, skipWait);
 });
 
 Cypress.Commands.add("getInputByLabel", (label) => {
