@@ -60,7 +60,7 @@ authenticated-pkg-api-request() (
 get-viewer-zip() (
   local zip_url="https://github.com/EasyDynamics/oscal-react-library/releases/latest/download/oscal-viewer.zip"
 
-  local output="./viewer.zip"
+  local output="./oscal-viewer.zip"
   if ! curl -sL -o "$output" "$zip_url"; then
     echo "!!! Unable to download OSCAL React Viewer ZIP file"
     exit 1
@@ -97,14 +97,14 @@ get-rest-service-jar() (
   fi
 
   local service_jar_url="https://maven.pkg.github.com/EasyDynamics/oscal-rest-service/com.easydynamics/oscal-rest-service-app/$package_version/oscal-rest-service-app-$timestamp.jar"
-  if ! curl -H "Authorization: token $token" -sL -o "./oscal-rest-service.jar" "$service_jar_url"; then
+  if ! curl -H "Authorization: token $token" -sL -o "./oscal-rest.jar" "$service_jar_url"; then
     echo "!!! Unable to download the OSCAL Rest Service .jar file"
     exit 1
   fi
 )
 
 cleanup() (
-  rm -rf ./viewer ./viewer.zip
+  rm -rf ./oscal-viewer ./oscal-viewer.zip
 )
 
 main() (
@@ -136,7 +136,7 @@ main() (
     exit 1
   fi
 
-  unzip -qo ./viewer.zip -d ./viewer
+  unzip -qo ./oscal-viewer.zip -d ./oscal-viewer
 
   echo "==> Fetching OSCAL REST Service JAR file"
 
