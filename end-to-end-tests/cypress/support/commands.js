@@ -28,8 +28,7 @@ import "@testing-library/cypress/add-commands";
 Cypress.Commands.add("navToViewer", (viewerLinkText, navigationProfile) => {
   cy.visit(Cypress.env("base_url"));
   cy.get("button").first().click();
-  cy.wait(1000);
-  cy.contains(viewerLinkText).click();
+  cy.contains(viewerLinkText).children('#class="MuiTreeItem-iconContainer"').click();
   cy.contains(navigationProfile).click();
 });
 
