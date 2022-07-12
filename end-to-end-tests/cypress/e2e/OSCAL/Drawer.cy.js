@@ -8,26 +8,26 @@ const PROFILE_NAVIGATION_V5 =
   "NIST Special Publication 800-53 Revision 5 MODERATE IMPACT BASELINE";
 const MONGODB_NAVIGATION = "MongoDB Component Definition Example";
 
-describe("Test can navigate to Drawer Components", () => {
-  it("Successfully Loads Catalog Editor", () => {
+describe("Drawer Component", () => {
+  it("loads catalog editor", () => {
     cy.navToCatalogEditor(CATALOG_NAVIGATION);
   });
 
-  it("Successfully Loads Component Editor", () => {
+  it("loads component editor", () => {
     cy.navToCdefEditor(MONGODB_NAVIGATION);
     cy.navToCdefEditor(COMPONENT_NAVIGATION);
   });
 
-  it("Successfully Loads Profile Component", () => {
+  it("loads profile component", () => {
     cy.navToProfileEditor(PROFILE_NAVIGATION_V4);
     cy.navToProfileEditor(PROFILE_NAVIGATION_V5);
   });
 
-  it("Successfully Loads SSP Editor", () => {
+  it("loads system security plan editor", () => {
     cy.navToSspEditor(SSP_NAVIGATION);
   });
 
-  it("Successfully Navigates Editors in Random Order", () => {
+  it("navigates editors in random order", () => {
     cy.navToCdefEditor(MONGODB_NAVIGATION);
     cy.navToSspEditor(SSP_NAVIGATION);
     cy.navToProfileEditor(PROFILE_NAVIGATION_V4);
@@ -38,7 +38,7 @@ describe("Test can navigate to Drawer Components", () => {
   });
 });
 
-describe("Test can navigate with REST mode off", () => {
+describe("The Viewer", () => {
   let origSspJson;
   before(() => {
     cy.getTestSspJson().then((result) => (origSspJson = result));
@@ -47,42 +47,35 @@ describe("Test can navigate with REST mode off", () => {
     cy.setTestSspJson(origSspJson);
   });
 
-  it("Successfully Loads Catalog in non REST", () => {
+  it("loads a catalog", () => {
     cy.navToCatalogEditor(CATALOG_NAVIGATION);
     cy.contains("REST Mode").click();
     cy.contains("Catalog");
     cy.contains(CATALOG_NAVIGATION);
   });
 
-  it("Successfully Loads Profile Version 4 in non REST", () => {
+  it("loads the v4 profile", () => {
     cy.navToProfileEditor(PROFILE_NAVIGATION_V4);
     cy.contains("REST Mode").click();
     cy.contains("Profile");
     cy.contains(PROFILE_NAVIGATION_V4);
   });
 
-  it("Successfully Loads Profile Version 5 in non REST", () => {
+  it("loads the v5 profile", () => {
     cy.navToProfileEditor(PROFILE_NAVIGATION_V5);
     cy.contains("REST Mode").click();
     cy.contains("Profile");
     cy.contains(PROFILE_NAVIGATION_V4);
   });
 
-  it("Successfully Loads Test Component Definiition in non REST", () => {
+  it("loads a component", () => {
     cy.navToCdefEditor(COMPONENT_NAVIGATION);
     cy.contains("REST Mode").click();
     cy.contains("Component");
     cy.contains(COMPONENT_NAVIGATION);
   });
 
-  it("Successfully Loads MongoDB Editor in non REST", () => {
-    cy.navToCdefEditor(COMPONENT_NAVIGATION);
-    cy.contains("REST Mode").click();
-    cy.contains("Component");
-    cy.contains(COMPONENT_NAVIGATION);
-  });
-
-  it("Successfully Loads SSP in non REST", () => {
+  it("loads a system security plan", () => {
     cy.navToSspEditor(SSP_NAVIGATION);
     cy.contains("REST Mode").click();
     cy.contains("System Security Plan");

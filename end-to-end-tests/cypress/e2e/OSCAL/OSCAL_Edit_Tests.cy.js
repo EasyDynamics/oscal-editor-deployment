@@ -1,7 +1,7 @@
 const SSP_TITLE_ORIG = "Enterprise Logging and Auditing System Security Plan";
 const COMP_DEF_TITLE_ORIG = "Test Component Definition";
 
-describe("Test Editing System Security Plan Title", () => {
+describe('Editing the system security plan title', () => {
   // Store current SSP and reset after test
   let origSspJson;
   before(() => {
@@ -11,7 +11,7 @@ describe("Test Editing System Security Plan Title", () => {
     cy.setTestSspJson(origSspJson)
   })
 
-  it('Successfully Edits SSP Title', () => {
+  it('edits the system security plan title', () => {
     cy.navToSspEditor(SSP_TITLE_ORIG);
     cy.get(`[aria-label="edit-system-security-plan-metadata-title"]`).click()
     cy.get(`[data-testid="textField-system-security-plan-metadata-title"]`).click().clear().type('Another SSP')
@@ -20,7 +20,7 @@ describe("Test Editing System Security Plan Title", () => {
   })
 })
 
-describe('Test Editing System Security Plan Source', () => {
+describe('Editing the System Security Plan Source', () => {
   // Store current SSP and reset after test
   let origSspJson;
   before(() => {
@@ -30,7 +30,7 @@ describe('Test Editing System Security Plan Source', () => {
     cy.setTestSspJson(origSspJson)
   })
 
-  it('Successfully Edits SSP Source', () => {
+  it('edits the system security plan source', () => {
     cy.navToSspEditor(SSP_TITLE_ORIG);
     const findKeystroke = Cypress.platform === 'darwin' ? '{meta}f' : '{ctrl}f'
     cy.get('.monaco-editor textarea:first')
@@ -41,7 +41,7 @@ describe('Test Editing System Security Plan Source', () => {
   })
 })
 
-describe('Test Editing Existing SSP Impl Req Statement', () => {
+describe('Editing the existing system security plan impl req statement', () => {
   // Store current SSP and reset after test
   let origSspJson;
   before(() => {
@@ -51,7 +51,7 @@ describe('Test Editing Existing SSP Impl Req Statement', () => {
     cy.setTestSspJson(origSspJson);
   });
 
-  it('Successfully Edits Existing SSP Impl Req Statement', () => {
+  it('edits existing system security plan impl req statement', () => {
     const COMPONENT_NAME = 'Enterprise Logging, Monitoring, and Alerting Policy'
     const PARAM_VALUE_ORIG = 'all staff and contractors within the organization'
     const PARAM_VALUE_NEW = 'some other param value'
@@ -68,7 +68,7 @@ describe('Test Editing Existing SSP Impl Req Statement', () => {
   });
 });
 
-describe("Test Editing New SSP Impl Req Statement", () => {
+describe('Editing the new system security plan impl req statement', () => {
   // Store current SSP and reset after test
   let origSspJson;
   before(() => {
@@ -78,7 +78,7 @@ describe("Test Editing New SSP Impl Req Statement", () => {
     cy.setTestSspJson(origSspJson);
   });
 
-  it('Successfully Edits New SSP Impl Req Statement', () => {
+  it('edits new system security plan impl req statement', () => {
     const COMPONENT_NAME = 'Logging Server'
     const PARAM_VALUE_NEW = 'some new param value'+
     cy.navToSspEditor(SSP_TITLE_ORIG);
@@ -94,7 +94,7 @@ describe("Test Editing New SSP Impl Req Statement", () => {
   });
 });
 
-describe("Test Adding New SSP Impl Req", () => {
+describe('Adding new system security plan impl req', () => {
   // Store current SSP and reset after test
   let origSspJson;
   before(() => {
@@ -104,7 +104,7 @@ describe("Test Adding New SSP Impl Req", () => {
     cy.setTestSspJson(origSspJson);
   });
 
-  it('Successfully Adds New SSP Impl Req', () => {
+  it('adds new system security plan impl req', () => {
     const CONTROL_ID = 'AU-2'
     const CONTROL_NAME = 'Audit Events'
     cy.navToSspEditor(SSP_TITLE_ORIG);
