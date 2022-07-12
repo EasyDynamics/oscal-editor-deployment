@@ -10,4 +10,5 @@ module.exports = defineConfig({
     setupNodeEvents(on, config) {},
   },
   retries: 1,
+  video: false,
 })
