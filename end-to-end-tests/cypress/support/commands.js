@@ -49,7 +49,7 @@ Cypress.Commands.add(
     cy.wait(5000);
 
     cy.contains(viewerLinkText).click();
-    cy.contains(navigationProfile).click();
+    cy.contains(navigationProfile, { timeout: 10000 }).click();
   }
 );
 
