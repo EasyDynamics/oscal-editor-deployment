@@ -48,7 +48,7 @@ Cypress.Commands.add(
     // Allow the app to process the received data
     cy.wait(5000);
 
-    cy.contains(viewerLinkText).click();
+    cy.contains(viewerLinkText).should("be.visible").click();
     cy.contains(navigationProfile, { timeout: 10000 }).click();
   }
 );
