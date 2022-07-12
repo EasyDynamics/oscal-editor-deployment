@@ -42,6 +42,8 @@ jobs:
           context: ./all-in-one
           load: true
           tags: ${{ env.IMAGE_NAME }}
+          build-args: |
+            OSCAL_REST_SERVICE_GIT_BRANCH=feature/combined-test
 
       # Run container in the background, exposing the port that
       # Cypress uses to run the tests.
