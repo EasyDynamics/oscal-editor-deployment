@@ -3,7 +3,7 @@
     "@cypress/react": "^6.0.0",
     "@cypress/webpack-dev-server": "^2.0.0",
     "@testing-library/cypress": "^8.0.3",
-    "@testing-library/dom": "^8.14.0",
+    "@testing-library/dom": "^8.16.0",
     "cypress": "^10.3.0"
   },
   "name": "oscal-editor-testing",
