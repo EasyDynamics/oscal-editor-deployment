@@ -7,6 +7,7 @@ Simple Docker deployment of the back-end services and web-based user interface f
 The Docker image is hosted on [Docker Hub](https://hub.docker.com/r/easydynamics/oscal-editor-all-in-one) and the [GitHub Container Registry](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry).
 
 You can pull the image by running:
+
 ```
 docker pull ghcr.io/easydynamics/oscal-editor-all-in-one
 ```
@@ -25,7 +26,8 @@ oscal-content/
 ├── profiles
 └── system-security-plans
 ```
-Each of the four sub-directories should contain the **JSON** OSCAL files of their respective schemas.  There are tools available to convert other OSCAL formats to JSON such as [NIST's XSL converters](https://github.com/usnistgov/OSCAL/tree/main/json/convert).
+
+Each of the four sub-directories should contain the **JSON** OSCAL files of their respective schemas. There are tools available to convert other OSCAL formats to JSON such as [NIST's XSL converters](https://github.com/usnistgov/OSCAL/tree/main/json/convert).
 
 Example OSCAL content can be downloaded from [Easy Dynamics' demo OSCAL content repo](https://github.com/EasyDynamics/oscal-demo-content). To clone the content, run:
 
@@ -37,7 +39,8 @@ git clone https://github.com/EasyDynamics/oscal-demo-content oscal-content
 
 To run the docker image, run `docker run` with the `-p` flag specifying the port to map and the `-v` flag specifying the path of the OSCAL content directory.
 
-Example: 
+Example:
+
 ```
 docker run -p 8080:8080 -v "$(pwd)"/oscal-content:/app/oscal-content ghcr.io/easydynamics/oscal-editor-all-in-one
 ```
@@ -47,6 +50,7 @@ The container will run both the OSCAL Viewer and REST Service on startup. The OS
 ### Manually Configuring Directory Paths
 
 If needed, the directory and sub-directory paths of the OSCAL content directory can also be manually configured by overwriting these environment variables in the container:
+
 - `PERSISTENCE_FILE_PARENT_PATH`
 - `PERSISTENCE_FILE_CATALOGS_PATH`
 - `PERSISTENCE_FILE_COMPONENT_DEFINITIONS_PATH`
