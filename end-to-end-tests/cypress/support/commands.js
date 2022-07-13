@@ -25,7 +25,7 @@
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 import "@testing-library/cypress/add-commands";
 
-Cypress.Commands.add("navToViewer", (viewerLinkText, navigationProfile) => {
+Cypress.Commands.add("navToEditorByDrawer", (viewerLinkText, navigationProfile) => {
   let requestsMade = [];
   for (const route of [
     "catalog",
@@ -57,20 +57,20 @@ Cypress.Commands.add("navToViewer", (viewerLinkText, navigationProfile) => {
   cy.contains(navigationProfile, { timeout: 10000 }).click();
 });
 
-Cypress.Commands.add("navToSspViewer", (toNavigate) => {
-  cy.navToViewer("System Security Plan", toNavigate);
+Cypress.Commands.add("navToSspEditor", (toNavigate) => {
+  cy.navToEditorByDrawer("System Security Plan", toNavigate);
 });
 
-Cypress.Commands.add("navToCdefViewer", (toNavigate) => {
-  cy.navToViewer("Component", toNavigate);
+Cypress.Commands.add("navToCdefEditor", (toNavigate) => {
+  cy.navToEditorByDrawer("Component", toNavigate);
 });
 
-Cypress.Commands.add("navToProfileViewer", (toNavigate) => {
-  cy.navToViewer("Profile", toNavigate);
+Cypress.Commands.add("navToProfileEditor", (toNavigate) => {
+  cy.navToEditorByDrawer("Profile", toNavigate);
 });
 
-Cypress.Commands.add("navToCatalogViewer", (toNavigate) => {
-  cy.navToViewer("Catalog", toNavigate);
+Cypress.Commands.add("navToCatalogEditor", (toNavigate) => {
+  cy.navToEditorByDrawer("Catalog", toNavigate);
 });
 
 Cypress.Commands.add("getInputByLabel", (label) => {
