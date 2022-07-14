@@ -57,7 +57,7 @@ describe('Test Editing Existing SSP Impl Req Statement', () => {
     const PARAM_VALUE_ORIG =
       "all staff and contractors within the organization";
     const PARAM_VALUE_NEW = "some other param value";
-    cy.navToTestSspRestMode(SSP_TITLE_ORIG);
+    cy.navToSspViewer(SSP_TITLE_ORIG);
     cy.contains("button", COMPONENT_NAME).click();
     cy.get(
       `[aria-label="edit-bycomponent-795533ab-9427-4abe-820f-0b571bacfe6d-statement-au-1_smt.a"]`
@@ -85,7 +85,7 @@ describe("Test Editing New SSP Impl Req Statement", () => {
   it("Successfully Edits New SSP Impl Req Statement", () => {
     const COMPONENT_NAME = "Logging Server";
     const PARAM_VALUE_NEW =
-      "some new param value" + cy.navToTestSspRestMode(SSP_TITLE_ORIG);
+      "some new param value" + cy.navToSspViewer(SSP_TITLE_ORIG);
     cy.contains("button", COMPONENT_NAME).click();
     cy.get(
       `[aria-label="edit-bycomponent-e00acdcf-911b-437d-a42f-b0b558cc4f03-statement-au-1_smt.a"]`
@@ -113,7 +113,7 @@ describe("Test Adding New SSP Impl Req", () => {
   it("Successfully Adds New SSP Impl Req", () => {
     const CONTROL_ID = "AU-2";
     const CONTROL_NAME = "Audit Events";
-    cy.navToTestSspRestMode(SSP_TITLE_ORIG);
+    cy.navToSspViewer(SSP_TITLE_ORIG);
     cy.contains("button", "Add Control Implementation").click();
     cy.contains("Select Control").click({ force: true }).type(CONTROL_ID);
     cy.contains(`${CONTROL_ID} ${CONTROL_NAME}`).click();
@@ -138,23 +138,23 @@ describe("Test Editing Title Using Enter key", () => {
   });
 
   it("Successfully Edits Title with Enter", () => {
-    cy.navToTestSspRestMode(SSP_TITLE_ORIG);
+    cy.navToSspViewer(SSP_TITLE_ORIG);
     cy.get(`[aria-label="edit-system-security-plan-metadata-title"]`).click();
     cy.get(`[data-testid="textField-system-security-plan-metadata-title"]`)
-      .click()
-      .clear()
-      .type("A Different SSP{enter}");
+    .click()
+    .clear()
+    .type("A Different SSP{enter}");
     cy.contains("A Different SSP").should("be.visible");
   });
-
+  
   it("Successfully keeps title on Enter press", () => {
-    cy.navToTestSspRestMode(SSP_TITLE_ORIG);
+    cy.navToSspViewer(SSP_TITLE_ORIG);
     cy.get(`[aria-label="edit-system-security-plan-metadata-title"]`).click();
     cy.get(`[data-testid="textField-system-security-plan-metadata-title"]`)
       .click()
       .clear()
       .type("{enter}");
-    cy.contains(SSP_TITLE_ORIG).should("be.visible");
+    cy.contains(SSP_TITLE_ORIG);
   });
 });
 
@@ -168,7 +168,7 @@ describe("Cancel on ESC Keypress", () => {
   });
 
   it("ESC key cancels any changes", () => {
-    cy.navToTestSspRestMode(SSP_TITLE_ORIG);
+    cy.navToSspViewer(SSP_TITLE_ORIG);
     cy.get(`[aria-label="edit-system-security-plan-metadata-title"]`).click();
 
     cy.get(`[data-testid="textField-system-security-plan-metadata-title"]`)
@@ -181,7 +181,7 @@ describe("Cancel on ESC Keypress", () => {
       .should("have.value", SSP_TITLE_ORIG);
   });
   it("Enter key changes textfield value", () => {
-    cy.navToTestSspRestMode(SSP_TITLE_ORIG);
+    cy.navToSspViewer(SSP_TITLE_ORIG);
     cy.get(`[aria-label="edit-system-security-plan-metadata-title"]`).click();
 
     cy.get(`[data-testid="textField-system-security-plan-metadata-title"]`)
