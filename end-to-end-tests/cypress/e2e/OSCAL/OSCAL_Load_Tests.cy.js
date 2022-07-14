@@ -45,16 +45,17 @@ describe('Errors caused by loading a bad component definition', () => {
     cy.contains('Reload').click();
   });
 
-  test('display "yikes" on load of wrong object type', () => {
+  it('display "yikes" on load of wrong object type', () => {
     cy.contains('Yikes').should('be.visible')
   });
 
-  test('do not persist after loading a valid component in Viewer', () => {
+  it('do not persist after loading a valid component in Viewer', () => {
     cy.contains('OSCAL Component URL').first().should('exist').next().click().clear().type("https://raw.githubusercontent.com/EasyDynamics/oscal-demo-content/main/component-definitions/example-component.json");
+    cy.contains('Reload').click();
     cy.contains('Test Component Definition').should('be.visible');
   });
 
-  test('do not persist after loading a valid component in Editor', () => {
+  it('do not persist after loading a valid component in Editor', () => {
     cy.contains("REST Mode").click();
     cy.navToCdefEditor(COMP_DEF_TITLE_ORIG);
   });
