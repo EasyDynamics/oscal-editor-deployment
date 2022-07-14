@@ -127,7 +127,7 @@ describe("Test Adding New SSP Impl Req", () => {
   });
 });
 
-describe("Test Editing Title Using Enter key", () => {
+describe("Test 'Enter' Key Keypress in Textfields will", () => {
   // Store current SSP and reset after test
   let origSspJson;
   before(() => {
@@ -137,7 +137,7 @@ describe("Test Editing Title Using Enter key", () => {
     cy.setTestSspJson(origSspJson);
   });
 
-  it("Successfully Edits Title with Enter", () => {
+  it("Save All Changes Made to Edited Textfield", () => {
     cy.navToSspViewer(SSP_TITLE_ORIG);
     cy.get(`[aria-label="edit-system-security-plan-metadata-title"]`).click();
     cy.get(`[data-testid="textField-system-security-plan-metadata-title"]`)
@@ -146,8 +146,8 @@ describe("Test Editing Title Using Enter key", () => {
     .type("A Different SSP{enter}");
     cy.contains("A Different SSP").should("be.visible");
   });
-  
-  it("Successfully keeps title on Enter press", () => {
+
+  it("Preserve Textfield Value if its the Only Key Pressed", () => {
     cy.navToSspViewer(SSP_TITLE_ORIG);
     cy.get(`[aria-label="edit-system-security-plan-metadata-title"]`).click();
     cy.get(`[data-testid="textField-system-security-plan-metadata-title"]`)
@@ -158,7 +158,7 @@ describe("Test Editing Title Using Enter key", () => {
   });
 });
 
-describe("Cancel on ESC Keypress", () => {
+describe("Test 'ESC' Key Keypress in Textfields will", () => {
   let origSspJson;
   before(() => {
     cy.getTestSspJson().then((result) => (origSspJson = result));
@@ -167,7 +167,7 @@ describe("Cancel on ESC Keypress", () => {
     cy.setTestSspJson(origSspJson);
   });
 
-  it("ESC key cancels any changes", () => {
+  it("Cancel Edit State and Revert Any Changes to Previous Value", () => {
     cy.navToSspViewer(SSP_TITLE_ORIG);
     cy.get(`[aria-label="edit-system-security-plan-metadata-title"]`).click();
 
@@ -180,7 +180,7 @@ describe("Cancel on ESC Keypress", () => {
       .click()
       .should("have.value", SSP_TITLE_ORIG);
   });
-  it("Enter key changes textfield value", () => {
+  it("Cancel Edit State if its the Only Key Pressed", () => {
     cy.navToSspViewer(SSP_TITLE_ORIG);
     cy.get(`[aria-label="edit-system-security-plan-metadata-title"]`).click();
 
