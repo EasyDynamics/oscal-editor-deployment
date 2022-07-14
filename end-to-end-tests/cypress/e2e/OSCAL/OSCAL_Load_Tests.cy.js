@@ -37,20 +37,25 @@ describe('Loading Component Definitions', () => {
   })
 })
 
-describe('Loading the wrong object type', () => {
-  it('displays proper error on load of wrong object type', () => {
-    cy.visit(Cypress.env("base_url"));
+describe('Errors caused by loading a bad component definition', () => {
+  beforeEach(() => {
+    cy.navToCdefEditor(COMP_DEF_TITLE_ORIG);
     cy.contains("REST Mode").click();
-    cy.contains("OSCAL Catalog URL")
-      .first()
-      .should("exist")
-      .next()
-      .click()
-      .clear()
-      .type(
-        "https://raw.githubusercontent.com/usnistgov/oscal-content/main/examples/ssp/json/ssp-example.json"
-      );
-    cy.contains("Reload").click();
-    cy.contains("Yikes").should("be.visible");
+    cy.contains('OSCAL Component URL').first().should('exist').next().click().clear().type("https://raw.githubusercontent.com/usnistgov/oscal-content/main/examples/ssp/json/ssp-example.json");
+    cy.contains('Reload').click();
+  });
+
+  test('display "yikes" on load of wrong object type', () => {
+    cy.contains('Yikes').should('be.visible')
+  });
+
+  test('do not persist after loading a valid component in Viewer', () => {
+    cy.contains('OSCAL Component URL').first().should('exist').next().click().clear().type("https://raw.githubusercontent.com/EasyDynamics/oscal-demo-content/main/component-definitions/example-component.json");
+    cy.contains('Test Component Definition').should('be.visible');
+  });
+
+  test('do not persist after loading a valid component in Editor', () => {
+    cy.contains("REST Mode").click();
+    cy.navToCdefEditor(COMP_DEF_TITLE_ORIG);
   });
 });
