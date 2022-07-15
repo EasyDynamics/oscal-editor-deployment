@@ -130,7 +130,7 @@ describe("Test 'Enter' Key Keypress in Textfields will", () => {
   });
 
   it("Save All Changes Made to Edited Textfield", () => {
-    cy.navToSspViewer(SSP_TITLE_ORIG);
+    cy.navToSspEditor(SSP_TITLE_ORIG);
     cy.get(`[aria-label="edit-system-security-plan-metadata-title"]`).click();
     cy.get(`[data-testid="textField-system-security-plan-metadata-title"]`)
     .click()
@@ -140,7 +140,7 @@ describe("Test 'Enter' Key Keypress in Textfields will", () => {
   });
 
   it("Preserve Textfield Value if its the Only Key Pressed", () => {
-    cy.navToSspViewer(SSP_TITLE_ORIG);
+    cy.navToSspEditor(SSP_TITLE_ORIG);
     cy.get(`[aria-label="edit-system-security-plan-metadata-title"]`).click();
     cy.get(`[data-testid="textField-system-security-plan-metadata-title"]`)
       .click()
@@ -160,7 +160,7 @@ describe("Test 'ESC' Key Keypress in Textfields will", () => {
   });
 
   it("Cancel Edit State and Revert Any Changes to Previous Value", () => {
-    cy.navToSspViewer(SSP_TITLE_ORIG);
+    cy.navToSspEditor(SSP_TITLE_ORIG);
     cy.get(`[aria-label="edit-system-security-plan-metadata-title"]`).click();
 
     cy.get(`[data-testid="textField-system-security-plan-metadata-title"]`)
@@ -173,7 +173,7 @@ describe("Test 'ESC' Key Keypress in Textfields will", () => {
       .should("have.value", SSP_TITLE_ORIG);
   });
   it("Cancel Edit State if its the Only Key Pressed", () => {
-    cy.navToSspViewer(SSP_TITLE_ORIG);
+    cy.navToSspEditor(SSP_TITLE_ORIG);
     cy.get(`[aria-label="edit-system-security-plan-metadata-title"]`).click();
 
     cy.get(`[data-testid="textField-system-security-plan-metadata-title"]`)
