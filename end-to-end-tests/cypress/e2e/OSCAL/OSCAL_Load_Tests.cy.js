@@ -1,5 +1,5 @@
-const SSP_TITLE_ORIG = 'Enterprise Logging and Auditing System Security Plan'
-const COMP_DEF_TITLE_ORIG = 'Test Component Definition'
+const SSP_TITLE_ORIG = "Enterprise Logging and Auditing System Security Plan";
+const COMP_DEF_TITLE_ORIG = "Test Component Definition";
 
 describe('Test Loading System Security Plans', () => {
   it('Successfully Loads SSPs by REST Mode', () => {
@@ -37,12 +37,20 @@ describe('Test Loading Component Definitions', () => {
   })
 })
 
-describe('Test Loading Wrong Object Type', () => {
-  it('Displays Proper Error on Load of Wrong Object Type', () => {
-    cy.visit(Cypress.env('base_url')) 
-    cy.contains("REST Mode").click()
-    cy.contains('OSCAL Catalog URL').first().should('exist').next().click().clear().type("https://raw.githubusercontent.com/usnistgov/oscal-content/main/examples/ssp/json/ssp-example.json")
-    cy.contains('Reload').click()
-    cy.contains('Yikes').should('be.visible')
-  })
-})
+describe("Test Loading Wrong Object Type", () => {
+  it("Displays Proper Error on Load of Wrong Object Type", () => {
+    cy.visit(Cypress.env("base_url"));
+    cy.contains("REST Mode").click();
+    cy.contains("OSCAL Catalog URL")
+      .first()
+      .should("exist")
+      .next()
+      .click()
+      .clear()
+      .type(
+        "https://raw.githubusercontent.com/usnistgov/oscal-content/main/examples/ssp/json/ssp-example.json"
+      );
+    cy.contains("Reload").click();
+    cy.contains("Yikes").should("be.visible");
+  });
+});

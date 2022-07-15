@@ -1,12 +1,12 @@
-const SSP_TITLE_ORIG = 'Enterprise Logging and Auditing System Security Plan'
-const COMP_DEF_TITLE_ORIG = 'Test Component Definition'
+const SSP_TITLE_ORIG = "Enterprise Logging and Auditing System Security Plan";
+const COMP_DEF_TITLE_ORIG = "Test Component Definition";
 
-describe('Test Editing System Security Plan Title', () => {
+describe("Test Editing System Security Plan Title", () => {
   // Store current SSP and reset after test
-  let origSspJson
+  let origSspJson;
   before(() => {
-    cy.getTestSspJson().then(result => origSspJson = result)
-  })
+    cy.getTestSspJson().then((result) => (origSspJson = result));
+  });
   after(() => {
     cy.setTestSspJson(origSspJson)
   })
@@ -22,10 +22,10 @@ describe('Test Editing System Security Plan Title', () => {
 
 describe('Test Editing System Security Plan Source', () => {
   // Store current SSP and reset after test
-  let origSspJson
+  let origSspJson;
   before(() => {
-    cy.getTestSspJson().then(result => origSspJson = result)
-  })
+    cy.getTestSspJson().then((result) => (origSspJson = result));
+  });
   after(() => {
     cy.setTestSspJson(origSspJson)
   })
@@ -43,13 +43,13 @@ describe('Test Editing System Security Plan Source', () => {
 
 describe('Test Editing Existing SSP Impl Req Statement', () => {
   // Store current SSP and reset after test
-  let origSspJson
+  let origSspJson;
   before(() => {
-    cy.getTestSspJson().then(result => origSspJson = result)
-  })
+    cy.getTestSspJson().then((result) => (origSspJson = result));
+  });
   after(() => {
-    cy.setTestSspJson(origSspJson)
-  })
+    cy.setTestSspJson(origSspJson);
+  });
 
   it('Successfully Edits Existing SSP Impl Req Statement', () => {
     const COMPONENT_NAME = 'Enterprise Logging, Monitoring, and Alerting Policy'
@@ -63,20 +63,20 @@ describe('Test Editing Existing SSP Impl Req Statement', () => {
     cy.get(`[aria-label="save-au-1_smt.a"]`).click({force: true})
     cy.wait('@getSsp')
     // Verify updated value
-    cy.contains('button', COMPONENT_NAME).click()
-    cy.contains(PARAM_VALUE_NEW).should('be.visible')
-  })
-})
+    cy.contains("button", COMPONENT_NAME).click();
+    cy.contains(PARAM_VALUE_NEW).should("be.visible");
+  });
+});
 
-describe('Test Editing New SSP Impl Req Statement', () => {
+describe("Test Editing New SSP Impl Req Statement", () => {
   // Store current SSP and reset after test
-  let origSspJson
+  let origSspJson;
   before(() => {
-    cy.getTestSspJson().then(result => origSspJson = result)
-  })
+    cy.getTestSspJson().then((result) => (origSspJson = result));
+  });
   after(() => {
-    cy.setTestSspJson(origSspJson)
-  })
+    cy.setTestSspJson(origSspJson);
+  });
 
   it('Successfully Edits New SSP Impl Req Statement', () => {
     const COMPONENT_NAME = 'Logging Server'
@@ -89,20 +89,20 @@ describe('Test Editing New SSP Impl Req Statement', () => {
     cy.get(`[aria-label="save-au-1_smt.a"]`).click({force: true})
     cy.wait('@getSsp')
     // Verify updated value
-    cy.contains('button', COMPONENT_NAME).click()
-    cy.contains(PARAM_VALUE_NEW).should('be.visible')
-  })
-})
+    cy.contains("button", COMPONENT_NAME).click();
+    cy.contains(PARAM_VALUE_NEW).should("be.visible");
+  });
+});
 
-describe('Test Adding New SSP Impl Req', () => {
+describe("Test Adding New SSP Impl Req", () => {
   // Store current SSP and reset after test
-  let origSspJson
+  let origSspJson;
   before(() => {
-    cy.getTestSspJson().then(result => origSspJson = result)
-  })
+    cy.getTestSspJson().then((result) => (origSspJson = result));
+  });
   after(() => {
-    cy.setTestSspJson(origSspJson)
-  })
+    cy.setTestSspJson(origSspJson);
+  });
 
   it('Successfully Adds New SSP Impl Req', () => {
     const CONTROL_ID = 'AU-2'
@@ -115,6 +115,74 @@ describe('Test Adding New SSP Impl Req', () => {
     cy.get(`[aria-label="save-system-security-plan-control-implementation"]`).click()
     cy.wait('@getSsp')
     // Verify updated value
-    cy.contains('h2', CONTROL_NAME).should('be.visible')
-  })
-})
+    cy.contains("h2", CONTROL_NAME).should("be.visible");
+  });
+});
+
+describe("Test 'Enter' Key Keypress in Textfields will", () => {
+  // Store current SSP and reset after test
+  let origSspJson;
+  before(() => {
+    cy.getTestSspJson().then((result) => (origSspJson = result));
+  });
+  afterEach(() => {
+    cy.setTestSspJson(origSspJson);
+  });
+
+  it("Save All Changes Made to Edited Textfield", () => {
+    cy.navToSspEditor(SSP_TITLE_ORIG);
+    cy.get(`[aria-label="edit-system-security-plan-metadata-title"]`).click();
+    cy.get(`[data-testid="textField-system-security-plan-metadata-title"]`)
+    .click()
+    .clear()
+    .type("A Different SSP{enter}");
+    cy.contains("A Different SSP").should("be.visible");
+  });
+
+  it("Preserve Textfield Value if its the Only Key Pressed", () => {
+    cy.navToSspEditor(SSP_TITLE_ORIG);
+    cy.get(`[aria-label="edit-system-security-plan-metadata-title"]`).click();
+    cy.get(`[data-testid="textField-system-security-plan-metadata-title"]`)
+      .click()
+      .clear()
+      .type("{enter}");
+    cy.contains(SSP_TITLE_ORIG);
+  });
+});
+
+describe("Test 'ESC' Key Keypress in Textfields will", () => {
+  let origSspJson;
+  before(() => {
+    cy.getTestSspJson().then((result) => (origSspJson = result));
+  });
+  afterEach(() => {
+    cy.setTestSspJson(origSspJson);
+  });
+
+  it("Cancel Edit State and Revert Any Changes to Previous Value", () => {
+    cy.navToSspEditor(SSP_TITLE_ORIG);
+    cy.get(`[aria-label="edit-system-security-plan-metadata-title"]`).click();
+
+    cy.get(`[data-testid="textField-system-security-plan-metadata-title"]`)
+      .click()
+      .clear()
+      .type("My new title {esc}");
+    cy.get(`[aria-label="edit-system-security-plan-metadata-title"]`).click();
+    cy.get(`[data-testid="textField-system-security-plan-metadata-title"]`)
+      .click()
+      .should("have.value", SSP_TITLE_ORIG);
+  });
+  it("Cancel Edit State if its the Only Key Pressed", () => {
+    cy.navToSspEditor(SSP_TITLE_ORIG);
+    cy.get(`[aria-label="edit-system-security-plan-metadata-title"]`).click();
+
+    cy.get(`[data-testid="textField-system-security-plan-metadata-title"]`)
+      .click()
+      .clear()
+      .type("{esc}");
+    cy.get(`[aria-label="edit-system-security-plan-metadata-title"]`).click();
+    cy.get(`[data-testid="textField-system-security-plan-metadata-title"]`)
+      .click()
+      .should("have.value", SSP_TITLE_ORIG);
+  });
+});
