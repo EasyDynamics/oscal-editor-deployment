@@ -39,9 +39,9 @@ Cypress.Commands.add("navToEditorByDrawer", (viewerLinkText, navigationProfile) 
   }
   cy.visit(Cypress.env("base_url"));
 
-  // Wait 1.5s for the events to start firing. In actuality it probably doesn't need to be
+  // Wait 3s for the events to start firing. In actuality it probably doesn't need to be
   // this log but it also gives time for the handler above to fire as well.
-  cy.wait(1500);
+  cy.wait(3000);
 
   // Wait for any requests that were made to finish. We give all requests 1m. They
   // probably don't need that long, but they can have it.
