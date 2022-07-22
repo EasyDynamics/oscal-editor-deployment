@@ -65,7 +65,7 @@ describe("The Viewer", () => {
     cy.navToProfileEditor(PROFILE_NAVIGATION_V5);
     cy.contains("REST Mode").click();
     cy.contains("Profile");
-    cy.contains(PROFILE_NAVIGATION_V4);
+    cy.contains(PROFILE_NAVIGATION_V5);
   });
 
   it("loads a component", () => {
