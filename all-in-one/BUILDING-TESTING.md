@@ -36,7 +36,7 @@ Note: The following `OPTION` tags are used below
 `--build-arg` is the `OPTION` that specifies how the image is being built.
 
 
-The image can be built by running
+The image can be built by executing the command below
 
 ```bash
 docker build --tag oscal-editor-all-in-one .
@@ -75,7 +75,7 @@ most cases this is not necessary as the `_GIT_BRANCH` build arguments support bo
 The container can be tested using end-to-end Cypress tests:
 More information on testing can be found in [end-to-end-tests.](../end-to-end-tests)
 
-After you successfully create a new docker image, to pull the newly created image run:
+After you successfully create a new docker image, run the newly created image by executing:
 ```bash
 docker run -p 8080:8080 -v "$(pwd)"/oscal-content:/app/oscal-content oscal-editor-all-in-one
 ```
