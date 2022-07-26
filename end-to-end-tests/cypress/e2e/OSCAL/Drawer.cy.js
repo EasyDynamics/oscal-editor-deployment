@@ -1,6 +1,6 @@
 const SSP_NAVIGATION = "Enterprise Logging and Auditing System Security Plan";
 const CATALOG_NAVIGATION =
-  "NIST Special Publication 800-53 Revision 5: Security and Privacy Controls for Federal Information Systems and Organizations";
+  "Electronic Version of NIST SP 800-53 Rev 5 Controls and SP 800-53A Rev 5 Assessment Procedures";
 const COMPONENT_NAVIGATION = "Test Component Definition";
 const PROFILE_NAVIGATION_V4 =
   "NIST Special Publication 800-53 Revision 4 MODERATE IMPACT BASELINE";
@@ -49,7 +49,6 @@ describe("The Viewer", () => {
 
   it("loads a catalog", () => {
     cy.navToCatalogEditor(CATALOG_NAVIGATION);
-    cy.wait(3000);
     cy.contains("REST Mode").click();
     cy.contains("Catalog");
     cy.contains(CATALOG_NAVIGATION);
