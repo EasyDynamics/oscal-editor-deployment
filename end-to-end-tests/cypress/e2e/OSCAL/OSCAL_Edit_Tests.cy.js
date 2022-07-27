@@ -53,7 +53,6 @@ describe('Editing the existing system security plan impl req statement', () => {
 
   it('edits existing system security plan impl req statement', () => {
     const COMPONENT_NAME = 'Enterprise Logging, Monitoring, and Alerting Policy'
-    const PARAM_VALUE_ORIG = 'all staff and contractors within the organization'
     const PARAM_VALUE_NEW = 'some other param value'
     cy.navToSspEditor(SSP_TITLE_ORIG);
     cy.contains('button', COMPONENT_NAME).click()

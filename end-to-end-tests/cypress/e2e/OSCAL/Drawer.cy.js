@@ -1,6 +1,6 @@
 const SSP_NAVIGATION = "Enterprise Logging and Auditing System Security Plan";
 const CATALOG_NAVIGATION =
-  "NIST Special Publication 800-53 Revision 5: Security and Privacy Controls for Federal Information Systems and Organizations";
+  "Electronic Version of NIST SP 800-53 Rev 5 Controls and SP 800-53A Rev 5 Assessment Procedures";
 const COMPONENT_NAVIGATION = "Test Component Definition";
 const PROFILE_NAVIGATION_V4 =
   "NIST Special Publication 800-53 Revision 4 MODERATE IMPACT BASELINE";
@@ -8,7 +8,7 @@ const PROFILE_NAVIGATION_V5 =
   "NIST Special Publication 800-53 Revision 5 MODERATE IMPACT BASELINE";
 const MONGODB_NAVIGATION = "MongoDB Component Definition Example";
 
-describe("Drawer Component", () => {
+describe("The Editor", () => {
   it("loads catalog editor", () => {
     cy.navToCatalogEditor(CATALOG_NAVIGATION);
   });
@@ -49,6 +49,10 @@ describe("The Viewer", () => {
 
   it("loads a catalog", () => {
     cy.navToCatalogEditor(CATALOG_NAVIGATION);
+    // Wait for 3 seconds before changing from REST mode to wait for
+    // Catalog to load in the Editor. The tests sometimes fail if we 
+    // immediately switch to the Viewer.
+    cy.wait(3000);
     cy.contains("REST Mode").click();
     cy.contains("Catalog");
     cy.contains(CATALOG_NAVIGATION);
@@ -65,7 +69,7 @@ describe("The Viewer", () => {
     cy.navToProfileEditor(PROFILE_NAVIGATION_V5);
     cy.contains("REST Mode").click();
     cy.contains("Profile");
-    cy.contains(PROFILE_NAVIGATION_V4);
+    cy.contains(PROFILE_NAVIGATION_V5);
   });
 
   it("loads a component", () => {

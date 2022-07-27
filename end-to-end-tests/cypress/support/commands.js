@@ -28,7 +28,7 @@ import "@testing-library/cypress/add-commands";
 Cypress.Commands.add("navToEditorByDrawer", (viewerLinkText, navigationProfile) => {
   let requestsMade = [];
   for (const route of [
-    "catalog",
+    "catalogs",
     "system-security-plans",
     "component-definitions",
     "profiles",
@@ -38,11 +38,10 @@ Cypress.Commands.add("navToEditorByDrawer", (viewerLinkText, navigationProfile) 
     }).as(route);
   }
   cy.visit(Cypress.env("base_url"));
-  cy.get("button").first().click();
 
-  // Wait 1.5s for the events to start firing. In actuality it probably doesn't need to be
+  // Wait 5s for the events to start firing. In actuality it probably doesn't need to be
   // this log but it also gives time for the handler above to fire as well.
-  cy.wait(1500);
+  cy.wait(5000);
 
   // Wait for any requests that were made to finish. We give all requests 1m. They
   // probably don't need that long, but they can have it.
