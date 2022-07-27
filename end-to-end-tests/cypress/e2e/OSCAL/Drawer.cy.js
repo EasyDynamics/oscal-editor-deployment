@@ -8,7 +8,7 @@ const PROFILE_NAVIGATION_V5 =
   "NIST Special Publication 800-53 Revision 5 MODERATE IMPACT BASELINE";
 const MONGODB_NAVIGATION = "MongoDB Component Definition Example";
 
-describe("The Editor Component", () => {
+describe("The Editor", () => {
   it("loads catalog editor", () => {
     cy.navToCatalogEditor(CATALOG_NAVIGATION);
   });
