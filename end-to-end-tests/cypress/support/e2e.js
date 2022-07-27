@@ -28,4 +28,7 @@ Cypress.on('uncaught:exception', (err, runnable) => {
   if (err.message.includes("Cannot read properties of null (reading 'getText')")) {
     return false
   }
+  if (err.message.includes("ResizeObserver loop limit exceeded")) {
+    return false
+  }
 })
