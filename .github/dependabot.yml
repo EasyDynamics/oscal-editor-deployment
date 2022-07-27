@@ -7,12 +7,6 @@ updates:
       interval: daily
     reviewers:
       - "EasyDynamics/easygrc-reviewers"
-  - package-ecosystem: npm
-    directory: "/end-to-end-tests"
-    schedule:
-      interval: daily
-    reviewers:
-      - "EasyDynamics/easygrc-reviewers"
   - package-ecosystem: github-actions
     directory: "/"
     schedule:
