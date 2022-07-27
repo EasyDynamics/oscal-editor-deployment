@@ -8,7 +8,7 @@ const PROFILE_NAVIGATION_V5 =
   "NIST Special Publication 800-53 Revision 5 MODERATE IMPACT BASELINE";
 const MONGODB_NAVIGATION = "MongoDB Component Definition Example";
 
-describe("Drawer Component", () => {
+describe("The Editor Component", () => {
   it("loads catalog editor", () => {
     cy.navToCatalogEditor(CATALOG_NAVIGATION);
   });
@@ -49,6 +49,10 @@ describe("The Viewer", () => {
 
   it("loads a catalog", () => {
     cy.navToCatalogEditor(CATALOG_NAVIGATION);
+    // Wait for 3 seconds before changing from REST mode to wait for
+    // Catalog to load in the Editor. The tests sometimes fail if we 
+    // immediately switch to the Viewer.
+    cy.wait(3000);
     cy.contains("REST Mode").click();
     cy.contains("Catalog");
     cy.contains(CATALOG_NAVIGATION);
