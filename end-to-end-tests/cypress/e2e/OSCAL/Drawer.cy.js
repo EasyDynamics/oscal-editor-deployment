@@ -49,10 +49,10 @@ describe("The Viewer", () => {
 
   it("loads a catalog", () => {
     cy.navToCatalogEditor(CATALOG_NAVIGATION);
-    // Wait for 3 seconds before changing from REST mode to wait for
+    // Before changing from REST mode to wait for
     // Catalog to load in the Editor. The tests sometimes fail if we 
     // immediately switch to the Viewer.
-    cy.wait(3000);
+    cy.contains(CATALOG_NAVIGATION, { timeout: 10000 });
     cy.contains("REST Mode").click();
     cy.contains("Catalog");
     cy.contains(CATALOG_NAVIGATION);

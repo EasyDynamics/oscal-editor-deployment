@@ -46,7 +46,7 @@ Cypress.Commands.add("navToEditorByDrawer", (viewerLinkText, navigationProfile) 
   }
   
   cy.get('ul')
-    .find('li', { timeout: 10000 })
+    .find('li', { timeout: 15000 })
     .should('have.attr', 'aria-expanded', 'false') 
     .contains(viewerLinkText)
     .click();
