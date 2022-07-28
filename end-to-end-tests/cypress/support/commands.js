@@ -39,21 +39,19 @@ Cypress.Commands.add("navToEditorByDrawer", (viewerLinkText, navigationProfile) 
   }
   cy.visit(Cypress.env("base_url"));
 
-  // Wait 5s for the events to start firing. In actuality it probably doesn't need to be
-  // this log but it also gives time for the handler above to fire as well.
-  cy.wait(5000);
-
   // Wait for any requests that were made to finish. We give all requests 1m. They
   // probably don't need that long, but they can have it.
   if (requestsMade.length) {
     cy.wait(requestsMade, { timeout: 60000 });
   }
-
-  cy.get("p")
+  
+  cy.get('ul')
+    .find('li', { timeout: 10000 })
+    .should('have.attr', 'aria-expanded', 'false') 
     .contains(viewerLinkText)
-    .should("be.visible")
-    .click({ timeout: 100000 });
-  cy.contains(navigationProfile, { timeout: 10000 }).click();
+    .click();
+
+  cy.contains(navigationProfile).click();
 });
 
 Cypress.Commands.add("navToSspEditor", (toNavigate) => {
