@@ -9,6 +9,6 @@ module.exports = defineConfig({
   e2e: {
     setupNodeEvents(on, config) {},
   },
-  retries: 1,
+  retries: 2,
   video: false,
 })
