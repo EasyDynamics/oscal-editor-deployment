@@ -99,3 +99,7 @@ Cypress.Commands.add("setTestSspJson", (sspJson) => {
     sspJson
   );
 });
+
+Cypress.Commands.add("waitForLoad", () => {
+  cy.get('circle', { timeout: 10000} ).should('not.exist');
+});

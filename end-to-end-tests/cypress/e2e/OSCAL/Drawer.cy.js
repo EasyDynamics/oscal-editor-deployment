@@ -11,20 +11,32 @@ const MONGODB_NAVIGATION = "MongoDB Component Definition Example";
 describe("The Editor", () => {
   it("loads catalog editor", () => {
     cy.navToCatalogEditor(CATALOG_NAVIGATION);
+    cy.waitForLoad();
+    cy.contains(CATALOG_NAVIGATION);
   });
 
   it("loads component editor", () => {
     cy.navToCdefEditor(MONGODB_NAVIGATION);
-    cy.navToCdefEditor(COMPONENT_NAVIGATION);
+    cy.waitForLoad();
+    cy.contains(MONGODB_NAVIGATION);
+    cy.navToCdefEditor(COMPONENT_NAVIGATION);    
+    cy.waitForLoad();
+    cy.contains(COMPONENT_NAVIGATION);
   });
 
   it("loads profile component", () => {
-    cy.navToProfileEditor(PROFILE_NAVIGATION_V4);
-    cy.navToProfileEditor(PROFILE_NAVIGATION_V5);
+    cy.navToProfileEditor(PROFILE_NAVIGATION_V4);    
+    cy.waitForLoad();
+    cy.contains(PROFILE_NAVIGATION_V4);
+    cy.navToProfileEditor(PROFILE_NAVIGATION_V5);    
+    cy.waitForLoad();
+    cy.contains(PROFILE_NAVIGATION_V5);
   });
 
   it("loads system security plan editor", () => {
     cy.navToSspEditor(SSP_NAVIGATION);
+    cy.waitForLoad();
+    cy.contains(SSP_NAVIGATION);
   });
 
   it("navigates editors in random order", () => {
@@ -49,10 +61,7 @@ describe("The Viewer", () => {
 
   it("loads a catalog", () => {
     cy.navToCatalogEditor(CATALOG_NAVIGATION);
-    // Before changing from REST mode to wait for
-    // Catalog to load in the Editor. The tests sometimes fail if we 
-    // immediately switch to the Viewer.
-    cy.contains(CATALOG_NAVIGATION, { timeout: 10000 });
+    cy.waitForLoad();
     cy.contains("REST Mode").click();
     cy.contains("Catalog");
     cy.contains(CATALOG_NAVIGATION);
@@ -60,6 +69,7 @@ describe("The Viewer", () => {
 
   it("loads the v4 profile", () => {
     cy.navToProfileEditor(PROFILE_NAVIGATION_V4);
+    cy.waitForLoad();
     cy.contains("REST Mode").click();
     cy.contains("Profile");
     cy.contains(PROFILE_NAVIGATION_V4);
@@ -67,6 +77,7 @@ describe("The Viewer", () => {
 
   it("loads the v5 profile", () => {
     cy.navToProfileEditor(PROFILE_NAVIGATION_V5);
+    cy.waitForLoad();
     cy.contains("REST Mode").click();
     cy.contains("Profile");
     cy.contains(PROFILE_NAVIGATION_V5);
@@ -74,6 +85,7 @@ describe("The Viewer", () => {
 
   it("loads a component", () => {
     cy.navToCdefEditor(COMPONENT_NAVIGATION);
+    cy.waitForLoad();
     cy.contains("REST Mode").click();
     cy.contains("Component");
     cy.contains(COMPONENT_NAVIGATION);
@@ -81,6 +93,7 @@ describe("The Viewer", () => {
 
   it("loads a system security plan", () => {
     cy.navToSspEditor(SSP_NAVIGATION);
+    cy.waitForLoad();
     cy.contains("REST Mode").click();
     cy.contains("System Security Plan");
     cy.contains(SSP_NAVIGATION);
