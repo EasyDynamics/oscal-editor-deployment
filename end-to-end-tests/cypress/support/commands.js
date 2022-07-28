@@ -45,7 +45,7 @@ Cypress.Commands.add("navToEditorByDrawer", (viewerLinkText, navigationProfile) 
     cy.wait(requestsMade, { timeout: 60000 });
   }
   
-  cy.get('ul')
+  cy.get('ul[aria-label="file system navigator"]')
     .find('li', { timeout: 15000 })
     .should('have.attr', 'aria-expanded', 'false') 
     .contains(viewerLinkText)
@@ -101,5 +101,5 @@ Cypress.Commands.add("setTestSspJson", (sspJson) => {
 });
 
 Cypress.Commands.add("waitForLoad", () => {
-  cy.get('circle', { timeout: 10000} ).should('not.exist');
+  cy.get('circle', { timeout: 10000 } ).should('not.exist');
 });
