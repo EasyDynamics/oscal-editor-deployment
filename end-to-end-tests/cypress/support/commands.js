@@ -25,7 +25,11 @@
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 import "@testing-library/cypress/add-commands";
 
-Cypress.Commands.add("navToEditorByDrawer", (viewerLinkText, navigationProfile) => {
+Cypress.Commands.add("waitForLoad", () => {
+  cy.get('circle', { timeout: 10000 } ).should('not.exist');
+});
+
+Cypress.Commands.add("navToEditorByDrawer", (oscalType, pageTitle, shouldWait) => {
   let requestsMade = [];
   for (const route of [
     "catalogs",
@@ -48,26 +52,39 @@ Cypress.Commands.add("navToEditorByDrawer", (viewerLinkText, navigationProfile) 
   cy.get('ul[aria-label="file system navigator"]')
     .find('li', { timeout: 15000 })
     .should('have.attr', 'aria-expanded', 'false') 
-    .contains(viewerLinkText)
+    .contains(oscalType)
     .click();
 
-  cy.contains(navigationProfile).click();
+  cy.contains(pageTitle).click();
+
+  if (shouldWait) {
+    cy.waitForLoad();
+  }
 });
 
-Cypress.Commands.add("navToSspEditor", (toNavigate) => {
-  cy.navToEditorByDrawer("System Security Plan", toNavigate);
-});
+const oscalObjectTypes = [
+  {
+    commandName: "navToSspEditor",
+    oscalType: "System Security Plan",
+  },
+  {
+    commandName: "navToCdefEditor",
+    oscalType: "Component",
+  },
+  {
+    commandName: "navToProfileEditor",
+    oscalType: "Profile",
+  },
+  {
+    commandName: "navToCatalogEditor",
+    oscalType: "Catalog",
+  },
+]
 
-Cypress.Commands.add("navToCdefEditor", (toNavigate) => {
-  cy.navToEditorByDrawer("Component", toNavigate);
-});
-
-Cypress.Commands.add("navToProfileEditor", (toNavigate) => {
-  cy.navToEditorByDrawer("Profile", toNavigate);
-});
-
-Cypress.Commands.add("navToCatalogEditor", (toNavigate) => {
-  cy.navToEditorByDrawer("Catalog", toNavigate);
+oscalObjectTypes.map((oscalObjectType) => {
+  Cypress.Commands.add(oscalObjectType.commandName, (pageTitle, shouldWait=false) => {
+    cy.navToEditorByDrawer(oscalObjectType.oscalType, pageTitle, shouldWait);
+  })
 });
 
 Cypress.Commands.add("getInputByLabel", (label) => {
@@ -100,6 +117,3 @@ Cypress.Commands.add("setTestSspJson", (sspJson) => {
   );
 });
 
-Cypress.Commands.add("waitForLoad", () => {
-  cy.get('circle', { timeout: 10000 } ).should('not.exist');
-});
