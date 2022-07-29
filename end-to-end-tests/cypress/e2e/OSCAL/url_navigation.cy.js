@@ -1,9 +1,15 @@
 const NAVIGATION = [
   {
-    editor: "Catalog",
+    editor: "Catalog Revision 4",
     title:
-      "NIST Special Publication 800-53 Revision 5: Security and Privacy Controls for Federal Information Systems and Organizations",
-    relativeURL: "/catalog/613fca2d-704a-42e7-8e2b-b206fb92b456",
+      "NIST Special Publication 800-53 Revision 4: Security and Privacy Controls for Federal Information Systems and Organizations",
+    relativeURL: "/catalog/b954d3b7-d2c7-453b-8eb2-459e8d3b8462",
+  },
+  {
+    editor: "Catalog Revision 5",
+    title:
+      "Electronic Version of NIST SP 800-53 Rev 5 Controls and SP 800-53A Rev 5 Assessment Procedures",
+    relativeURL: "/catalog/1da16966-2d5b-4e8a-9056-0fe09d35412b",
   },
   {
     editor: "MongoDB",
@@ -34,12 +40,12 @@ const NAVIGATION = [
     relativeURL: "/system-security-plan/cff8385f-108e-40a5-8f7a-82f3dc0eaba8",
   },
 ];
-describe("The Editor", () => {
-  it("Loads the correct pages by url", () => {
-    cy.wrap(NAVIGATION).each((element) => {
-      cy.visit(`${Cypress.env("base_url")}${element.relativeURL}`);
+describe("Test that the ", () => {
+  for (let i = 0; i < NAVIGATION.length; i++) {
+    it(`${NAVIGATION[i].editor} Editor loads by URL`, () => {
+      cy.visit(`${Cypress.env("base_url")}${NAVIGATION[i].relativeURL}`);
       cy.waitForLoad();
-      cy.contains(element.title);
+      cy.contains(NAVIGATION[i].title);
     });
-  });
+  }
 });
