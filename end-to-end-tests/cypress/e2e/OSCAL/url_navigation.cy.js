@@ -34,10 +34,11 @@ const NAVIGATION = [
     relativeURL: "/system-security-plan/cff8385f-108e-40a5-8f7a-82f3dc0eaba8",
   },
 ];
-describe("Test navigation by URLs route to", () => {
-  it("each of the editors pages", () => {
+describe("The Editor", () => {
+  it("Loads the correct pages by url", () => {
     cy.wrap(NAVIGATION).each((element) => {
       cy.visit(`${Cypress.env("base_url")}${element.relativeURL}`);
+      cy.waitForLoad();
       cy.contains(element.title);
     });
   });
