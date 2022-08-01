@@ -24,10 +24,19 @@ files may be passed to the `VIEWER_PATH` and `REST_PATH` build args as described
 [viewer-artifact]: https://github.com/EasyDynamics/oscal-react-library/releases/latest/download/oscal-viewer.zip
 [package]: https://github.com/EasyDynamics/oscal-rest-service/packages/1369238
 [pat]: https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token
-
+[all-in-one]: https://github.com/EasyDynamics/oscal-editor-deployment/tree/main/all-in-one
+[docker-build-doc]: https://docs.docker.com/engine/reference/commandline/build
 ### Creating the Image
+The skeleton of the `docker build` follows the following syntax:
+`docker build [OPTIONS] PATH | URL | -`.
+Documentation for the docker build command can be found [here][docker-build-doc].
 
-The image can be built by running
+Note: The following `OPTION` tags are used below
+`--tag` is the `OPTION` that names the docker image you are creating.
+`--build-arg` is the `OPTION` that specifies how the image is being built.
+
+
+The image can be built by executing the command below
 
 ```bash
 docker build --tag oscal-editor-all-in-one .
@@ -63,6 +72,11 @@ most cases this is not necessary as the `_GIT_BRANCH` build arguments support bo
 
 ## Testing
 
-The container can be tested using end-to-end Cypress tests.
-
+The container can be tested using end-to-end Cypress tests:
 More information on testing can be found in [end-to-end-tests.](../end-to-end-tests)
+
+After you successfully create a new docker image, run the newly created image by executing:
+```bash
+docker run -p 8080:8080 -v "$(pwd)"/oscal-content:/app/oscal-content oscal-editor-all-in-one
+```
+The command from the found in the [All-in-One Deployment][all-in-one] pulls the default image found on the default `Dockerfile` located in GitHub.
