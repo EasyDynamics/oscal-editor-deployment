@@ -41,11 +41,9 @@ const NAVIGATION = [
   },
 ];
 describe("Test that the ", () => {
-  NAVIGATION.forEach((element) => {
-    it(`${element.editor} Editor loads by URL`, () => {
-      cy.visit(`${Cypress.env("base_url")}${element.relativeURL}`);
-      cy.waitForLoad();
-      cy.contains(element.title);
-    });
+  it.each(NAVIGATION)(`%s loads by url`, (editor, title, relativeURL) => {
+    cy.visit(`${Cypress.env("base_url")}${relativeURL}`);
+    cy.waitForLoad();
+    cy.contains(`${title}`);
   });
 });
