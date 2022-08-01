@@ -81,7 +81,7 @@ const oscalObjectTypes = [
   },
 ]
 
-oscalObjectTypes.map((oscalObjectType) => {
+oscalObjectTypes.forEach((oscalObjectType) => {
   Cypress.Commands.add(oscalObjectType.commandName, (pageTitle, shouldWait=false) => {
     cy.navToEditorByDrawer(oscalObjectType.oscalType, pageTitle, shouldWait);
   })
