@@ -29,7 +29,7 @@ Cypress.Commands.add("waitForLoad", () => {
   cy.get('circle', { timeout: 10000 } ).should('not.exist');
 });
 
-Cypress.Commands.add("navToEditorByDrawer", (oscalType, pageTitle, shouldWait) => {
+Cypress.Commands.add("navToEditorByDrawer", (oscalType, pageTitle) => {
   let requestsMade = [];
   for (const route of [
     "catalogs",
@@ -56,10 +56,6 @@ Cypress.Commands.add("navToEditorByDrawer", (oscalType, pageTitle, shouldWait) =
     .click();
 
   cy.contains(pageTitle).click();
-
-  if (shouldWait) {
-    cy.waitForLoad();
-  }
 });
 
 const oscalObjectTypes = [
@@ -82,8 +78,8 @@ const oscalObjectTypes = [
 ]
 
 oscalObjectTypes.forEach((oscalObjectType) => {
-  Cypress.Commands.add(oscalObjectType.commandName, (pageTitle, shouldWait=false) => {
-    cy.navToEditorByDrawer(oscalObjectType.oscalType, pageTitle, shouldWait);
+  Cypress.Commands.add(oscalObjectType.commandName, (pageTitle) => {
+    cy.navToEditorByDrawer(oscalObjectType.oscalType, pageTitle);
   })
 });
 

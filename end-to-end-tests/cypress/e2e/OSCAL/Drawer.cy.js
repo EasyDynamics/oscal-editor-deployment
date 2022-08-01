@@ -10,32 +10,38 @@ const MONGODB_NAVIGATION = "MongoDB Component Definition Example";
 
 describe("The Editor", () => {
   it("loads catalog editor", () => {
-    cy.navToCatalogEditor(CATALOG_NAVIGATION, true);
+    cy.navToCatalogEditor(CATALOG_NAVIGATION);
+    cy.waitForLoad();
     cy.contains(CATALOG_NAVIGATION);
   });
 
   it("loads MongoDB component editor", () => {
-    cy.navToCdefEditor(MONGODB_NAVIGATION, true);
+    cy.navToCdefEditor(MONGODB_NAVIGATION);
+    cy.waitForLoad();
     cy.contains(MONGODB_NAVIGATION);
   });
 
   it("loads test component editor", () => {
-    cy.navToCdefEditor(COMPONENT_NAVIGATION, true);    
+    cy.navToCdefEditor(COMPONENT_NAVIGATION);    
+    cy.waitForLoad();
     cy.contains(COMPONENT_NAVIGATION);
   });
 
   it("loads v4 profile editor", () => {
-    cy.navToProfileEditor(PROFILE_NAVIGATION_V4, true);    
+    cy.navToProfileEditor(PROFILE_NAVIGATION_V4);    
+    cy.waitForLoad();
     cy.contains(PROFILE_NAVIGATION_V4);
   });
 
   it("loads v5 profile editor", () => {
-    cy.navToProfileEditor(PROFILE_NAVIGATION_V5, true);    
+    cy.navToProfileEditor(PROFILE_NAVIGATION_V5);    
+    cy.waitForLoad();
     cy.contains(PROFILE_NAVIGATION_V5);
   });
 
   it("loads system security plan editor", () => {
-    cy.navToSspEditor(SSP_NAVIGATION, true);
+    cy.navToSspEditor(SSP_NAVIGATION);
+    cy.waitForLoad();
     cy.contains(SSP_NAVIGATION);
   });
 
@@ -46,7 +52,8 @@ describe("The Editor", () => {
     cy.navToCatalogEditor(CATALOG_NAVIGATION);
     cy.navToCdefEditor(MONGODB_NAVIGATION);
     cy.navToCdefEditor(COMPONENT_NAVIGATION);
-    cy.navToProfileEditor(PROFILE_NAVIGATION_V5, true);
+    cy.navToProfileEditor(PROFILE_NAVIGATION_V5);
+    cy.waitForLoad();
     cy.contains(PROFILE_NAVIGATION_V5);
   });
 });
@@ -61,35 +68,40 @@ describe("The Viewer", () => {
   });
 
   it("loads a catalog", () => {
-    cy.navToCatalogEditor(CATALOG_NAVIGATION, true);
+    cy.navToCatalogEditor(CATALOG_NAVIGATION);
+    cy.waitForLoad();
     cy.contains("REST Mode").click();
     cy.contains("Catalog");
     cy.contains(CATALOG_NAVIGATION);
   });
 
   it("loads the v4 profile", () => {
-    cy.navToProfileEditor(PROFILE_NAVIGATION_V4, true);
+    cy.navToProfileEditor(PROFILE_NAVIGATION_V4);
+    cy.waitForLoad();
     cy.contains("REST Mode").click();
     cy.contains("Profile");
     cy.contains(PROFILE_NAVIGATION_V4);
   });
 
   it("loads the v5 profile", () => {
-    cy.navToProfileEditor(PROFILE_NAVIGATION_V5, true);
+    cy.navToProfileEditor(PROFILE_NAVIGATION_V5);
+    cy.waitForLoad();
     cy.contains("REST Mode").click();
     cy.contains("Profile");
     cy.contains(PROFILE_NAVIGATION_V5);
   });
 
   it("loads a component", () => {
-    cy.navToCdefEditor(COMPONENT_NAVIGATION, true);
+    cy.navToCdefEditor(COMPONENT_NAVIGATION);
+    cy.waitForLoad();
     cy.contains("REST Mode").click();
     cy.contains("Component");
     cy.contains(COMPONENT_NAVIGATION);
   });
 
   it("loads a system security plan", () => {
-    cy.navToSspEditor(SSP_NAVIGATION, true);
+    cy.navToSspEditor(SSP_NAVIGATION);
+    cy.waitForLoad();
     cy.contains("REST Mode").click();
     cy.contains("System Security Plan");
     cy.contains(SSP_NAVIGATION);
