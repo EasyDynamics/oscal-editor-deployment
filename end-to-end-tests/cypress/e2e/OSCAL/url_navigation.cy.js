@@ -41,11 +41,11 @@ const NAVIGATION = [
   },
 ];
 describe("Test that the ", () => {
-  for (let i = 0; i < NAVIGATION.length; i++) {
-    it(`${NAVIGATION[i].editor} Editor loads by URL`, () => {
-      cy.visit(`${Cypress.env("base_url")}${NAVIGATION[i].relativeURL}`);
+  NAVIGATION.forEach((element) => {
+    it(`${element.editor} Editor loads by URL`, () => {
+      cy.visit(`${Cypress.env("base_url")}${element.relativeURL}`);
       cy.waitForLoad();
-      cy.contains(NAVIGATION[i].title);
+      cy.contains(element.title);
     });
-  }
+  });
 });
