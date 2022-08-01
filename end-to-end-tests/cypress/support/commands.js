@@ -25,7 +25,11 @@
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 import "@testing-library/cypress/add-commands";
 
-Cypress.Commands.add("navToEditorByDrawer", (viewerLinkText, navigationProfile) => {
+Cypress.Commands.add("waitForLoad", () => {
+  cy.get('circle', { timeout: 10000 } ).should('not.exist');
+});
+
+Cypress.Commands.add("navToEditorByDrawer", (oscalType, pageTitle) => {
   let requestsMade = [];
   for (const route of [
     "catalogs",
@@ -39,37 +43,44 @@ Cypress.Commands.add("navToEditorByDrawer", (viewerLinkText, navigationProfile) 
   }
   cy.visit(Cypress.env("base_url"));
 
-  // Wait 5s for the events to start firing. In actuality it probably doesn't need to be
-  // this log but it also gives time for the handler above to fire as well.
-  cy.wait(5000);
-
   // Wait for any requests that were made to finish. We give all requests 1m. They
   // probably don't need that long, but they can have it.
   if (requestsMade.length) {
     cy.wait(requestsMade, { timeout: 60000 });
   }
+  
+  cy.get('ul[aria-label="file system navigator"]')
+    .find('li', { timeout: 15000 })
+    .should('have.attr', 'aria-expanded', 'false') 
+    .contains(oscalType)
+    .click();
 
-  cy.get("p")
-    .contains(viewerLinkText)
-    .should("be.visible")
-    .click({ timeout: 100000 });
-  cy.contains(navigationProfile, { timeout: 10000 }).click();
+  cy.contains(pageTitle).click();
 });
 
-Cypress.Commands.add("navToSspEditor", (toNavigate) => {
-  cy.navToEditorByDrawer("System Security Plan", toNavigate);
-});
+const oscalObjectTypes = [
+  {
+    commandName: "navToSspEditor",
+    oscalType: "System Security Plan",
+  },
+  {
+    commandName: "navToCdefEditor",
+    oscalType: "Component",
+  },
+  {
+    commandName: "navToProfileEditor",
+    oscalType: "Profile",
+  },
+  {
+    commandName: "navToCatalogEditor",
+    oscalType: "Catalog",
+  },
+]
 
-Cypress.Commands.add("navToCdefEditor", (toNavigate) => {
-  cy.navToEditorByDrawer("Component", toNavigate);
-});
-
-Cypress.Commands.add("navToProfileEditor", (toNavigate) => {
-  cy.navToEditorByDrawer("Profile", toNavigate);
-});
-
-Cypress.Commands.add("navToCatalogEditor", (toNavigate) => {
-  cy.navToEditorByDrawer("Catalog", toNavigate);
+oscalObjectTypes.forEach((oscalObjectType) => {
+  Cypress.Commands.add(oscalObjectType.commandName, (pageTitle) => {
+    cy.navToEditorByDrawer(oscalObjectType.oscalType, pageTitle);
+  })
 });
 
 Cypress.Commands.add("getInputByLabel", (label) => {
@@ -101,3 +112,4 @@ Cypress.Commands.add("setTestSspJson", (sspJson) => {
     sspJson
   );
 });
+
