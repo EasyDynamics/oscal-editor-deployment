@@ -7,6 +7,9 @@ on:
       - 'v*'
   pull_request:
   workflow_dispatch:
+  schedule:
+    # Run daily at 12:15 UTC (08:15 EDT/07:15 EST)
+    - cron: "15 12 * * *"
 
 env:
   IMAGE_NAME: oscal-editor-all-in-one
@@ -54,12 +57,22 @@ jobs:
           --name ${CONTAINER_NAME} ${IMAGE_NAME} &
 
       - name: Run Cypress Tests
-        uses: cypress-io/github-action@v4.1.1
-        env:
-          DEBUG: '@cypress/github-action'
+        uses: cypress-io/github-action@v4
         with:
           spec: cypress/e2e/**/*.cy.js
           working-directory: end-to-end-tests
+
+      - name: Output Docker Container Logs
+        if: always()
+        run: |
+          docker logs ${CONTAINER_NAME} | tee container-logs.txt
+
+      - name: Upload Docker Container Logs
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: docker-logs
+          path: container-logs.txt
 
       # Upload the screenshots and videos of a Cypress test failure
       # to the artifacts of this workflow on GitHub
@@ -71,11 +84,6 @@ jobs:
           path: |
             ./end-to-end-tests/cypress/screenshots
             ./end-to-end-tests/cypress/videos
-
-      - name: Output Docker Container Logs
-        if: always()
-        run: |
-          docker logs ${CONTAINER_NAME}
 
       - name: Stop Running Container
         run:

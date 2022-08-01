@@ -23,54 +23,93 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
-import '@testing-library/cypress/add-commands';
+import "@testing-library/cypress/add-commands";
 
-Cypress.Commands.add('navToViewer', (viewerLinkText, titleText) => {
-  cy.visit(Cypress.env('base_url'))
-  cy.findByText('OSCAL Catalog Editor').should('exist')
-  cy.get('button').first().click()
-  cy.contains(viewerLinkText).click()
-  cy.findByText(titleText).should('be.visible')
-})
+Cypress.Commands.add("waitForLoad", () => {
+  cy.get('circle', { timeout: 10000 } ).should('not.exist');
+});
 
-Cypress.Commands.add('navToSspViewer', () => {
-  cy.navToViewer(
-    'System Security Plan Editor',
-    'OSCAL System Security Plan Editor'
-  ) 
-})
+Cypress.Commands.add("navToEditorByDrawer", (oscalType, pageTitle) => {
+  let requestsMade = [];
+  for (const route of [
+    "catalogs",
+    "system-security-plans",
+    "component-definitions",
+    "profiles",
+  ]) {
+    cy.intercept("GET", `${Cypress.env("api_url")}/${route}`, () => {
+      requestsMade.push(route);
+    }).as(route);
+  }
+  cy.visit(Cypress.env("base_url"));
 
-Cypress.Commands.add('navToTestSspRestMode', (sspTitle) => {
-  cy.navToSspViewer()
-  cy.contains('Select OSCAL SSP').parent().click()
-  cy.contains(sspTitle).click()
-  cy.contains(sspTitle).should('be.visible')
-})
+  // Wait for any requests that were made to finish. We give all requests 1m. They
+  // probably don't need that long, but they can have it.
+  if (requestsMade.length) {
+    cy.wait(requestsMade, { timeout: 60000 });
+  }
+  
+  cy.get('ul[aria-label="file system navigator"]')
+    .find('li', { timeout: 15000 })
+    .should('have.attr', 'aria-expanded', 'false') 
+    .contains(oscalType)
+    .click();
 
-Cypress.Commands.add('navToCdefViewer', () => {
-  cy.navToViewer(
-    'Component Editor',
-    'OSCAL Component Editor'
-  ) 
-})
+  cy.contains(pageTitle).click();
+});
 
-Cypress.Commands.add('getInputByLabel', (label) => {
-  cy.contains('label', label)
-    .invoke('attr', 'for')
+const oscalObjectTypes = [
+  {
+    commandName: "navToSspEditor",
+    oscalType: "System Security Plan",
+  },
+  {
+    commandName: "navToCdefEditor",
+    oscalType: "Component",
+  },
+  {
+    commandName: "navToProfileEditor",
+    oscalType: "Profile",
+  },
+  {
+    commandName: "navToCatalogEditor",
+    oscalType: "Catalog",
+  },
+]
+
+oscalObjectTypes.forEach((oscalObjectType) => {
+  Cypress.Commands.add(oscalObjectType.commandName, (pageTitle) => {
+    cy.navToEditorByDrawer(oscalObjectType.oscalType, pageTitle);
+  })
+});
+
+Cypress.Commands.add("getInputByLabel", (label) => {
+  cy.contains("label", label)
+    .invoke("attr", "for")
     .then((id) => {
       //cy.get('#' + id)
-      cy.get(`input[id="${id}"]`)
-    })
-})
+      cy.get(`input[id="${id}"]`);
+    });
+});
 
-Cypress.Commands.add('getTestSspJson', () => {
-  cy.request('GET', `${Cypress.env('api_url')}/system-security-plans/cff8385f-108e-40a5-8f7a-82f3dc0eaba8`).then(
-    (response) => {
-      return cy.wrap(response.body)
-    }
-  )
-})
+Cypress.Commands.add("getTestSspJson", () => {
+  cy.request(
+    "GET",
+    `${Cypress.env(
+      "api_url"
+    )}/system-security-plans/cff8385f-108e-40a5-8f7a-82f3dc0eaba8`
+  ).then((response) => {
+    return cy.wrap(response.body);
+  });
+});
 
-Cypress.Commands.add('setTestSspJson', (sspJson) => {
-  cy.request('PUT', `${Cypress.env('api_url')}/system-security-plans/cff8385f-108e-40a5-8f7a-82f3dc0eaba8`, sspJson)
-})
+Cypress.Commands.add("setTestSspJson", (sspJson) => {
+  cy.request(
+    "PUT",
+    `${Cypress.env(
+      "api_url"
+    )}/system-security-plans/cff8385f-108e-40a5-8f7a-82f3dc0eaba8`,
+    sspJson
+  );
+});
+

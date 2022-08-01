@@ -4,6 +4,6 @@ node_modules
 .settings
 all-in-one/build/
 all-in-one/oscal-content/
-all-in-one/viewer.zip
-all-in-one/viewer
+all-in-one/oscal-viewer.zip
+all-in-one/oscal-viewer
 all-in-one/*.jar
