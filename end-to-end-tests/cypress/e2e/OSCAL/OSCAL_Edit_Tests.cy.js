@@ -185,3 +185,28 @@ describe("Test 'ESC' Key Keypress in Textfields will", () => {
       .should("have.value", SSP_TITLE_ORIG);
   });
 });
+
+describe('Editing ac-2.2_smt from the Enterprise Logging and Auditing System Security Plan', () => {
+  // Store current SSP and reset after test
+  let origSspJson;
+  before(() => {
+    cy.getTestSspJson().then((result) => (origSspJson = result));
+  });
+  after(() => {
+    cy.setTestSspJson(origSspJson);
+  });
+
+  it('displays new parameter', () => {
+    const PARAM_VALUE_NEW = 'some new param value';
+    cy.navToSspEditor(SSP_TITLE_ORIG);
+    cy.waitForLoad();
+    cy.get('[aria-label*="ac-2.2_smt"]').click()
+    cy.getInputByLabel('ac-2.2_prm_1').clear().type(PARAM_VALUE_NEW)
+    cy.intercept('GET', '/oscal/v1/system-security-plans/*').as('getSsp')
+    cy.get(`[aria-label="save-ac-2.2_smt"]`).click({force: true})
+    cy.wait('@getSsp')
+    // Verify updated value
+    cy.contains(PARAM_VALUE_NEW).should("be.visible");
+  });
+});
+
