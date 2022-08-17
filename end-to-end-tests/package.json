@@ -4,7 +4,7 @@
     "@cypress/webpack-dev-server": "^2.2.0",
     "@testing-library/cypress": "^8.0.3",
     "@testing-library/dom": "^8.17.1",
-    "cypress": "^10.5.0"
+    "cypress": "^10.6.0"
   },
   "name": "oscal-editor-testing",
   "description": "Automated testing of the OSCAL Editor.",
