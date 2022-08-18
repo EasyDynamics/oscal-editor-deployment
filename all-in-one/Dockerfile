@@ -67,19 +67,13 @@ RUN if [ -n "$REST_PATH" ]; \
     mv oscal-rest-service-app/target/oscal-rest-service-app*.jar "/app/oscal-rest-service-app.jar"; \
     fi
 
-FROM openjdk:${JAVA_VERSION}-slim-bullseye
+FROM gcr.io/distroless/java11-debian11
 
 #copy production build of OSCAL Viewer
 COPY --from=build-viewer /app/build /app/oscal-viewer-app
 COPY --from=build-service /app/oscal-rest-service-app.jar /app/oscal-rest-service-app.jar
 
-#add a new group and add a new user to the group
-#give permissions in the /app/ directory to the new user
-RUN addgroup --system oscaledit && \
-    adduser --system oscaledit --ingroup oscaledit && \
-    chown -R oscaledit /app/
-
-USER oscaledit
+USER nonroot:nonroot
 
 #set environment variables for the oscal content directory
 #and location of the production build to be served by Spring Boot
@@ -88,6 +82,6 @@ ENV PERSISTENCE_FILE_PARENT_PATH="oscal-content" \
 
 EXPOSE 8080
 
-WORKDIR /app/
+WORKDIR /app
 
-ENTRYPOINT ["java", "-jar", "oscal-rest-service-app.jar"]
+CMD ["oscal-rest-service-app.jar"]
