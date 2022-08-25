@@ -6,10 +6,10 @@ updates:
     schedule:
       interval: daily
     reviewers:
-      - "EasyDynamics/easygrc-reviewers"
+      - "EasyDynamics/oscal-editor-reviewers"
   - package-ecosystem: github-actions
     directory: "/"
     schedule:
       interval: daily
     reviewers:
-      - "EasyDynamics/easygrc-reviewers"
+      - "EasyDynamics/oscal-editor-reviewers"
