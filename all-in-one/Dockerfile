@@ -67,7 +67,7 @@ RUN if [ -n "$REST_PATH" ]; \
     mv oscal-rest-service-app/target/oscal-rest-service-app*.jar "/app/oscal-rest-service-app.jar"; \
     fi
 
-FROM gcr.io/distroless/java${JAVA_VERSION}-debian11
+FROM gcr.io/distroless/java${JAVA_VERSION}-debian11:nonroot
 
 #copy production build of OSCAL Viewer
 COPY --from=build-viewer /app/build /app/oscal-viewer-app
