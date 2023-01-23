@@ -57,7 +57,7 @@ jobs:
           --name ${CONTAINER_NAME} ${IMAGE_NAME} &
 
       - name: Run Cypress Tests
-        uses: cypress-io/github-action@v4
+        uses: cypress-io/github-action@v5
         with:
           spec: cypress/e2e/**/*.cy.js
           working-directory: end-to-end-tests
