@@ -10,7 +10,7 @@
 #  Steps 1 & 2 place their artifacts in /app/ and Step 3 copies the final artifact
 #  into its /app/ directory with the appropriate filename.
 
-ARG JAVA_VERSION=11
+ARG JAVA_VERSION=17
 ARG NODE_VERSION=lts
 # The maven container specifies a JAVA_VERSION environment variable so we have
 # to find a way to rename our variable within that stage. ENV always overrides
@@ -36,6 +36,7 @@ RUN if [ -n "$VIEWER_PATH" ] ; \
     rm -rf /app/build && \
     git clone --branch "$OSCAL_REACT_GIT_BRANCH" --depth 1 -- "$OSCAL_REACT_GIT_REPO" "$OSCAL_REACT_DIR" && \
     cd "$OSCAL_REACT_DIR" && \
+    npm install -g npm@latest && \
     npm ci && \
     cd example && \
     npm ci && \
