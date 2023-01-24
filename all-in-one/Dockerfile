@@ -36,6 +36,7 @@ RUN if [ -n "$VIEWER_PATH" ] ; \
     rm -rf /app/build && \
     git clone --branch "$OSCAL_REACT_GIT_BRANCH" --depth 1 -- "$OSCAL_REACT_GIT_REPO" "$OSCAL_REACT_DIR" && \
     cd "$OSCAL_REACT_DIR" && \
+    npm install -g npm@latest && \
     npm ci && \
     cd example && \
     npm ci && \
