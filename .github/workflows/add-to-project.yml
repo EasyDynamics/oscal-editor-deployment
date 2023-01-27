@@ -19,7 +19,7 @@ jobs:
         # an output. It _does_ register that token as a secret so that it will be
         # filtered from log output automatically
         id: generate-token
-        # This maps to v1.7.0 https://github.com/tibdex/github-app-token/releases/tag/v1.7.0
+        # This maps to v1.8.0 https://github.com/tibdex/github-app-token/releases/tag/v1.8.0
         uses: tibdex/github-app-token@b62528385c34dbc9f38e5f4225ac829252d1ea92
         with:
           app_id: ${{ secrets.APP_ID }}
