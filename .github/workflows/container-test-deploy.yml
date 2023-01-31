@@ -44,6 +44,7 @@ jobs:
         with:
           context: ./all-in-one
           load: true
+          provenance: false
           tags: ${{ env.IMAGE_NAME }}
 
       # Run container in the background, exposing the port that
@@ -129,6 +130,7 @@ jobs:
           context: ./all-in-one
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
+          provenance: false
           labels: ${{ steps.meta.outputs.labels }}
 
       # This uses the peter-evans workflow: https://github.com/peter-evans/dockerhub-description
