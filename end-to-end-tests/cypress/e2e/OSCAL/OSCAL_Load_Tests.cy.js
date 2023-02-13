@@ -103,5 +103,20 @@ describe('Loading OSCAL Catalog Groups', () => {
     cy.contains('CP-2 Contingency Plan').click();
     cy.contains('The organization:').should('be.visible');
   });
-});
 
+  it("navigates to control (PM-11) from hash", () => {
+    cy.visit({
+      url: "http://localhost:8080/catalog/b954d3b7-d2c7-453b-8eb2-459e8d3b8462#pm-11",
+      method: "GET",
+    });
+    cy.waitForLoad();
+    cy.contains("The organization:").should("be.visible");
+  });
+
+  it("navigated to control (RA-5) and grabs hash from anchor link", () => {
+    cy.get("button").contains("Risk Assessment").click();
+    cy.contains('RA-5 Vulnerability Scanning').trigger('mouseover');
+    cy.get(`[aria-label="ra-5 anchor link"]`).click();
+    cy.url().should("include", "#ra-5");
+  });
+});
