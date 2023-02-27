@@ -5,8 +5,8 @@
 #  2. Build the oscal-rest-service. This phase happens in an OpenJDK image.
 #     Like with the viewer, if a prebuilt JAR file is provided, that is used.
 #     Otherwise, the service is built from source.
-#  3. The final "runtime" container is built. This is based off an OpenJDK JRE
-#     container with minimal additional software installed.
+#  3. The final "runtime" container is built. This is based off the Distroless
+#     Java image with minimal additional software installed.
 #  Steps 1 & 2 place their artifacts in /app/ and Step 3 copies the final artifact
 #  into its /app/ directory with the appropriate filename.
 
@@ -69,14 +69,14 @@ RUN if [ -n "$REST_PATH" ]; \
 
 FROM gcr.io/distroless/java${JAVA_VERSION}-debian11:nonroot
 
-#copy production build of OSCAL Viewer
 COPY --from=build-viewer /app/build /app/oscal-viewer-app
 COPY --from=build-service /app/oscal-rest-service-app.jar /app/oscal-rest-service-app.jar
 
 USER nonroot:nonroot
 
-#set environment variables for the oscal content directory
-#and location of the production build to be served by Spring Boot
+# Apply default configuration values via environment variable for the location of the OSCAL
+# Content directory as well as the location of the OSCAL Viewer/Editor application to be
+# served by the Spring app.
 ENV PERSISTENCE_FILE_PARENT_PATH="oscal-content" \
     SPRING_WEB_RESOURCES_STATIC_LOCATIONS="classpath:/static,file:/app/oscal-viewer-app/"
 
