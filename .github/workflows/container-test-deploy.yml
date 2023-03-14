@@ -63,10 +63,10 @@ jobs:
           spec: cypress/e2e/**/*.cy.js
           working-directory: end-to-end-tests
 
-      - name: Output Docker Container Logs
+      - name: Emit Docker Container Logs to file
         if: always()
         run: |
-          docker logs ${CONTAINER_NAME} | tee container-logs.txt
+          docker logs ${CONTAINER_NAME} &> container-logs.txt
 
       - name: Upload Docker Container Logs
         if: always()
