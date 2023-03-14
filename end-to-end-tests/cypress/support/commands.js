@@ -49,8 +49,7 @@ Cypress.Commands.add("navToEditorByDrawer", (oscalType, pageTitle) => {
     cy.wait(requestsMade, { timeout: 60000 });
   }
   
-  cy.get('ul[aria-label="file system navigator"]')
-    .find('li', { timeout: 15000 })
+  cy.get('ul[aria-label="file system navigator"] li', { timeout: 30000 })
     .should('have.attr', 'aria-expanded', 'false') 
     .contains(oscalType)
     .click();
