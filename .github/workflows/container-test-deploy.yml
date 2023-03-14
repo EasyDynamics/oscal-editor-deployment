@@ -47,7 +47,7 @@ jobs:
           provenance: false
           tags: ${{ env.IMAGE_NAME }}
           build-args: |
-            "OSCAL_REACT_GIT_BRANCH=tuckerzp/revert-3-weeks"
+            "OSCAL_REST_SERVICE_GIT_BRANCH=tuckerzp/revert-3-weeks"
 
       # Run container in the background, exposing the port that
       # Cypress uses to run the tests.
