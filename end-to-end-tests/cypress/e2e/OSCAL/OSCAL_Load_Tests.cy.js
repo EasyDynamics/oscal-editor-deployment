@@ -25,7 +25,7 @@ describe('Loading system security plans', () => {
   it('displays Enterprise Asset Owners Party', () => {
     cy.navToSspEditor(SSP_TITLE_ORIG);
     cy.waitForLoad();
-    cy.get(`[aria-label="Enterprise Asset Owners contact button"]`).click();
+    cy.get(`[aria-label="Enterprise Asset Owners details button"]`).click();
     cy.contains("No address information provided");
     cy.contains("No telephone information provided");
     cy.contains("owners@enterprise.org");
@@ -34,7 +34,7 @@ describe('Loading system security plans', () => {
   it('displays Enterprise Asset Administrators Party', () => {
     cy.navToSspEditor(SSP_TITLE_ORIG);
     cy.waitForLoad();
-    cy.get(`[aria-label="Enterprise Asset Administrators contact button"]`).click();
+    cy.get(`[aria-label="Enterprise Asset Administrators details button"]`).click();
     cy.contains("0000 St");
     cy.contains("+18005555555");
     cy.contains("admins@enterprise.org");
