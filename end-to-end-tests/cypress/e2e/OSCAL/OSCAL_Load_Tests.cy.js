@@ -105,8 +105,9 @@ describe('Loading OSCAL Catalog Groups', () => {
   });
 
   it("navigates to control (PM-11) from hash", () => {
+    const urlWithControlFragment = "http://localhost:8080/catalog/b954d3b7-d2c7-453b-8eb2-459e8d3b8462#pm-11";
     cy.visit({
-      url: "http://localhost:8080/catalog/b954d3b7-d2c7-453b-8eb2-459e8d3b8462#pm-11",
+      url: urlWithControlFragment,
       method: "GET",
     });
     cy.waitForLoad();
