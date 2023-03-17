@@ -5,8 +5,8 @@
 #  2. Build the oscal-rest-service. This phase happens in an OpenJDK image.
 #     Like with the viewer, if a prebuilt JAR file is provided, that is used.
 #     Otherwise, the service is built from source.
-#  3. The final "runtime" container is built. This is based off an OpenJDK JRE
-#     container with minimal additional software installed.
+#  3. The final "runtime" container is built. This is based off the Distroless
+#     Java image with minimal additional software installed.
 #  Steps 1 & 2 place their artifacts in /app/ and Step 3 copies the final artifact
 #  into its /app/ directory with the appropriate filename.
 
@@ -67,27 +67,21 @@ RUN if [ -n "$REST_PATH" ]; \
     mv oscal-rest-service-app/target/oscal-rest-service-app*.jar "/app/oscal-rest-service-app.jar"; \
     fi
 
-FROM openjdk:${JAVA_VERSION}-slim-bullseye
+FROM gcr.io/distroless/java${JAVA_VERSION}-debian11:nonroot
 
-#copy production build of OSCAL Viewer
 COPY --from=build-viewer /app/build /app/oscal-viewer-app
 COPY --from=build-service /app/oscal-rest-service-app.jar /app/oscal-rest-service-app.jar
 
-#add a new group and add a new user to the group
-#give permissions in the /app/ directory to the new user
-RUN addgroup --system oscaledit && \
-    adduser --system oscaledit --ingroup oscaledit && \
-    chown -R oscaledit /app/
+USER nonroot:nonroot
 
-USER oscaledit
-
-#set environment variables for the oscal content directory
-#and location of the production build to be served by Spring Boot
+# Apply default configuration values via environment variable for the location of the OSCAL
+# Content directory as well as the location of the OSCAL Viewer/Editor application to be
+# served by the Spring app.
 ENV PERSISTENCE_FILE_PARENT_PATH="oscal-content" \
     SPRING_WEB_RESOURCES_STATIC_LOCATIONS="classpath:/static,file:/app/oscal-viewer-app/"
 
 EXPOSE 8080
 
-WORKDIR /app/
+WORKDIR /app
 
-ENTRYPOINT ["java", "-jar", "oscal-rest-service-app.jar"]
+CMD ["oscal-rest-service-app.jar"]

@@ -1,19 +1,19 @@
-name: Build/Test/Deploy
+name: Build/Test/Deploy Container
 on:
   push:
     branches:
       - main
     tags:
       - 'v*'
-  pull_request:
   workflow_dispatch:
   schedule:
-    # Run daily at 12:15 UTC (08:15 EDT/07:15 EST)
-    - cron: "15 12 * * *"
+    # Run daily at 10:15 UTC (06:15 EDT/05:15 EST)
+    - cron: "15 10 * * *"
 
 env:
   IMAGE_NAME: oscal-editor-all-in-one
   CONTAINER_NAME: test_container
+  TEST_TAG: "easydynaics/oscal-editor-all-in-one:testing"
 
 jobs:
   build_test_deploy:
@@ -38,16 +38,33 @@ jobs:
       - name: Set Up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
+      - name: Extract metadata for Docker
+        id: meta
+        uses: docker/metadata-action@v4
+        with:
+          images: |
+            easydynamics/${{ env.IMAGE_NAME }}
+            ghcr.io/easydynamics/${{ env.IMAGE_NAME }}
+          tags: |
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=edge,branch=main
+            type=raw,value=latest,enable=${{ github.ref == 'refs/heads/main' }}
+          labels: |
+            org.opencontainers.image.title=oscal-editor-all-in-one
+            org.opencontainers.image.description=Simple Docker deployment of the back-end services and web-based user interface for the OSCAL Editor
+            org.opencontainers.image.vendor=Easy Dynamics
+
       # Build the Docker image, and load it locally so it can be run for testing
       - name: Build Docker Image
         uses: docker/build-push-action@v4
         with:
           context: ./all-in-one
+          push: false
           load: true
           provenance: false
-          tags: ${{ env.IMAGE_NAME }}
-          build-args: |
-            "OSCAL_REACT_GIT_BRANCH=feature/support-anchor-links"
+          tags: ${{ env.TEST_TAG }}
+          labels: ${{ steps.meta.outputs.labels }}
 
       # Run container in the background, exposing the port that
       # Cypress uses to run the tests.
@@ -57,7 +74,12 @@ jobs:
           ls -al $(pwd)/all-in-one/oscal-content;
           docker run --rm -p 8080:8080 \
           -v $(pwd)/all-in-one/oscal-content:/app/oscal-content \
-          --name ${CONTAINER_NAME} ${IMAGE_NAME} &
+          --name ${CONTAINER_NAME} ${TEST_TAG} &
+
+      # Give the container time to start before starting to hammer it with tests
+      - name: Wait 10 sec
+        run: |
+          sleep 10
 
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v5
@@ -93,51 +115,29 @@ jobs:
           docker stop ${CONTAINER_NAME}
 
       - name: Login to Docker Hub
-        if: ${{ github.event_name != 'pull_request' }}
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Login to GitHub Container Registry
-        if: ${{ github.event_name != 'pull_request' }}
         uses: docker/login-action@v2
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Extract metadata for Docker
-        if: ${{ github.event_name != 'pull_request' }}
-        id: meta
-        uses: docker/metadata-action@v4
-        with:
-          images: |
-            easydynamics/${{ env.IMAGE_NAME }}
-            ghcr.io/easydynamics/${{ env.IMAGE_NAME }}
-          tags: |
-            type=semver,pattern={{version}}
-            type=semver,pattern={{major}}.{{minor}}
-            type=edge,branch=main
-            type=raw,value=latest,enable=${{ github.ref == 'refs/heads/main' }}
-          labels: |
-            org.opencontainers.image.title=oscal-editor-all-in-one
-            org.opencontainers.image.description=Simple Docker deployment of the back-end services and web-based user interface for the OSCAL Editor
-            org.opencontainers.image.vendor=Easy Dynamics
-
       - name: Push to Container Registries
-        if: ${{ github.event_name != 'pull_request' }}
         uses: docker/build-push-action@v4
         with:
           context: ./all-in-one
-          push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ steps.meta.outputs.tags }}
+          push: true
           provenance: false
+          tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
       # This uses the peter-evans workflow: https://github.com/peter-evans/dockerhub-description
       - name: Update Docker Hub Short-Description & Overview
-        if: ${{ github.event_name != 'pull_request' }}
         uses: peter-evans/dockerhub-description@v3
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
