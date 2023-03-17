@@ -48,6 +48,11 @@ jobs:
           -v $(pwd)/all-in-one/oscal-content:/app/oscal-content \
           --name ${CONTAINER_NAME} ${IMAGE_NAME} &
 
+      # Give the container time to start before starting to hammer it with tests
+      - name: Wait 10 sec
+        run: |
+          sleep 10
+
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v5
         with:
