@@ -7,8 +7,8 @@ env:
   CONTAINER_NAME: test_container
 
 jobs:
-  build_test_deploy:
-    name: Build, Test, and Deploy All-in-One Docker Image
+  build_test:
+    name: Build and Test All-in-One Docker Image
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
