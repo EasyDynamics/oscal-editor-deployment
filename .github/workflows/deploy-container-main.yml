@@ -13,6 +13,7 @@ on:
 env:
   IMAGE_NAME: oscal-editor-all-in-one
   CONTAINER_NAME: test_container
+  TEST_TAG: "easydynaics/oscal-editor-all-in-one:testing"
 
 jobs:
   build_test_deploy:
@@ -62,7 +63,7 @@ jobs:
           push: false
           load: true
           provenance: false
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: ${{ env.TEST_TAG }}
           labels: ${{ steps.meta.outputs.labels }}
 
       # Run container in the background, exposing the port that
@@ -73,7 +74,7 @@ jobs:
           ls -al $(pwd)/all-in-one/oscal-content;
           docker run --rm -p 8080:8080 \
           -v $(pwd)/all-in-one/oscal-content:/app/oscal-content \
-          --name ${CONTAINER_NAME} ${IMAGE_NAME} &
+          --name ${CONTAINER_NAME} ${TEST_TAG} &
 
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v5
@@ -126,8 +127,8 @@ jobs:
         with:
           context: ./all-in-one
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
           provenance: false
+          tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
       # This uses the peter-evans workflow: https://github.com/peter-evans/dockerhub-description
