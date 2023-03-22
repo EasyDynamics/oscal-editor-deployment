@@ -25,6 +25,7 @@ describe('Loading system security plans', () => {
   it('displays Enterprise Asset Owners Party', () => {
     cy.navToSspEditor(SSP_TITLE_ORIG);
     cy.waitForLoad();
+    cy.contains("Parties").click();
     cy.get(`[aria-label="Enterprise Asset Owners details button"]`).click();
     cy.contains("No address information provided");
     cy.contains("No telephone information provided");
@@ -34,6 +35,7 @@ describe('Loading system security plans', () => {
   it('displays Enterprise Asset Administrators Party', () => {
     cy.navToSspEditor(SSP_TITLE_ORIG);
     cy.waitForLoad();
+    cy.contains("Parties").click();
     cy.get(`[aria-label="Enterprise Asset Administrators details button"]`).click();
     cy.contains("0000 St");
     cy.contains("+18005555555");
@@ -47,6 +49,7 @@ describe('Loading Component Definitions', () => {
     cy.navToCdefEditor(COMP_DEF_TITLE_ORIG)
     cy.waitForLoad();
     cy.contains(COMP_DEF_TITLE_ORIG).should('be.visible')
+    cy.contains("Parties").click();
     cy.contains('Test Vendor').should('be.visible')
     cy.scrollTo('bottom')
   })
@@ -58,9 +61,47 @@ describe('Loading Component Definitions', () => {
     cy.contains('OSCAL Component URL').first().should('exist').next().click().clear().type(Cypress.env('base_url') + "/oscal/v1/component-definitions/8223d65f-57a9-4689-8f06-2a975ae2ad72")
     cy.contains('Reload').click()
     cy.contains(COMP_DEF_TITLE_ORIG).should('be.visible')
+    cy.contains("Parties").click();
     cy.contains('Test Vendor').should('be.visible')
     cy.scrollTo('bottom')
-  })
+  });
+  
+  it('loads metadata roles', () => {
+    cy.navToCdefEditor(COMP_DEF_TITLE_ORIG);
+    cy.waitForLoad();
+    cy.contains("Roles").click();
+    cy.contains("Document creator");
+    cy.contains("Contact");
+  });
+
+  it('loads metadata role details', () => {
+    cy.navToCdefEditor(COMP_DEF_TITLE_ORIG);
+    cy.waitForLoad();
+    cy.contains("Roles").click();
+    cy.get(`[aria-label="Document creator details button"]`).click();
+    cy.contains("Creates documents describing the system");
+  });
+
+  it('loads metadata locations', () => {
+    cy.navToCdefEditor(COMP_DEF_TITLE_ORIG);
+    cy.waitForLoad();
+    cy.contains("Locations").click();
+    cy.contains("NIST");
+    cy.contains("Not Specified");
+  });
+
+  it('loads metadata location details', () => {
+    cy.navToCdefEditor(COMP_DEF_TITLE_ORIG);
+    cy.waitForLoad();
+    cy.contains("Locations").click();
+    cy.get(`[aria-label="NIST details button"]`).click();
+    cy.contains("100 Bureau Drive");
+    cy.contains("Mail Stop 8970");
+    cy.contains("Gaithersburg, MD 20899-8970");
+    cy.contains("301-975-8616");
+    cy.contains("itl_inquiries@nist.gov");
+    cy.contains("https://www.nist.gov/");
+  });
 })
 
 describe('Errors caused by loading a bad component definition', () => {
