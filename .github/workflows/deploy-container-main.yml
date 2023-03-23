@@ -33,6 +33,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           repository: EasyDynamics/oscal-demo-content
+          ref: "test-content"
           path: all-in-one/oscal-content
 
       - name: Set Up Docker Buildx
