@@ -4,9 +4,12 @@ const CATALOG_TITLE =
   "NIST Special Publication 800-53 Revision 4: Security and Privacy Controls for Federal Information Systems and Organizations";
 
 describe("Loading system security plans", () => {
-  it("loads SSPs by REST Mode", () => {
+  beforeEach(() => {
     cy.navToSspEditor(SSP_TITLE_ORIG);
     cy.waitForLoad();
+  });
+
+  it("loads SSPs by REST Mode", () => {
     cy.get(`[aria-label="show code"]`).click();
     cy.scrollTo("bottom");
     cy.contains("This is the control implementation for the system.").should(
@@ -15,8 +18,6 @@ describe("Loading system security plans", () => {
   });
 
   it("loads system security plans by URL", () => {
-    cy.navToSspEditor(SSP_TITLE_ORIG);
-    cy.waitForLoad();
     cy.contains("REST Mode").click();
     cy.contains("OSCAL System Security Plan URL")
       .first()
@@ -37,8 +38,7 @@ describe("Loading system security plans", () => {
   });
 
   it("displays Enterprise Asset Owners Party", () => {
-    cy.navToSspEditor(SSP_TITLE_ORIG);
-    cy.waitForLoad();
+    cy.contains("Parties").click();
     cy.get(`[aria-label="Enterprise Asset Owners details button"]`).click();
     cy.contains("No address information provided");
     cy.contains("No telephone information provided");
@@ -46,8 +46,10 @@ describe("Loading system security plans", () => {
   });
 
   it("displays Enterprise Asset Administrators Party", () => {
-    cy.navToSspEditor(SSP_TITLE_ORIG);
-    cy.waitForLoad();
+    cy.get(
+      `[aria-label="Enterprise Asset Administrators details button"]`
+    ).click();
+    cy.contains("Parties").click();
     cy.get(
       `[aria-label="Enterprise Asset Administrators details button"]`
     ).click();
@@ -57,21 +59,29 @@ describe("Loading system security plans", () => {
     cy.contains("account@email.com");
   });
 
-  it("navigate to a system implementation users and grabs hash from anchor link", () => {
+  it("navigates to a system implementation users and grabs hash from anchor link", () => {
     cy.get(`[aria-label="users anchor link"]`).click();
     cy.url().should("include", "#users");
   });
 
-  it("navigate to a control implementation sub-control (ac-2.4) and grabs hash from anchor link", () => {
+  it("navigates to the control implementation and grabs hash from anchor link", () => {
+    cy.get(`[aria-label="control implementation anchor link"]`).click();
+    cy.url().should("include", "#control-implementation");
+  });
+
+  it("navigates to a control implementation sub-control (ac-2.4) and grabs hash from anchor link", () => {
     cy.get(`[aria-label="ac-2.4 anchor link"]`).click();
     cy.url().should("include", "#ac-2.4");
   });
 });
 
 describe("Loading Component Definitions", () => {
-  it("loads Components by REST Mode", () => {
+  beforeEach(() => {
     cy.navToCdefEditor(COMP_DEF_TITLE_ORIG);
     cy.waitForLoad();
+  });
+
+  it("loads Components by REST Mode", () => {
     cy.contains(COMP_DEF_TITLE_ORIG).should("be.visible");
     cy.contains("Test Vendor").should("be.visible");
     cy.scrollTo("bottom");
@@ -79,7 +89,13 @@ describe("Loading Component Definitions", () => {
 
   it("loads components by URL", () => {
     cy.navToCdefEditor(COMP_DEF_TITLE_ORIG);
-    cy.waitForLoad();
+    cy.contains(COMP_DEF_TITLE_ORIG).should("be.visible");
+    cy.contains("Parties").click();
+    cy.contains("Test Vendor").should("be.visible");
+    cy.scrollTo("bottom");
+  });
+
+  it("loads components by URL", () => {
     cy.contains("REST Mode").click();
     cy.contains("OSCAL Component URL")
       .first()
@@ -93,6 +109,7 @@ describe("Loading Component Definitions", () => {
       );
     cy.contains("Reload").click();
     cy.contains(COMP_DEF_TITLE_ORIG).should("be.visible");
+    cy.contains("Parties").click();
     cy.contains("Test Vendor").should("be.visible");
     cy.scrollTo("bottom");
   });
@@ -196,7 +213,7 @@ describe("Loading OSCAL Catalog Groups", () => {
     cy.contains("The organization:").should("be.visible");
   });
 
-  it("navigated to control (RA-5) and grabs hash from anchor link", () => {
+  it("navigates to control (RA-5) and grabs hash from anchor link", () => {
     cy.get("button").contains("Risk Assessment").click();
     cy.contains("RA-5 Vulnerability Scanning").trigger("mouseover");
     cy.get(`[aria-label="ra-5 anchor link"]`).click();
