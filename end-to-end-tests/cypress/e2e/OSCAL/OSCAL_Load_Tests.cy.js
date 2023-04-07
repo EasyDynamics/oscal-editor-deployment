@@ -59,6 +59,38 @@ describe("Loading system security plans", () => {
     cy.contains("account@email.com");
   });
 
+  it("navigates to parties from hash", () => {
+    const urlWithControlFragment =
+      "http://localhost:8080/catalog/b954d3b7-d2c7-453b-8eb2-459e8d3b8462#parties";
+    cy.visit({
+      url: urlWithControlFragment,
+      method: "GET",
+    });
+    cy.waitForLoad();
+    cy.contains("Enterprise Asset Owners").should("be.visible");
+  });
+
+  it("navigates to roles from hash", () => {
+    const urlWithControlFragment =
+      "http://localhost:8080/catalog/b954d3b7-d2c7-453b-8eb2-459e8d3b8462#roles";
+    cy.visit({
+      url: urlWithControlFragment,
+      method: "GET",
+    });
+    cy.waitForLoad();
+    cy.contains("Legal Officer").should("be.visible");
+  });
+
+  it("navigates to the profile/catalog inheritance and grabs hash from anchor link", () => {
+    cy.get(`[aria-label="profile-catalog-inheritance anchor link"]`).click();
+    cy.url().should("include", "#profile-catalog-inheritance");
+  });
+
+  it("navigates to the system characteristics network architecture and grabs hash from anchor link", () => {
+    cy.get(`[aria-label="network-architecture anchor link"]`).click();
+    cy.url().should("include", "#network-architecture");
+  });
+
   it("navigates to a system implementation users and grabs hash from anchor link", () => {
     cy.get(`[aria-label="users anchor link"]`).click();
     cy.url().should("include", "#users");
@@ -112,6 +144,56 @@ describe("Loading Component Definitions", () => {
     cy.contains("Parties").click();
     cy.contains("Test Vendor").should("be.visible");
     cy.scrollTo("bottom");
+  });
+
+  it("loads metadata roles", () => {
+    cy.contains("Roles").click();
+    cy.contains("Document creator");
+    cy.contains("Contact");
+  });
+
+  it("loads metadata role details", () => {
+    cy.contains("Roles").click();
+    cy.get(`[aria-label="Document creator details button"]`).click();
+    cy.contains("Creates documents describing the system");
+  });
+
+  it("loads metadata locations", () => {
+    cy.contains("Locations").click();
+    cy.contains("NIST");
+    cy.contains("Not Specified");
+  });
+
+  it("loads metadata location details", () => {
+    cy.contains("Locations").click();
+    cy.get(`[aria-label="NIST details button"]`).click();
+    cy.contains("100 Bureau Drive");
+    cy.contains("Mail Stop 8970");
+    cy.contains("Gaithersburg, MD 20899-8970");
+    cy.contains("301-975-8616");
+    cy.contains("itl_inquiries@nist.gov");
+    cy.contains("https://www.nist.gov/");
+  });
+
+  it("navigates to parties from hash", () => {
+    const urlWithControlFragment =
+      "http://localhost:8080/catalog/b954d3b7-d2c7-453b-8eb2-459e8d3b8462#parties";
+    cy.visit({
+      url: urlWithControlFragment,
+      method: "GET",
+    });
+    cy.waitForLoad();
+    cy.contains("Enterprise Asset Owners").should("be.visible");
+  });
+
+  it("navigates to the control implementation and grabs hash from anchor link", () => {
+    cy.get(`[aria-label="control implementation anchor link"]`).click();
+    cy.url().should("include", "#control-implementation");
+  });
+
+  it("navigates to a control implementation sub-control (ac-2.3) and grabs hash from anchor link", () => {
+    cy.get(`[aria-label="ac-2.3 anchor link"]`).click();
+    cy.url().should("include", "#ac-2.3");
   });
 });
 
@@ -220,8 +302,13 @@ describe("Loading OSCAL Catalog Groups", () => {
     cy.url().should("include", "#ra/ra-5");
   });
 
-  it("navigated to a backmatter resource (IR 7817) and grabs hash from anchor link", () => {
-    cy.get(`[aria-label="back-matter/ir-7817 anchor link"]`).click();
-    cy.url().should("include", "#back-matter/ir-7817");
+  it("navigates to a backmatter resource and grabs hash from anchor link", () => {
+    cy.get(
+      `[aria-label="back-matter/resources/91f992fb-f668-4c91-a50f-0f05b95ccee3 anchor link"]`
+    ).click();
+    cy.url().should(
+      "include",
+      "#back-matter/resources/91f992fb-f668-4c91-a50f-0f05b95ccee3"
+    );
   });
 });
