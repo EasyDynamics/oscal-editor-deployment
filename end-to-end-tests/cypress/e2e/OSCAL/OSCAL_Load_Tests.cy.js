@@ -59,28 +59,6 @@ describe("Loading system security plans", () => {
     cy.contains("account@email.com");
   });
 
-  it("navigates to parties from hash", () => {
-    const urlWithControlFragment =
-      "http://localhost:8080/catalog/b954d3b7-d2c7-453b-8eb2-459e8d3b8462#parties";
-    cy.visit({
-      url: urlWithControlFragment,
-      method: "GET",
-    });
-    cy.waitForLoad();
-    cy.contains("Enterprise Asset Owners").should("be.visible");
-  });
-
-  it("navigates to roles from hash", () => {
-    const urlWithControlFragment =
-      "http://localhost:8080/catalog/b954d3b7-d2c7-453b-8eb2-459e8d3b8462#roles";
-    cy.visit({
-      url: urlWithControlFragment,
-      method: "GET",
-    });
-    cy.waitForLoad();
-    cy.contains("Legal Officer").should("be.visible");
-  });
-
   it("navigates to the profile/catalog inheritance and grabs hash from anchor link", () => {
     cy.contains("Profiles/Catalog Inheritance").trigger("mouseover");
     cy.get(`[aria-label="profile-catalog-inheritance anchor link"]`).click();
@@ -93,20 +71,20 @@ describe("Loading system security plans", () => {
     cy.url().should("include", "#network-architecture");
   });
 
-  it("navigates to a system implementation users and grabs hash from anchor link", () => {
-    cy.contains("System Implementaion").trigger("mouseover");
-    cy.get(`[aria-label="users anchor link"]`).click();
-    cy.url().should("include", "#users");
+  it("navigates to a system implementation inventory items and grabs hash from anchor link", () => {
+    cy.contains("Inventory Items").trigger("mouseover");
+    cy.get(`[aria-label="inventory-items anchor link"]`).click();
+    cy.url().should("include", "#inventory-items");
   });
 
   it("navigates to the control implementation and grabs hash from anchor link", () => {
     cy.contains("Control Implementation").trigger("mouseover");
-    cy.get(`[aria-label="control implementation anchor link"]`).click();
+    cy.get(`[aria-label="control-implementation anchor link"]`).click();
     cy.url().should("include", "#control-implementation");
   });
 
   it("navigates to a control implementation sub-control (ac-2.4) and grabs hash from anchor link", () => {
-    cy.contains("AC-2(4) Automated Audit Actions").trigger("mouseover");
+    cy.contains("Automated Audit Actions").trigger("mouseover");
     cy.get(`[aria-label="ac-2.4 anchor link"]`).click();
     cy.url().should("include", "#ac-2.4");
   });
@@ -188,17 +166,17 @@ describe("Loading Component Definitions", () => {
       method: "GET",
     });
     cy.waitForLoad();
-    cy.contains("Test Vendor").should("be.visible");
+    cy.contains("Joint Task Force, Interagency Working Group").should("be.visible");
   });
 
   it("navigates to the control implementation and grabs hash from anchor link", () => {
     cy.contains("Control Implementations").trigger("mouseover");
-    cy.get(`[aria-label="control implementation anchor link"]`).click();
-    cy.url().should("include", "#control-implementation");
+    cy.get(`[aria-label="control-implementations anchor link"]`).click();
+    cy.url().should("include", "#control-implementations");
   });
 
   it("navigates to a control implementation sub-control (ac-2.3) and grabs hash from anchor link", () => {
-    cy.contains("AC-2(3) Disable Inactive Accounts").trigger("mouseover");
+    cy.contains("Disable Inactive Accounts").trigger("mouseover");
     cy.get(`[aria-label="ac-2.3 anchor link"]`).click();
     cy.url().should("include", "#ac-2.3");
   });
@@ -276,9 +254,20 @@ describe("Loading OSCAL Catalog Groups", () => {
     );
   });
 
+  it("navigates to roles from hash", () => {
+    const urlWithControlFragment =
+      "http://localhost:8080/catalog/b954d3b7-d2c7-453b-8eb2-459e8d3b8462#roles";
+    cy.visit({
+      url: urlWithControlFragment,
+      method: "GET",
+    });
+    cy.waitForLoad();
+    cy.contains("Document creator").should("be.visible");
+  });
+
   it("displays a control (CP-2)", () => {
     cy.get("button").contains("Contingency Planning").click();
-    cy.contains("CP-2 Contingency Plan").click();
+    cy.contains("Contingency Plan").click();
     cy.contains("The organization:").should("be.visible");
   });
 
@@ -308,7 +297,7 @@ describe("Loading OSCAL Catalog Groups", () => {
 
   it("navigates to control (RA-5) and grabs hash from anchor link", () => {
     cy.get("button").contains("Risk Assessment").click();
-    cy.contains("RA-5 Vulnerability Scanning").trigger("mouseover");
+    cy.contains("Vulnerability Scanning").trigger("mouseover");
     cy.get(`[aria-label="ra-5 anchor link"]`).click();
     cy.url().should("include", "#ra/ra-5");
   });
