@@ -271,7 +271,9 @@ describe("Loading OSCAL Catalog Groups", () => {
       method: "GET",
     });
     cy.waitForLoad();
-    cy.contains("Joint Task Force, Interagency Working Group").should("be.visible");
+    cy.contains("Joint Task Force, Interagency Working Group").should(
+      "be.visible"
+    );
   });
 
   it("displays a control (CP-2)", () => {
