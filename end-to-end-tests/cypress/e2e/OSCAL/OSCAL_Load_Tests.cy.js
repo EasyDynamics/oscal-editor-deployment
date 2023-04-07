@@ -304,11 +304,11 @@ describe("Loading OSCAL Catalog Groups", () => {
 
   it("navigates to a backmatter resource and grabs hash from anchor link", () => {
     cy.get(
-      `[aria-label="back-matter/resources/91f992fb-f668-4c91-a50f-0f05b95ccee3 anchor link"]`
+      `[aria-label="91f992fb-f668-4c91-a50f-0f05b95ccee3 anchor link"]`
     ).click();
     cy.url().should(
       "include",
-      "#back-matter/resources/91f992fb-f668-4c91-a50f-0f05b95ccee3"
+      "#91f992fb-f668-4c91-a50f-0f05b95ccee3"
     );
   });
 });
