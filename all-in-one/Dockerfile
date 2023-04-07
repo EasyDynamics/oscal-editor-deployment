@@ -38,10 +38,8 @@ RUN if [ -n "$VIEWER_PATH" ] ; \
     cd "$OSCAL_REACT_DIR" && \
     npm install -g npm@latest && \
     npm ci && \
-    cd example && \
-    npm ci && \
     REACT_APP_REST_BASE_URL="$OSCAL_REST_BASE_URL" npm run build && \
-    mv build /app/ ; \
+    mv packages/oscal-viewer/build /app/ ; \
     fi
 
 FROM maven:3-openjdk-${JAVA_VERSION} as build-service
