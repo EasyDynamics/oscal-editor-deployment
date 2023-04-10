@@ -80,10 +80,10 @@ describe("Loading system security plans", () => {
     cy.url().should("include", "#control-implementation");
   });
 
-  it("navigates to a control implementation sub-control (ac-2.4) and grabs hash from anchor link", () => {
-    cy.contains("AC-2(4) Automated Audit Actions").trigger("mouseover");
-    cy.get(`[aria-label="ac-2.4 anchor link"]`).click();
-    cy.url().should("include", "#ac-2.4");
+  it("navigates to a control implementation sub-control (ac-2.5) and grabs hash from anchor link", () => {
+    cy.contains("AC-2(5) Inactivity Logout").trigger("mouseover");
+    cy.get(`[aria-label="ac-2.5 anchor link"]`).click();
+    cy.url().should("include", "#ac-2.5");
   });
 });
 
@@ -176,8 +176,8 @@ describe("Loading Component Definitions", () => {
   });
 
   it("navigates to a control implementation sub-control (ac-2.3) and grabs hash from anchor link", () => {
-    cy.get(`h2`)
-      .get("h2:contains(AC-2(3) Disable Inactive Accounts)")
+    cy.get("h2")
+      .contains("AC-2(3) Disable Inactive Accounts")
       .first()
       .trigger("mouseover");
     cy.get(`[aria-label="ac-2.3 anchor link"]`).click();
