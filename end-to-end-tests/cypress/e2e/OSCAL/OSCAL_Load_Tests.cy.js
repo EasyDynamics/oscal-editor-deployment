@@ -46,9 +46,6 @@ describe("Loading system security plans", () => {
   });
 
   it("displays Enterprise Asset Administrators Party", () => {
-    cy.get(
-      `[aria-label="Enterprise Asset Administrators details button"]`
-    ).click();
     cy.contains("Parties").click();
     cy.get(
       `[aria-label="Enterprise Asset Administrators details button"]`
@@ -84,7 +81,7 @@ describe("Loading system security plans", () => {
   });
 
   it("navigates to a control implementation sub-control (ac-2.4) and grabs hash from anchor link", () => {
-    cy.contains("Automated Audit Actions").trigger("mouseover");
+    cy.contains("AC-2(4) Automated Audit Actions").trigger("mouseover");
     cy.get(`[aria-label="ac-2.4 anchor link"]`).click();
     cy.url().should("include", "#ac-2.4");
   });
@@ -98,6 +95,7 @@ describe("Loading Component Definitions", () => {
 
   it("loads Components by REST Mode", () => {
     cy.contains(COMP_DEF_TITLE_ORIG).should("be.visible");
+    cy.contains("Parties").click();
     cy.contains("Test Vendor").should("be.visible");
     cy.scrollTo("bottom");
   });
@@ -166,7 +164,9 @@ describe("Loading Component Definitions", () => {
       method: "GET",
     });
     cy.waitForLoad();
-    cy.contains("Joint Task Force, Interagency Working Group").should("be.visible");
+    cy.contains("Joint Task Force, Transformation Initiative").should(
+      "be.visible"
+    );
   });
 
   it("navigates to the control implementation and grabs hash from anchor link", () => {
@@ -176,7 +176,10 @@ describe("Loading Component Definitions", () => {
   });
 
   it("navigates to a control implementation sub-control (ac-2.3) and grabs hash from anchor link", () => {
-    cy.contains("Disable Inactive Accounts").trigger("mouseover");
+    cy.get(`h2`)
+      .get("h2:contains(AC-2(3) Disable Inactive Accounts)")
+      .first()
+      .trigger("mouseover");
     cy.get(`[aria-label="ac-2.3 anchor link"]`).click();
     cy.url().should("include", "#ac-2.3");
   });
@@ -249,7 +252,7 @@ describe("Loading OSCAL Catalog Groups", () => {
       method: "GET",
     });
     cy.waitForLoad();
-    cy.contains("Joint Task Force, Interagency Working Group").should(
+    cy.contains("Joint Task Force, Transformation Initiative").should(
       "be.visible"
     );
   });
@@ -267,7 +270,7 @@ describe("Loading OSCAL Catalog Groups", () => {
 
   it("displays a control (CP-2)", () => {
     cy.get("button").contains("Contingency Planning").click();
-    cy.contains("Contingency Plan").click();
+    cy.contains("CP-2 Contingency Plan").click();
     cy.contains("The organization:").should("be.visible");
   });
 
@@ -298,15 +301,15 @@ describe("Loading OSCAL Catalog Groups", () => {
   it("navigates to control (RA-5) and grabs hash from anchor link", () => {
     cy.get("button").contains("Risk Assessment").click();
     cy.contains("Vulnerability Scanning").trigger("mouseover");
-    cy.get(`[aria-label="ra-5 anchor link"]`).click();
+    cy.get(`[aria-label="ra/ra-5 anchor link"]`).click();
     cy.url().should("include", "#ra/ra-5");
   });
 
-  it("navigates to a backmatter resource (CNSSD 505) and grabs hash from anchor link", () => {
-    cy.contains("CNSSD 505").trigger("mouseover");
+  it("navigates to a backmatter resource (CNSS Policy 15) and grabs hash from anchor link", () => {
+    cy.contains("CNSS Policy 15").trigger("mouseover");
     cy.get(
-      `[aria-label="031cc4b7-9adf-4835-98f1-f1ca493519cf anchor link"]`
+      `[aria-label="a4aa9645-9a8a-4b51-90a9-e223250f9a75 anchor link"]`
     ).click();
-    cy.url().should("include", "#031cc4b7-9adf-4835-98f1-f1ca493519cf");
+    cy.url().should("include", "#a4aa9645-9a8a-4b51-90a9-e223250f9a75");
   });
 });
