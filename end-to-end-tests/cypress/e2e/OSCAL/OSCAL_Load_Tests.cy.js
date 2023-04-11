@@ -81,7 +81,9 @@ describe("Loading system security plans", () => {
   });
 
   it("navigates to a control implementation sub-control (ac-2.5) and grabs hash from anchor link", () => {
-    cy.contains("AC-2(5) Inactivity Logout").trigger("mouseover");
+    cy.contains("AC-2(5) Inactivity Logout").trigger("mouseover", {
+      force: true,
+    });
     cy.get(`[aria-label="ac-2.5 anchor link"]`).click();
     cy.url().should("include", "#ac-2.5");
   });
@@ -179,7 +181,7 @@ describe("Loading Component Definitions", () => {
     cy.get("h2")
       .contains("AC-2(3) Disable Inactive Accounts")
       .first()
-      .trigger("mouseover");
+      .trigger("mouseover", { force: true });
     cy.get(`[aria-label="ac-2.3 anchor link"]`).click();
     cy.url().should("include", "#ac-2.3");
   });
