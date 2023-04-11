@@ -56,6 +56,17 @@ describe("Loading system security plans", () => {
     cy.contains("account@email.com");
   });
 
+  it("navigates to roles from hash", () => {
+    const urlWithControlFragment =
+      "http://localhost:8080/system-security-plans/cff8385f-108e-40a5-8f7a-82f3dc0eaba8#roles";
+    cy.visit({
+      url: urlWithControlFragment,
+      method: "GET",
+    });
+    cy.waitForLoad();
+    cy.contains("Legal Officer").should("be.visible");
+  });
+
   it("navigates to the profile/catalog inheritance and grabs hash from anchor link", () => {
     cy.contains("Profiles/Catalog Inheritance").trigger("mouseover");
     cy.get(`[aria-label="profile-catalog-inheritance anchor link"]`).click();
