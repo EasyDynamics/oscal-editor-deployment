@@ -63,7 +63,7 @@ describe("Loading system security plans", () => {
     cy.navToSspEditor(SSP_TITLE_ORIG);
     cy.waitForLoad();
     const urlWithControlFragment =
-      "http://localhost:8080/system-security-plans/cff8385f-108e-40a5-8f7a-82f3dc0eaba8#roles";
+      "http://localhost:8080/system-security-plan/cff8385f-108e-40a5-8f7a-82f3dc0eaba8#roles";
     cy.visit({
       url: urlWithControlFragment,
       method: "GET",
