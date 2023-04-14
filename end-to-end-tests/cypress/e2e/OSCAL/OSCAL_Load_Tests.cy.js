@@ -200,6 +200,8 @@ describe("Loading Component Definitions", () => {
 
 describe("Errors caused by loading a bad component definition", () => {
   beforeEach(() => {
+    sspExampleUrl =
+      "https://raw.githubusercontent.com/usnistgov/oscal-content/main/examples/ssp/json/ssp-example.json";
     cy.navToCdefEditor(COMP_DEF_TITLE_ORIG);
     cy.waitForLoad();
     cy.contains("REST Mode").click();
@@ -209,9 +211,7 @@ describe("Errors caused by loading a bad component definition", () => {
       .next()
       .click()
       .clear()
-      .type(
-        "https://raw.githubusercontent.com/usnistgov/oscal-content/main/examples/ssp/json/ssp-example.json"
-      );
+      .type(sspExampleUrl);
     cy.contains("Reload").click();
   });
 
@@ -220,15 +220,15 @@ describe("Errors caused by loading a bad component definition", () => {
   });
 
   it("do not persist after loading a valid component in Viewer", () => {
+    const exampleCompDefUrl =
+      "https://raw.githubusercontent.com/EasyDynamics/oscal-demo-content/main/component-definitions/example-component.json";
     cy.contains("OSCAL Component URL")
       .first()
       .should("exist")
       .next()
       .click()
       .clear()
-      .type(
-        "https://raw.githubusercontent.com/EasyDynamics/oscal-demo-content/main/component-definitions/example-component.json"
-      );
+      .type(exampleCompDefUrl);
     cy.contains("Reload").click();
     cy.contains("Test Component Definition").should("be.visible");
   });
@@ -241,6 +241,8 @@ describe("Errors caused by loading a bad component definition", () => {
 
 describe("Loading OSCAL Catalog Groups", () => {
   beforeEach(() => {
+    const exampleCatalogUrl =
+      "https://raw.githubusercontent.com/EasyDynamics/oscal-demo-content/main/catalogs/NIST_SP-800-53_rev4_catalog.json";
     cy.navToCatalogEditor(CATALOG_TITLE);
     cy.waitForLoad();
     cy.contains("REST Mode").click();
@@ -250,9 +252,7 @@ describe("Loading OSCAL Catalog Groups", () => {
       .next()
       .click()
       .clear()
-      .type(
-        "https://raw.githubusercontent.com/EasyDynamics/oscal-demo-content/main/catalogs/NIST_SP-800-53_rev4_catalog.json"
-      );
+      .type(exampleCatalogUrl);
     cy.contains("Reload").click();
     cy.contains("Control Groups").should("be.visible");
   });
