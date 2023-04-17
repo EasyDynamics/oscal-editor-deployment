@@ -4,12 +4,21 @@
     "@cypress/webpack-dev-server": "^3.4.1",
     "@testing-library/cypress": "^9.0.0",
     "@testing-library/dom": "^9.2.0",
-    "cypress": "^12.9.0"
+    "@typescript-eslint/eslint-plugin": "^5.59.0",
+    "cypress": "^12.9.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-json": "^3.1.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react-native": "^4.0.0",
+    "prettier": "2.8.7"
   },
   "name": "oscal-editor-testing",
   "description": "Automated testing of the OSCAL Editor.",
   "version": "1.0.0",
   "main": "index.js",
+  "scripts": {
+    "lint": "eslint ."
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/EasyDynamics/oscal-editor-deployment.git"
