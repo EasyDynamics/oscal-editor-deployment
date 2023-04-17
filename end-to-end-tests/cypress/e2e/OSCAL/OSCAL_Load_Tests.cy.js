@@ -229,7 +229,7 @@ describe("Loading Component Definitions", () => {
 
 describe("Errors caused by loading a bad component definition", () => {
   it('display "yikes" on load of wrong object type', () => {
-    sspExampleUrl =
+    const sspExampleUrl =
       "https://raw.githubusercontent.com/usnistgov/oscal-content/main/examples/ssp/json/ssp-example.json";
     cy.navToCdefEditor(COMP_DEF_TITLE_ORIG);
     cy.waitForLoad();
@@ -246,7 +246,7 @@ describe("Errors caused by loading a bad component definition", () => {
   });
 
   it("do not persist after loading a valid component in Viewer", () => {
-    sspExampleUrl =
+    const sspExampleUrl =
       "https://raw.githubusercontent.com/usnistgov/oscal-content/main/examples/ssp/json/ssp-example.json";
     cy.navToCdefEditor(COMP_DEF_TITLE_ORIG);
     cy.waitForLoad();
@@ -273,7 +273,7 @@ describe("Errors caused by loading a bad component definition", () => {
   });
 
   it("do not persist after loading a valid component in Editor", () => {
-    sspExampleUrl =
+    const sspExampleUrl =
       "https://raw.githubusercontent.com/usnistgov/oscal-content/main/examples/ssp/json/ssp-example.json";
     cy.navToCdefEditor(COMP_DEF_TITLE_ORIG);
     cy.waitForLoad();
