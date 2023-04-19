@@ -30,10 +30,6 @@ Cypress.on('uncaught:exception', (err) => {
     return false
   }
 
-  if (err.message.includes("cyclic object value")) {
-    return false;
-  }
-  
   // TODO: Find a fix where we don't need to avoid this exception
   // https://github.com/EasyDynamics/oscal-editor-deployment/issues/121
   if (err.message.includes("ResizeObserver loop")) {
