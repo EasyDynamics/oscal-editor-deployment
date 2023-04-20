@@ -29,7 +29,7 @@ Cypress.on('uncaught:exception', (err) => {
   if (err.message.includes("Cannot read properties of null (reading 'getText')")) {
     return false
   }
-  
+
   // TODO: Find a fix where we don't need to avoid this exception
   // https://github.com/EasyDynamics/oscal-editor-deployment/issues/121
   if (err.message.includes("ResizeObserver loop")) {
