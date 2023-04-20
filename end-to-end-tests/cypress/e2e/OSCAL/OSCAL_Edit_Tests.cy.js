@@ -33,7 +33,7 @@ describe('Editing the System Security Plan Source', () => {
   it('edits the system security plan source', () => {
     cy.navToSspEditor(SSP_TITLE_ORIG);
     const findKeystroke = Cypress.platform === 'darwin' ? '{meta}f' : '{ctrl}f'
-    cy.get('.monaco-editor textarea:first')
+    cy.get('.monaco-scrollable-element')
       .type(findKeystroke).focused().type('Enterprise Logging and Auditing System Security Plan', {force: true})
       .type('{esc}', {force: true}).focused().type('Even Better SSP', {force: true})
     cy.contains('Save').click()
