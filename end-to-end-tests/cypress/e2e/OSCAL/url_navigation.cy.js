@@ -23,15 +23,13 @@ const NAVIGATION = [
   },
   {
     editor: "Profile V4",
-    title:
-      "NIST Special Publication 800-53 Revision 4 MODERATE IMPACT BASELINE",
+    title: "NIST Special Publication 800-53 Revision 4 MODERATE IMPACT BASELINE",
 
     relativeURL: "/profile/8b3beca1-fcdc-43e0-aebb-ffc0a080c486",
   },
   {
     editor: "Profile V5",
-    title:
-      "NIST Special Publication 800-53 Revision 5 MODERATE IMPACT BASELINE",
+    title: "NIST Special Publication 800-53 Revision 5 MODERATE IMPACT BASELINE",
     relativeURL: "/profile/1019f424-1556-4aa3-9df3-337b97c2c856",
   },
   {

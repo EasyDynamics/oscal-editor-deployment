@@ -14,25 +14,25 @@
 // ***********************************************************
 
 // Import commands.js using ES2015 syntax:
-import './commands'
+import "./commands";
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
 
-Cypress.on('uncaught:exception', (err) => {
+Cypress.on("uncaught:exception", (err) => {
   // monaco-editor sometimes throws errors when reloading
   // and we don't want to fail the test so we return false
   if (err.message.includes("Failed to execute 'importScripts' on 'WorkerGlobalScope'")) {
-    return false
+    return false;
   }
 
   if (err.message.includes("Cannot read properties of null (reading 'getText')")) {
-    return false
+    return false;
   }
-  
+
   // TODO: Find a fix where we don't need to avoid this exception
   // https://github.com/EasyDynamics/oscal-editor-deployment/issues/121
   if (err.message.includes("ResizeObserver loop")) {
-    return false
+    return false;
   }
-})
+});
