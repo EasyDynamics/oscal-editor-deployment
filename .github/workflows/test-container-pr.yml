@@ -7,6 +7,35 @@ env:
   CONTAINER_NAME: test_container
 
 jobs:
+  lint:
+    name: Lint the code base
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Setup NodeJS
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: "npm"
+      - name: Globally update npm
+        run: npm install -g npm@latest
+      - name: Install dependencies
+        run: npm ci
+      - name: Install lint dependencies
+        run: |
+          npm install -g markdownlint-cli
+          pip install yamllint
+      - name: Lint code base
+        run: |
+          # Run built-in JavaScript/JSON linting
+          npx lerna run lint
+          # Lint markdown files
+          markdownlint '**/*.md'
+          # Lint YAML files
+          yamllint --format github --config-file .yaml-lint.yml .
   build_test:
     name: Build and Test All-in-One Docker Image
     runs-on: ubuntu-latest
@@ -84,5 +113,4 @@ jobs:
             ./end-to-end-tests/cypress/videos
 
       - name: Stop Running Container
-        run:
-          docker stop ${CONTAINER_NAME}
+        run: docker stop ${CONTAINER_NAME}
