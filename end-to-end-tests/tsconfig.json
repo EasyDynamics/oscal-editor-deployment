@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "es6",
     "outDir": "lib",
     "lib": ["dom", "dom.iterable", "esnext"],
     "declaration": true,
@@ -20,6 +20,6 @@
     "types": ["node"]
   },
   "include": ["./"],
-  "exclude": ["node_modules", "lib"],
+  "exclude": ["node_modules"],
   "outDir": "./dist"
 }
