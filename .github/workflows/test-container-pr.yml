@@ -11,6 +11,8 @@ jobs:
     name: Lint the code base
     runs-on: ubuntu-latest
     steps:
+      - name: Navigate to tests directory
+        run: cd end-to-end-tests/
       - name: Checkout code
         uses: actions/checkout@v3
         with:
@@ -18,7 +20,7 @@ jobs:
       - name: Setup NodeJS
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: "lts/*"
           cache: "npm"
       - name: Globally update npm
         run: npm install -g npm@latest
