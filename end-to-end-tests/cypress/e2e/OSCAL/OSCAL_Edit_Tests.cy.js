@@ -35,6 +35,53 @@ describe("Editing the System Security Plan Source", () => {
   it("edits the system security plan source", () => {
     cy.navToSspEditor(SSP_TITLE_ORIG);
     const findKeystroke = Cypress.platform === "darwin" ? "{meta}f" : "{ctrl}f";
+    cy.get(".monaco-scrollable-element")
+      .type(findKeystroke)
+      .focused()
+      .type("Enterprise Logging and Auditing System Security Plan", { force: true })
+      .type("{esc}", { force: true })
+      .focused()
+      .type("Even Better SSP", { force: true });
+    cy.contains("Save").click();
+    cy.contains("Even Better SSP").should("be.visible");
+  });
+});
+
+describe("Editing the existing system security plan impl req statement", () => {
+  // Store current SSP and reset after test
+  let origSspJson;
+  before(() => {
+    cy.getTestSspJson().then((result) => (origSspJson = result));
+  });
+  after(() => {
+    cy.setTestSspJson(origSspJson);
+  });
+
+  it("edits the system security plan title", () => {
+    cy.navToSspEditor(SSP_TITLE_ORIG);
+    cy.get(`[aria-label="edit-system-security-plan-metadata-title"]`).click();
+    cy.get(`[data-testid="textField-system-security-plan-metadata-title"]`)
+      .click()
+      .clear()
+      .type("Another SSP");
+    cy.get(`[aria-label="save-system-security-plan-metadata-title"]`).click();
+    cy.contains("Another SSP").should("be.visible");
+  });
+});
+
+describe("Editing the System Security Plan Source", () => {
+  // Store current SSP and reset after test
+  let origSspJson;
+  before(() => {
+    cy.getTestSspJson().then((result) => (origSspJson = result));
+  });
+  after(() => {
+    cy.setTestSspJson(origSspJson);
+  });
+
+  it("edits the system security plan source", () => {
+    cy.navToSspEditor(SSP_TITLE_ORIG);
+    const findKeystroke = Cypress.platform === "darwin" ? "{meta}f" : "{ctrl}f";
     cy.get(".monaco-editor textarea:first")
       .type(findKeystroke)
       .focused()
