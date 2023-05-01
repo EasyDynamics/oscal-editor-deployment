@@ -59,16 +59,7 @@
     "import/no-anonymous-default-export": "off",
     "import/no-extraneous-dependencies": [
       "error",
-      {
-        "devDependencies": [
-          "**/*.test.js",
-          "**/*.test.tsx",
-          "**/setupTests.js",
-          "**/TestUtils.js",
-          "jest.config.ts",
-          "rollup.config.js"
-        ]
-      }
+      {"devDependencies": true}
     ],
     "@typescript-eslint/no-unused-vars": [
       "error",
