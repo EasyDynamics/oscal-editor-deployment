@@ -11,12 +11,12 @@ jobs:
     name: Lint the code base
     runs-on: ubuntu-latest
     steps:
-      - name: Navigate to tests directory
-        run: cd end-to-end-tests/
       - name: Checkout code
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
+      - name: Navigate to tests directory
+        run: cd end-to-end-tests/
       - name: Setup NodeJS
         uses: actions/setup-node@v3
         with:
