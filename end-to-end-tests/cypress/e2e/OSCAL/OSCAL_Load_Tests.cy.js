@@ -283,7 +283,7 @@ describe("Errors caused by loading a bad component definition", () => {
   });
 });
 
-describe("Loading OSCAL Catalog Groups", () => {
+describe("Loading OSCAL Catalog Control Groups", () => {
   it("navigates to parties section from hash", () => {
     const exampleCatalogUrl =
       "https://raw.githubusercontent.com/EasyDynamics/oscal-demo-content/main/catalogs/NIST_SP-800-53_rev4_catalog.json";
@@ -298,7 +298,7 @@ describe("Loading OSCAL Catalog Groups", () => {
       .clear()
       .type(exampleCatalogUrl);
     cy.contains("Reload").click();
-    cy.contains("Control Groups").should("be.visible");
+    cy.contains("Controls").should("be.visible");
     const urlWithControlFragment =
       "http://localhost:8080/catalog/b954d3b7-d2c7-453b-8eb2-459e8d3b8462#parties";
     cy.visit({
