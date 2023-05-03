@@ -35,9 +35,9 @@ jobs:
       - name: Lint code base
         run: |
           # Run built-in JavaScript/JSON linting
-          npx lerna run lint
+          npm run lint
           # Lint markdown files
-          markdownlint '**/*.md'
+          markdownlint '**/*.md' --ignore node_modules
           # Lint YAML files
           yamllint --format github --config-file .yaml-lint.yml .
         working-directory: end-to-end-tests
