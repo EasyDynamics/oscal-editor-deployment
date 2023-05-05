@@ -5,7 +5,6 @@
   },
   "parser": "@typescript-eslint/parser",
   "extends": [
-    "plugin:react/recommended",
     "plugin:json/recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:import/typescript",
@@ -19,47 +18,20 @@
     "sourceType": "module",
     "requireConfigFile": false
   },
-  "plugins": [
-    "react",
-    "prettier",
-    "json",
-    "import"
-  ],
+  "plugins": ["prettier", "json", "import"],
   "settings": {
     "import/resolver": {
       "node": {
-        "extensions": [
-          ".js",
-          ".jsx",
-          ".ts",
-          ".tsx"
-        ]
+        "extensions": [".js", ".ts"]
       }
     }
   },
   "rules": {
-    "react/jsx-filename-extension": [
-      1,
-      {
-        "extensions": [
-          ".js",
-          ".jsx",
-          ".tsx"
-        ]
-      }
-    ],
-    "react/prop-types": [
-      0
-    ],
-    "react/destructuring-assignment": [
-      0
-    ],
-    "react/jsx-props-no-spreading": "off",
     "prettier/prettier": "error",
     "import/no-anonymous-default-export": "off",
     "import/no-extraneous-dependencies": [
       "error",
-      {"devDependencies": true}
+      { "devDependencies": ["**/*.js", "**/*.ts", "cypress.config.ts"] }
     ],
     "@typescript-eslint/no-unused-vars": [
       "error",
@@ -70,20 +42,5 @@
       }
     ],
     "@typescript-eslint/no-empty-function": "off"
-  },
-  "overrides": [
-    {
-      "files": [
-        "**/*.test.js",
-        "**/*.test.jsx",
-        "**/*.test.ts",
-        "**/*.test.tsx",
-        "**/test-data/**.js",
-        "**/test-data/**.ts"
-      ],
-      "env": {
-        "jest": true
-      }
-    }
-  ]
+  }
 }
