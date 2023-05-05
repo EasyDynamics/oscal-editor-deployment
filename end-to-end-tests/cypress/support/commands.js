@@ -26,17 +26,12 @@
 import "@testing-library/cypress/add-commands";
 
 Cypress.Commands.add("waitForLoad", () => {
-  cy.get('circle', { timeout: 10000 } ).should('not.exist');
+  cy.get("circle", { timeout: 10000 }).should("not.exist");
 });
 
 Cypress.Commands.add("navToEditorByDrawer", (oscalType, pageTitle) => {
   let requestsMade = [];
-  for (const route of [
-    "catalogs",
-    "system-security-plans",
-    "component-definitions",
-    "profiles",
-  ]) {
+  for (const route of ["catalogs", "system-security-plans", "component-definitions", "profiles"]) {
     cy.intercept("GET", `${Cypress.env("api_url")}/${route}`, () => {
       requestsMade.push(route);
     }).as(route);
@@ -48,9 +43,9 @@ Cypress.Commands.add("navToEditorByDrawer", (oscalType, pageTitle) => {
   if (requestsMade.length) {
     cy.wait(requestsMade, { timeout: 60000 });
   }
-  
+
   cy.get('ul[aria-label="file system navigator"] li', { timeout: 30000 })
-    .should('have.attr', 'aria-expanded', 'false') 
+    .should("have.attr", "aria-expanded", "false")
     .contains(oscalType)
     .click();
 
@@ -74,12 +69,12 @@ const oscalObjectTypes = [
     commandName: "navToCatalogEditor",
     oscalType: "Catalog",
   },
-]
+];
 
 oscalObjectTypes.forEach((oscalObjectType) => {
   Cypress.Commands.add(oscalObjectType.commandName, (pageTitle) => {
     cy.navToEditorByDrawer(oscalObjectType.oscalType, pageTitle);
-  })
+  });
 });
 
 Cypress.Commands.add("getInputByLabel", (label) => {
@@ -94,9 +89,7 @@ Cypress.Commands.add("getInputByLabel", (label) => {
 Cypress.Commands.add("getTestSspJson", () => {
   cy.request(
     "GET",
-    `${Cypress.env(
-      "api_url"
-    )}/system-security-plans/cff8385f-108e-40a5-8f7a-82f3dc0eaba8`
+    `${Cypress.env("api_url")}/system-security-plans/cff8385f-108e-40a5-8f7a-82f3dc0eaba8`
   ).then((response) => {
     return cy.wrap(response.body);
   });
@@ -105,9 +98,7 @@ Cypress.Commands.add("getTestSspJson", () => {
 Cypress.Commands.add("setTestSspJson", (sspJson) => {
   cy.request(
     "PUT",
-    `${Cypress.env(
-      "api_url"
-    )}/system-security-plans/cff8385f-108e-40a5-8f7a-82f3dc0eaba8`,
+    `${Cypress.env("api_url")}/system-security-plans/cff8385f-108e-40a5-8f7a-82f3dc0eaba8`,
     sspJson
   );
 });

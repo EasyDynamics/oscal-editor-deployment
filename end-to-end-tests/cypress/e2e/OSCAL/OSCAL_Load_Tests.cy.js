@@ -9,9 +9,7 @@ describe("Loading system security plans", () => {
     cy.waitForLoad();
     cy.get(`[aria-label="show code"]`).click();
     cy.scrollTo("bottom");
-    cy.contains("This is the control implementation for the system.").should(
-      "be.visible"
-    );
+    cy.contains("This is the control implementation for the system.").should("be.visible");
   });
 
   it("loads system security plans by URL", () => {
@@ -31,9 +29,7 @@ describe("Loading system security plans", () => {
     cy.contains("Reload").click();
     cy.contains(SSP_TITLE_ORIG).should("be.visible");
     cy.scrollTo("bottom");
-    cy.contains("This is the control implementation for the system.").should(
-      "be.visible"
-    );
+    cy.contains("This is the control implementation for the system.").should("be.visible");
   });
 
   it("displays Enterprise Asset Owners Party", () => {
@@ -50,9 +46,7 @@ describe("Loading system security plans", () => {
     cy.navToSspEditor(SSP_TITLE_ORIG);
     cy.waitForLoad();
     cy.contains("Parties").click();
-    cy.get(
-      `[aria-label="Enterprise Asset Administrators details button"]`
-    ).click();
+    cy.get(`[aria-label="Enterprise Asset Administrators details button"]`).click();
     cy.contains("0000 St");
     cy.contains("+18005555555");
     cy.contains("admins@enterprise.org");
@@ -202,9 +196,7 @@ describe("Loading Component Definitions", () => {
       method: "GET",
     });
     cy.waitForLoad();
-    cy.contains("Joint Task Force, Transformation Initiative").should(
-      "be.visible"
-    );
+    cy.contains("Joint Task Force, Transformation Initiative").should("be.visible");
   });
 
   it("navigates to the control implementation and grabs hash from anchor link", () => {
@@ -314,9 +306,7 @@ describe("Loading OSCAL Catalog Control Groups", () => {
       method: "GET",
     });
     cy.waitForLoad();
-    cy.contains("Joint Task Force, Transformation Initiative").should(
-      "be.visible"
-    );
+    cy.contains("Joint Task Force, Transformation Initiative").should("be.visible");
   });
 
   it("navigates to roles from hash", () => {
@@ -407,9 +397,7 @@ describe("Loading OSCAL Catalog Control Groups", () => {
       method: "GET",
     });
     cy.waitForLoad();
-    cy.contains("Compilation of Audit Records from Multiple Sources").should(
-      "be.visible"
-    );
+    cy.contains("Compilation of Audit Records from Multiple Sources").should("be.visible");
   });
 
   it("navigates to control (RA-5) and grabs hash from anchor link", () => {
@@ -447,9 +435,7 @@ describe("Loading OSCAL Catalog Control Groups", () => {
       .type(exampleCatalogUrl);
     cy.contains("Reload").click();
     cy.contains("CNSS Policy 15").trigger("mouseover");
-    cy.get(
-      `[aria-label="a4aa9645-9a8a-4b51-90a9-e223250f9a75 anchor link"]`
-    ).click();
+    cy.get(`[aria-label="a4aa9645-9a8a-4b51-90a9-e223250f9a75 anchor link"]`).click();
     cy.url().should("include", "#a4aa9645-9a8a-4b51-90a9-e223250f9a75");
   });
 });
