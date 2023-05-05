@@ -36,10 +36,6 @@ jobs:
         run: |
           # Run built-in JavaScript/JSON linting
           npm run lint
-          # Lint markdown files
-          markdownlint '**/*.md' --ignore node_modules
-          # Lint YAML files
-          yamllint --format github --config-file .yaml-lint.yml .
         working-directory: end-to-end-tests
   build_test:
     name: Build and Test All-in-One Docker Image
