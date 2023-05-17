@@ -44,10 +44,13 @@ Cypress.Commands.add("navToEditorByDrawer", (oscalType, pageTitle) => {
     cy.wait(requestsMade, { timeout: 60000 });
   }
 
-  cy.get('ul[aria-label="file system navigator"] li', { timeout: 30000 })
-    .should("have.attr", "aria-expanded", "false")
-    .contains(oscalType)
-    .click();
+  cy.get('ul[aria-label="file system navigator"] li', { timeout: 30000 }).should(
+    "have.attr",
+    "aria-expanded",
+    "false"
+  );
+
+  cy.contains(oscalType).trigger("mouseover").trigger("click", { force: true });
 
   cy.contains(pageTitle).click();
 });
