@@ -68,8 +68,6 @@ jobs:
           load: true
           provenance: false
           tags: ${{ env.IMAGE_NAME }}
-          build-args: |
-            "OSCAL_REACT_GIT_BRANCH=tuckerzp/test-before-react-18"
 
       # Run container in the background, exposing the port that
       # Cypress uses to run the tests.
