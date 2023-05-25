@@ -50,7 +50,17 @@ Cypress.Commands.add("navToEditorByDrawer", (oscalType, pageTitle) => {
     "false"
   );
 
-  cy.contains(oscalType).trigger("mouseover").trigger("click", { force: true });
+  cy.contains(oscalType).trigger("click");
+
+  // TODO: For some reason the first click when selecting catalogs in the
+  // drawer selector fails. This leads to A LOT of tests failing as we use
+  // this function in pretty much all our tests.
+  // This temporary fix will let us test other functionality rather than just
+  // always failing. We really should completely rework how we naviagte to each
+  // document type in the future as this code is extemely fragile.
+  if (oscalType === oscalObjectTypes[3].oscalType) {
+    cy.contains(oscalType).trigger("click");
+  }
 
   cy.contains(pageTitle).click();
 });
