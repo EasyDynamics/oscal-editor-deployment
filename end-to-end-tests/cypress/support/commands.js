@@ -44,10 +44,23 @@ Cypress.Commands.add("navToEditorByDrawer", (oscalType, pageTitle) => {
     cy.wait(requestsMade, { timeout: 60000 });
   }
 
-  cy.get('ul[aria-label="file system navigator"] li', { timeout: 30000 })
-    .should("have.attr", "aria-expanded", "false")
-    .contains(oscalType)
-    .click();
+  cy.get('ul[aria-label="file system navigator"] li', { timeout: 30000 }).should(
+    "have.attr",
+    "aria-expanded",
+    "false"
+  );
+
+  cy.contains(oscalType).trigger("click");
+
+  // TODO: For some reason the first click when selecting catalogs in the
+  // drawer selector fails. This leads to A LOT of tests failing as we use
+  // this function in pretty much all our tests.
+  // This temporary fix will let us test other functionality rather than just
+  // always failing. We really should completely rework how we navigate to each
+  // document type in the future as this code is extremely fragile.
+  if (oscalType === oscalObjectTypes[3].oscalType) {
+    cy.contains(oscalType).trigger("click");
+  }
 
   cy.contains(pageTitle).click();
 });
