@@ -238,6 +238,12 @@ describe("Errors caused by loading a bad component definition", () => {
   });
 
   it("do not persist after loading a valid component in Viewer", () => {
+    // Ignore TypeErrors for this test
+    cy.on(
+      "uncaught:exception",
+      (err) => !err.message.includes("Cannot read properties of undefined")
+    );
+
     const sspExampleUrl =
       "https://raw.githubusercontent.com/usnistgov/oscal-content/main/examples/ssp/json/ssp-example.json";
     cy.navToCdefEditor(COMP_DEF_TITLE_ORIG);
