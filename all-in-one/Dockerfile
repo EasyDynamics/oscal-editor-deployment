@@ -20,7 +20,7 @@ ARG _JAVA_VERSION=${JAVA_VERSION}
 FROM node:${NODE_VERSION}-alpine as build-viewer
 
 ARG OSCAL_REACT_GIT_REPO=https://github.com/EasyDynamics/oscal-react-library
-ARG OSCAL_REACT_GIT_BRANCH=develop
+ARG OSCAL_REACT_GIT_BRANCH=main
 ARG OSCAL_REACT_DIR=oscal-react-library
 ARG OSCAL_REST_BASE_URL=/oscal/v1
 ARG VIEWER_PATH
