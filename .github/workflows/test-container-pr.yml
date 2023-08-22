@@ -85,7 +85,7 @@ jobs:
           sleep 10
 
       - name: Run Cypress Tests
-        uses: cypress-io/github-action@v5
+        uses: cypress-io/github-action@v6
         with:
           spec: cypress/e2e/**/*.cy.js
           working-directory: end-to-end-tests
