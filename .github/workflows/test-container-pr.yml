@@ -62,7 +62,7 @@ jobs:
 
       # Build the Docker image, and load it locally so it can be run for testing
       - name: Build Docker Image
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v5
         with:
           context: ./all-in-one
           load: true
